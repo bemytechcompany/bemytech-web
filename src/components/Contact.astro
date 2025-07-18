@@ -212,7 +212,7 @@ const { t } = Astro.props;
                 for="subject" 
                 class="block text-sm font-medium text-white mb-2"
               >
-                {t("contact.form.subject")}
+                {t("contact.form.company")}
                 <span class="text-red-400">*</span>
               </label>
               <input 
@@ -220,7 +220,7 @@ const { t } = Astro.props;
                 id="subject" 
                 name="subject" 
                 required
-                placeholder={t("contact.form.subjectPlaceholder")}
+                placeholder={t("contact.form.companyPlaceholder")}
                 class="
                   w-full px-4 py-3 rounded-lg
                   bg-white/10 border border-white/20
@@ -289,7 +289,7 @@ const { t } = Astro.props;
                 aria-describedby="submit-status"
               >
                 <span class="flex items-center justify-center gap-2">
-                  {t("contact.form.submit")}
+                  {t("contact.form.send")}
                   <svg class="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                   </svg>

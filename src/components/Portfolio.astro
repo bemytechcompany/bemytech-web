@@ -1,4 +1,7 @@
 ---
+// Portfolio.astro - Sección de portafolio con scroll horizontal
+// Refactorizado para usar GSAP Manager y mejor UX
+
 interface Props {
   t: (key: string) => string;
 }
@@ -10,31 +13,31 @@ const projects = [
     id: 'project1',
     bgGradient: 'from-blue-500/20 to-purple-500/20',
     iconColor: 'text-blue-400',
-    url: 'https://www.google.com'
+    url: 'https://raffle.bemytech.io/'
   },
   {
     id: 'project2', 
     bgGradient: 'from-green-500/20 to-teal-500/20',
     iconColor: 'text-green-400',
-    url: 'https://www.google.com'
+    url: 'https://castevo.com/'
   },
   {
     id: 'project3',
     bgGradient: 'from-purple-500/20 to-pink-500/20',
     iconColor: 'text-purple-400',
-    url: 'https://www.google.com'
+    url: 'https://viatika.bemytech.io/'
   },
   {
     id: 'project4',
     bgGradient: 'from-orange-500/20 to-red-500/20',
     iconColor: 'text-orange-400',
-    url: 'https://www.google.com'
+    url: 'https://visualemotion.bemytech.io/landing'
   },
   {
     id: 'project5',
     bgGradient: 'from-cyan-500/20 to-blue-500/20',
     iconColor: 'text-cyan-400',
-    url: 'https://www.google.com'
+    url: 'https://www.rikdrive.com/'
   }
 ];
 ---
@@ -44,20 +47,27 @@ const projects = [
   class="relative min-h-screen bg-primary overflow-hidden"
   data-scroll-section
 >
-  <!-- Header -->
-  <div section-header class="fixed z-10 pt-20 pb-12 px-6 text-center">
-    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-      <span class="block" data-portfolio-title>{t("portfolio.title")}</span>
+  <!-- Header del Portfolio (texto fijo) -->
+  <div class="portfolio-header-text fixed top-0 left-0 w-full z-30 pt-8 pb-8 px-6 text-center pointer-events-none opacity-0 invisible bg-primary/95 backdrop-blur-md border-b border-white/10" data-portfolio-text-header>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+      {t("portfolio.title")}
     </h2>
-    <p 
-      class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8"
-      data-portfolio-subtitle
-    >
+    <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-4 drop-shadow-md">
       {t("portfolio.subtitle")}
     </p>
-    <div class="text-accent font-medium text-sm" data-scroll-hint>
+    <div class="text-accent font-medium text-sm animate-pulse drop-shadow-md" data-scroll-hint>
       {t("portfolio.scrollHint")}
     </div>
+  </div>
+
+  <!-- Header estático para móvil -->
+  <div class="portfolio-static-header block md:hidden relative z-20 pt-8 pb-4 px-6 text-center">
+    <h2 class="text-2xl font-bold text-white mb-3">
+      {t("portfolio.title")}
+    </h2>
+    <p class="text-base text-gray-300 max-w-2xl mx-auto mb-3">
+      {t("portfolio.subtitle")}
+    </p>
   </div>
 
   <!-- Hexagonal Background Elements -->
@@ -80,12 +90,9 @@ const projects = [
   </div>
 
   <!-- Horizontal Scroll Container -->
-  <div 
-    class="horizontal-container relative z-10"
-    data-horizontal-section
-  >
+  <div class="horizontal-container relative z-20 pt-4 md:pt-40" data-horizontal-section>
     <div 
-      class="horizontal-track flex gap-8 md:gap-12 pl-6"
+      class="horizontal-track flex gap-4 md:gap-12 pl-4 md:pl-6"
       data-horizontal-track
     >
       {projects.map((project, index) => (
@@ -165,16 +172,18 @@ const projects = [
             </div>
 
             <!-- Project Info Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
-              <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                
-                <!-- Category Tag -->
-                <div class="mb-3">
-                  <span class="inline-block px-3 py-1 text-xs font-semibold bg-accent/20 text-accent rounded-full border border-accent/30">
-                    {t(`portfolio.${project.id}.category`)}
-                  </span>
-                </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col">
+              
+              <!-- Top Section - Category -->
+              <div class="p-6 md:p-8">
+                <span class="inline-block px-3 py-1 text-xs font-semibold bg-accent/20 text-accent rounded-full border border-accent/30">
+                  {t(`portfolio.${project.id}.category`)}
+                </span>
+              </div>
 
+              <!-- Middle Section - Content Info -->
+              <div class="flex-1 flex flex-col justify-end p-6 md:p-8">
+                
                 <!-- Title -->
                 <h3 class="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-accent transition-colors duration-300">
                   {t(`portfolio.${project.id}.title`)}
@@ -186,26 +195,34 @@ const projects = [
                 </p>
 
                 <!-- Technologies -->
-                <div class="mb-4">
+                <div class="mb-6">
                   <p class="text-xs text-gray-400 mb-2">{t("portfolio.technologies")}:</p>
                   <p class="text-sm text-accent">{t(`portfolio.${project.id}.tech`)}</p>
                 </div>
 
-                <!-- CTA Button -->
-                <button class="
-                  inline-flex items-center gap-2 px-4 py-2 
-                  bg-accent/10 hover:bg-accent/20 
-                  border border-accent/30 hover:border-accent/50
-                  text-accent hover:text-white
-                  rounded-lg text-sm font-medium
-                  transition-all duration-300
-                  group-hover:scale-105
-                ">
-                  {t("portfolio.viewProject")}
-                  <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                  </svg>
-                </button>
+                <!-- CTA Button Centrado -->
+                <div class="flex justify-center">
+                  <a 
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="
+                      inline-flex items-center gap-2 px-6 py-3 
+                      bg-accent/10 hover:bg-accent/20 
+                      border border-accent/30 hover:border-accent/50
+                      text-accent hover:text-white
+                      rounded-lg text-sm font-medium
+                      transition-all duration-300
+                      group-hover:scale-105 hover:shadow-lg hover:shadow-accent/25
+                      transform hover:-translate-y-1
+                    "
+                  >
+                    {t("portfolio.viewProject")}
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                  </a>
+                </div>
 
               </div>
             </div>
@@ -221,39 +238,46 @@ const projects = [
         </div>
       ))}
       
-      <!-- Spacer for proper ending -->
-      <div class="flex-shrink-0 w-6"></div>
+      <!-- Spacer para ver la última card completa -->
+      <div class="flex-shrink-0 w-80 md:w-96"></div>
     </div>
   </div>
 </section>
 
 <style>
+  /* Header de texto fijo (solo texto, sin fondo) */
+  .portfolio-header-text {
+    will-change: transform, opacity, visibility;
+    margin-top: 2rem; /* Margen para el nav */
+    z-index: 30; /* Debajo del nav que tiene z-index 1000 */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
   /* Horizontal scroll track positioning */
   .horizontal-container {
     position: relative;
-    height: 70vh;
+    height: calc(100vh - 8rem); /* Altura ajustada para el header fijo */
     display: flex;
     align-items: center;
   }
 
   .horizontal-track {
     will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   /* 3D preparation for Three.js */
   .three-placeholder {
     perspective: 1000px;
+    will-change: transform;
   }
 
   /* Enhanced project card animations */
   .project-card {
     will-change: transform;
     transform: translateZ(0);
-  }
-
-  /* Video optimization */
-  video {
-    filter: brightness(0.8) contrast(1.1) saturate(1.2);
+    backface-visibility: hidden;
   }
 
   /* Line clamp utility */
@@ -264,164 +288,396 @@ const projects = [
     overflow: hidden;
   }
 
-  /* Hardware acceleration */
+  /* Hardware acceleration for all animated elements */
   .project-card,
   .three-placeholder,
   .horizontal-track {
     transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
-  /* Responsive adjustments */
+  /* Responsive adjustments - Móvil: Layout vertical sin scroll horizontal */
   @media (max-width: 768px) {
+    #portfolio {
+      overflow-x: hidden !important; /* Prevenir cualquier scroll horizontal */
+    }
+    
     .horizontal-container {
-      height: auto;
-      min-height: 100vh;
-      padding: 2rem 0;
+      height: auto !important;
+      min-height: auto !important;
+      padding: 2rem 0 !important;
+      margin-top: 0 !important;
+      /* Layout vertical estándar para móvil */
+      display: block !important;
+      overflow: visible !important;
     }
     
     .horizontal-track {
-      flex-direction: column;
-      gap: 2rem;
-      padding: 0 1rem;
+      /* Layout vertical normal en móvil */
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2rem !important;
+      padding: 0 1rem !important;
+      width: 100% !important;
+      height: auto !important;
+      /* Desactivar completamente el transform de GSAP */
+      transform: none !important;
+      will-change: auto !important;
     }
     
     .project-card {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
+      width: 100% !important;
+      max-width: 380px !important;
+      margin: 0 auto !important;
+      flex-shrink: 1 !important;
+      /* Reset todas las animaciones de scroll horizontal */
+      opacity: 1 !important;
+      transform: translateZ(0) !important;
+      scale: 1 !important;
+    }
+
+    /* Header de texto responsivo en móvil */
+    .portfolio-header-text {
+      display: none !important; /* Ocultar completamente en móvil */
+    }
+
+    /* Mostrar header estático en móvil */
+    .portfolio-static-header {
+      display: block !important;
+      position: relative !important;
+      background: transparent !important;
+      padding: 2rem 1rem !important;
+      text-align: center !important;
+    }
+    
+    /* Asegurar que el contenedor no sea pinneado en móvil */
+    .horizontal-container[style*="position"] {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+    }
+  }
+
+  /* Asegurar que en desktop funcione el scroll horizontal */
+  @media (min-width: 769px) {
+    .horizontal-container {
+      height: calc(100vh - 8rem);
+      display: flex;
+      align-items: center;
+    }
+    
+    .horizontal-track {
+      flex-direction: row;
+      gap: 3rem;
+      padding-left: 1.5rem;
+    }
+    
+    .project-card {
+      flex-shrink: 0;
+      width: 28rem;
+    }
+
+    /* Ocultar header estático en desktop */
+    .portfolio-static-header {
+      display: none;
     }
   }
 
   /* Accessibility - Reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .project-card {
-      transition: none;
+    .project-card,
+    .horizontal-track {
+      transition: none !important;
+      animation: none !important;
     }
     
     .project-card:hover {
-      transform: translateZ(0);
+      transform: translateZ(0) !important;
+    }
+    
+    .animate-pulse {
+      animation: none !important;
     }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    // Dynamically import GSAP
-    const { gsap } = await import('gsap');
-    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-    
-    // Register ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
+  import { gsapManager, gsap } from '../utils/gsapManager';
 
-    // Get elements
+  document.addEventListener('DOMContentLoaded', () => {
+    // Crear contexto para Portfolio
+    const PORTFOLIO_CONTEXT = 'portfolio';
+    gsapManager.createContext(PORTFOLIO_CONTEXT);
+
+    // Verificar reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('Reduced motion detected - simplified portfolio animations');
+      return;
+    }
+
+    // Función para verificar si es móvil
+    const checkIsMobile = () => window.innerWidth <= 768;
+    let isMobile = checkIsMobile();
+
+    // Obtener elementos
     const horizontalSection = document.querySelector('[data-horizontal-section]') as HTMLElement;
-    const sectionHeader = document.querySelector('[section-header]') as HTMLElement;
     const horizontalTrack = document.querySelector('[data-horizontal-track]') as HTMLElement;
     const projectCards = document.querySelectorAll('[data-project-card]');
+    const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement;
+    const portfolioTextHeader = document.querySelector('[data-portfolio-text-header]') as HTMLElement;
+    const portfolioSection = document.querySelector('#portfolio') as HTMLElement;
 
-    if (horizontalSection && horizontalTrack && projectCards.length) {
-      // Calculate scroll distance
+    if (!horizontalSection || !horizontalTrack || !projectCards.length) {
+      console.warn('Portfolio elements not found');
+      return;
+    }
+
+    // Función para limpiar todas las animaciones de scroll horizontal
+    const cleanupHorizontalAnimations = () => {
+      // Resetear estilos en móvil
+      if (horizontalTrack) {
+        horizontalTrack.style.transform = '';
+        horizontalTrack.style.willChange = '';
+      }
+      
+      // Resetear todas las cards
+      projectCards.forEach(card => {
+        const element = card as HTMLElement;
+        element.style.opacity = '';
+        element.style.transform = '';
+        element.style.scale = '';
+        
+        // Resetear contenido de las cards
+        const cardContent = element.querySelectorAll('h3, p, a, .three-placeholder');
+        cardContent.forEach(content => {
+          const contentElement = content as HTMLElement;
+          contentElement.style.transform = '';
+          contentElement.style.opacity = '';
+        });
+      });
+      
+      // Limpiar ScrollTriggers relacionados con scroll horizontal
+      gsapManager.cleanupContext(PORTFOLIO_CONTEXT);
+      gsapManager.createContext(PORTFOLIO_CONTEXT);
+    };
+
+    // En móvil, asegurar que no hay scroll horizontal
+    if (isMobile) {
+      cleanupHorizontalAnimations();
+    }
+
+    // Solo ejecutar scroll horizontal en desktop
+    if (!isMobile) {
+      // Calcular distancia de scroll con padding extra para la última card
       const trackWidth = horizontalTrack.scrollWidth;
       const sectionWidth = horizontalSection.offsetWidth;
-      const scrollDistance = trackWidth - sectionWidth;
+      const extraPadding = 400; // Padding extra para ver la última card
+      const scrollDistance = trackWidth - sectionWidth + extraPadding;
 
-      // Create horizontal scroll animation
-      const horizontalScroll = gsap.to(horizontalTrack, {
+      // Crear animación de scroll horizontal (solo para las cards)
+      const horizontalAnimation = gsap.to(horizontalTrack, {
         x: -scrollDistance,
         ease: "none",
-        scrollTrigger: {
-          trigger: horizontalSection,
-          start: "top+=-20 33%",
+        paused: true
+      });
+
+      // Pre-configurar animaciones para evitar delays
+      projectCards.forEach((card, index) => {
+        // Pre-configurar estado inicial de las cards
+        gsap.set(card, {
+          opacity: 0.3,
+          scale: 0.8,
+          rotateY: 45
+        });
+        
+        // Pre-configurar contenido de las cards
+        const cardContent = card.querySelectorAll('h3, p, a, .three-placeholder');
+        gsap.set(cardContent, {
+          y: 50,
+          opacity: 0
+        });
+      });
+
+      // Mostrar header de texto solo durante el scroll horizontal de Portfolio
+      if (portfolioTextHeader) {
+        gsapManager.createScrollTrigger(PORTFOLIO_CONTEXT, {
+          trigger: portfolioSection,
+          start: "top+=20 15%",
           end: () => `+=${scrollDistance + window.innerHeight}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            // Update scroll hint opacity
-            const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement;
-            if (scrollHint) {
-              scrollHint.style.opacity = String(1 - self.progress);
-            }
+          onEnter: () => {
+            gsap.to(portfolioTextHeader, { 
+              opacity: 1, 
+              visibility: 'visible',
+              duration: 0.3 
+            });
+          },
+          onLeave: () => {
+            gsap.to(portfolioTextHeader, { 
+              opacity: 0, 
+              visibility: 'hidden',
+              duration: 0.3 
+            });
+          },
+          onEnterBack: () => {
+            gsap.to(portfolioTextHeader, { 
+              opacity: 1, 
+              visibility: 'visible',
+              duration: 0.3 
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(portfolioTextHeader, { 
+              opacity: 0, 
+              visibility: 'hidden',
+              duration: 0.3 
+            });
+          }
+        });
+      }
+
+      // Pin toda la sección durante el scroll horizontal
+      const horizontalScroll = gsapManager.createScrollTrigger(PORTFOLIO_CONTEXT, {
+        trigger: portfolioSection,
+        start: "top+=20 15%",
+        end: () => `+=${scrollDistance + window.innerHeight}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Solo mover las cards horizontalmente, el texto queda fijo
+          horizontalAnimation.progress(self.progress);
+          
+          // Actualizar opacidad del scroll hint
+          if (scrollHint) {
+            gsap.set(scrollHint, { opacity: 1 - self.progress });
           }
         }
       });
 
-      // Animate project cards on scroll
+      // Animar tarjetas de proyecto en el scroll (solo desktop)
       projectCards.forEach((card, index) => {
-        gsap.fromTo(card, 
-          {
-            opacity: 0.3,
-            scale: 0.8,
-            rotateY: 45
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            rotateY: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "left 80%",
-              end: "left 20%",
-              horizontal: true,
-              containerAnimation: horizontalScroll,
-              scrub: 1,
-              toggleActions: "play none none reverse"
-            }
+        // Animación de entrada de tarjeta
+        const cardAnimation = gsap.to(card, {
+          opacity: 1,
+          scale: 1,
+          rotateY: 0,
+          ease: "power2.out",
+          paused: true
+        });
+        
+        gsapManager.createScrollTrigger(PORTFOLIO_CONTEXT, {
+          trigger: card,
+          start: "left 80%",
+          end: "left 20%",
+          horizontal: true,
+          containerAnimation: horizontalAnimation,
+          scrub: 1,
+          toggleActions: "play none none reverse",
+          onUpdate: (self) => {
+            cardAnimation.progress(self.progress);
           }
-        );
-
-        // Add stagger effect for card content
-        const cardContent = card.querySelectorAll('h3, p, button, .three-placeholder');
-        gsap.fromTo(cardContent,
-          {
-            y: 50,
-            opacity: 0
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "left 70%",
-              end: "left 30%",
-              horizontal: true,
-              containerAnimation: horizontalScroll,
-              scrub: 1
-            }
-          }
-        );
-      });
-
-      // Add parallax effect to background hexagons
-      const hexagons = document.querySelectorAll('#portfolio svg');
-      hexagons.forEach((hex, index) => {
-        gsap.to(hex, {
-          rotation: 360,
-          duration: 10 + (index * 2),
-          repeat: -1,
-          ease: "none"
         });
 
-        gsap.to(hex, {
-          x: `${(index % 2 === 0 ? 1 : -1) * 100}px`,
-          y: `${(index % 2 === 0 ? -1 : 1) * 50}px`,
-          ease: "none",
+        // Stagger effect para contenido de tarjetas
+        const cardContent = card.querySelectorAll('h3, p, a, .three-placeholder');
+        const contentAnimation = gsap.to(cardContent, {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          paused: true
+        });
+        
+        gsapManager.createScrollTrigger(PORTFOLIO_CONTEXT, {
+          trigger: card,
+          start: "left 70%",
+          end: "left 30%",
+          horizontal: true,
+          containerAnimation: horizontalAnimation,
+          scrub: 1,
+          onUpdate: (self) => {
+            contentAnimation.progress(self.progress);
+          }
+        });
+      });
+    } else {
+      // Animaciones suaves para móvil
+      projectCards.forEach((card, index) => {
+        // Animación de entrada con stagger
+        gsap.fromTo(card, {
+          y: 80,
+          opacity: 0,
+          scale: 0.9
+        }, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          delay: index * 0.2,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: horizontalSection,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 2
+            trigger: card,
+            start: "top 90%",
+            end: "top 30%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        // Animación de contenido
+        const cardContent = card.querySelectorAll('h3, p, a, .three-placeholder');
+        gsap.fromTo(cardContent, {
+          y: 30,
+          opacity: 0
+        }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          delay: (index * 0.2) + 0.3,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
           }
         });
       });
     }
 
-    // Simple video optimization
+    // Efecto parallax para hexágonos de fondo (común para desktop y móvil)
+    const hexagons = document.querySelectorAll('#portfolio svg');
+    hexagons.forEach((hex, index) => {
+      // Rotación continua
+      const rotationTimeline = gsapManager.createTimeline(PORTFOLIO_CONTEXT, { repeat: -1 });
+      rotationTimeline.to(hex, {
+        rotation: 360,
+        duration: 10 + (index * 2),
+        ease: "none"
+      });
+
+      // Movimiento parallax
+      const parallaxAnimation = gsap.to(hex, {
+        x: `${(index % 2 === 0 ? 1 : -1) * 100}px`,
+        y: `${(index % 2 === 0 ? -1 : 1) * 50}px`,
+        ease: "none",
+        paused: true
+      });
+
+      gsapManager.createScrollTrigger(PORTFOLIO_CONTEXT, {
+        trigger: isMobile ? portfolioSection : horizontalSection,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 2,
+        onUpdate: (self) => {
+          parallaxAnimation.progress(self.progress);
+        }
+      });
+    });
+
+    // Optimización de video si existe
     const video = document.querySelector('#portfolio video') as HTMLVideoElement;
     if (video) {
       const observer = new IntersectionObserver((entries) => {
@@ -437,6 +693,52 @@ const projects = [
       }, { threshold: 0.1 });
       
       observer.observe(video);
+    }
+
+    // Manejar cambios de tamaño de pantalla
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const wasMobile = isMobile;
+        isMobile = checkIsMobile();
+        
+        // Si cambió de móvil a desktop o viceversa, reinicializar
+        if (wasMobile !== isMobile) {
+          cleanupHorizontalAnimations();
+          
+          if (!isMobile) {
+            // Cambió a desktop - habilitar scroll horizontal
+            console.log('Switched to desktop - enabling horizontal scroll');
+            window.location.reload(); // Recargar para reinicializar correctamente
+          } else {
+            // Cambió a móvil - deshabilitar scroll horizontal
+            console.log('Switched to mobile - disabling horizontal scroll');
+            cleanupHorizontalAnimations();
+          }
+        }
+        
+        gsapManager.refreshScrollTriggers();
+      }, 250);
+    };
+
+    gsapManager.registerEventListener(PORTFOLIO_CONTEXT, window, 'resize', handleResize, { passive: true });
+
+    // Debug info para desarrollo
+    if (import.meta.env?.DEV) {
+      console.log('Portfolio GSAP context created:', gsapManager.getDebugInfo());
+      console.log('Portfolio config:', {
+        isMobile,
+        screenWidth: window.innerWidth,
+        scrollHorizontal: !isMobile,
+        cardsCount: projectCards.length
+      });
+      if (!isMobile) {
+        console.log('Desktop mode: Scroll horizontal enabled');
+      } else {
+        console.log('Mobile mode: Vertical layout with stagger animations');
+      }
     }
   });
 </script> 

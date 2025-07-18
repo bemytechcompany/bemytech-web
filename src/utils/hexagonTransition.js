@@ -1,11 +1,12 @@
 /**
- * HexagonTransition.js - GSAP-powered hexagon transition
- * Multiple hexagons merge into one, grow, and reveal services section
+ * HexagonTransition.js - GSAP-powered hexagon transition refactorizado
+ * Usa el GSAP Manager para evitar conflictos entre componentes
  */
 
-let gsap, ScrollTrigger;
-let transitionTimeline;
-let scrollTriggerInstance;
+import { gsapManager, gsap, ScrollTrigger } from './gsapManager';
+
+const HEXAGON_CONTEXT = 'hexagon-transition';
+let isInitialized = false;
 
 export async function initHexagonTransition(options = {}) {
   const {
@@ -15,42 +16,46 @@ export async function initHexagonTransition(options = {}) {
   } = options;
 
   try {
-    // Import GSAP modules
-    const gsapModule = await import('gsap');
-    const scrollTriggerModule = await import('gsap/ScrollTrigger');
-
-    gsap = gsapModule.gsap;
-    ScrollTrigger = scrollTriggerModule.ScrollTrigger;
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Check for reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      console.log('Reduced motion detected - skipping transition');
+    // Prevenir inicialización múltiple
+    if (isInitialized) {
+      console.warn('Hexagon transition already initialized');
       return;
     }
 
-    // Get DOM elements
+    // Verificar reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('Reduced motion detected - skipping hexagon transition');
+      fallbackTransition(heroSelector, servicesSelector);
+      return;
+    }
+
+    // Crear contexto GSAP
+    gsapManager.createContext(HEXAGON_CONTEXT);
+
+    // Obtener elementos DOM
     const heroSection = document.querySelector(heroSelector);
     const servicesSection = document.querySelector(servicesSelector);
     const hexagonContainer = document.querySelector(hexagonSelector);
-    const servicesMask = hexagonContainer.querySelector('[data-services-mask]');
 
     if (!heroSection || !servicesSection || !hexagonContainer) {
       console.warn('Required elements not found');
+      fallbackTransition(heroSelector, servicesSelector);
       return;
     }
 
     setupHexagonTransition(heroSection, servicesSection, hexagonContainer);
+    isInitialized = true;
+    
     console.log('Hexagon transition initialized');
 
   } catch (error) {
-    console.error('Failed to initialize transition:', error);
+    console.error('Failed to initialize hexagon transition:', error);
     fallbackTransition(heroSelector, servicesSelector);
   }
 }
 
 function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) {
-  // Get elements
+  // Obtener elementos
   const hexagonItems = hexagonContainer.querySelectorAll('[data-hexagon-item]');
   const unifiedHexagon = hexagonContainer.querySelector('[data-unified-hexagon]');
   const unifiedGlows = hexagonContainer.querySelectorAll('[data-unified-glow-1], [data-unified-glow-2], [data-unified-glow-3]');
@@ -59,14 +64,13 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
   const heroContent = heroSection.querySelectorAll('[data-hero-title], [data-hero-subtitle], [data-hero-cta]');
   const servicesMask = hexagonContainer.querySelector('[data-services-mask]');
 
-
-  // Create timeline
-  transitionTimeline = gsap.timeline({
+  // Crear timeline usando GSAP Manager
+  const transitionTimeline = gsapManager.createTimeline(HEXAGON_CONTEXT, {
     paused: true,
     defaults: { ease: 'none' }
   });
 
-  // Set initial states
+  // Configurar estados iniciales
   gsap.set(hexagonContainer, { opacity: 0, scale: 1, pointerEvents: 'none', display: 'block' });
   gsap.set(hexagonItems, { scale: 0, opacity: 0, rotation: 0 });
   gsap.set(unifiedHexagon, { scale: 0, opacity: 0, rotation: 0 });
@@ -81,24 +85,25 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
     pointerEvents: 'auto',
     clipPath: 'polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%)',
   });
-  // Ensure services styles
+
+  // Asegurar estilos de services
   servicesSection.style.visibility = 'visible';
   servicesSection.style.zIndex = '30';
   servicesSection.style.position = 'relative';
 
-  // Phase 1: Hero fade out (0% - 20%)
+  // Fase 1: Hero fade out (0% - 20%)
   transitionTimeline
     .to(heroContent, {
       opacity: 0, y: -100, scale: 0.8, duration: 0.2, stagger: 0.03, ease: 'power2.out'
     }, 0)
     .to(hexagonContainer, { opacity: 1, duration: 0.05 }, 0.05);
 
-  // Phase 2: Hexagons appear (20% - 35%)
+  // Fase 2: Hexágonos aparecen (20% - 35%)
   transitionTimeline.to(hexagonItems, {
     scale: 1, opacity: 1, rotation: 360, duration: 0.15, stagger: 0.02, ease: 'back.out(1.7)'
   }, 0.2);
 
-  // Phase 3: Hexagons merge (35% - 55%)
+  // Fase 3: Hexágonos se mueven al centro (35% - 55%)
   hexagonItems.forEach((item, index) => {
     const bounds = item.getBoundingClientRect();
     const centerX = window.innerWidth / 2;
@@ -128,7 +133,7 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
       opacity: 1, scale: 1.2, rotation: 180, duration: 0.15, ease: 'back.out(2)'
     }, 0.55);
 
-  // Phase 4: Unified hexagon grows (55% - 70%)
+  // Fase 4: Hexágono unificado crece (55% - 70%)
   transitionTimeline
     .to(unifiedHexagon, {
       scale: 2.5, rotation: 540, duration: 0.15, ease: 'power3.inOut'
@@ -142,7 +147,7 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
       scale: 1, opacity: 0.8, rotation: 180, duration: 0.13, stagger: 0.01, ease: 'power2.out'
     }, 0.6);
 
-  // Phase 5: Services appears (70% - 85%)
+  // Fase 5: Services aparece (70% - 85%)
   transitionTimeline
     .to(servicesMask, {
       clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
@@ -167,7 +172,7 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
       scale: 3, opacity: 0.4, rotation: 540, duration: 0.12, stagger: 0.01, ease: 'power2.inOut'
     }, 0.76);
 
-  // Phase 6: Hexagon disappears, services becomes normal (85% - 100%)
+  // Fase 6: Hexágono desaparece, services se normaliza (85% - 100%)
   transitionTimeline
     .to(unifiedHexagon, {
       scale: 15, rotation: 1440, opacity: 0.2, duration: 0.15, ease: 'power3.inOut'
@@ -184,19 +189,16 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
     .to(hexagonOverlay, {
       opacity: 0, duration: 0.06, ease: 'power2.in'
     }, 0.96)
-    // .to(hexagonContainer, {
-    //   opacity: 0, duration: 0.04, ease: 'power2.in'
-    // }, 0.98)
     .call(() => {
-      // Make services normal scrollable section
+      // Normalizar services section
       servicesSection.style.position = 'relative';
       servicesSection.style.zIndex = 'auto';
       servicesSection.style.visibility = 'visible';
       hexagonContainer.style.pointerEvents = 'none';
     }, [], 1.0);
 
-  // Create ScrollTrigger
-  scrollTriggerInstance = ScrollTrigger.create({
+  // Crear ScrollTrigger usando GSAP Manager
+  const scrollTriggerInstance = gsapManager.createScrollTrigger(HEXAGON_CONTEXT, {
     trigger: heroSection,
     start: 'bottom+=150 bottom',
     end: 'bottom+=150 top',
@@ -227,12 +229,10 @@ function setupHexagonTransition(heroSection, servicesSection, hexagonContainer) 
     invalidateOnRefresh: true
   });
 
-  // Resize handler
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => ScrollTrigger.refresh(), 100);
-  });
+  // Debug info para desarrollo
+  if (import.meta.env?.DEV) {
+    console.log('Hexagon transition GSAP context:', gsapManager.getDebugInfo());
+  }
 }
 
 function resetHexagonState(hexagonContainer) {
@@ -242,7 +242,6 @@ function resetHexagonState(hexagonContainer) {
   const unifiedGlows = hexagonContainer.querySelectorAll('[data-unified-glow-1], [data-unified-glow-2], [data-unified-glow-3]');
   const hexagonOverlay = hexagonContainer.querySelector('[data-hexagon-overlay]');
   const servicesMask = hexagonContainer.querySelector('[data-services-mask]');
-
 
   gsap.set(hexagonContainer, { opacity: 0, scale: 1, pointerEvents: 'none', display: 'block' });
   gsap.set(hexagonItems, { scale: 0, opacity: 0, rotation: 0, x: 0, y: 0 });
@@ -257,7 +256,6 @@ function resetHexagonState(hexagonContainer) {
     opacity: 0,
     clipPath: 'polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%)'
   });
-  
 }
 
 function resetSectionsState(heroSection, servicesSection) {
@@ -294,33 +292,29 @@ function fallbackTransition(heroSelector, servicesSelector) {
     }, { threshold: [0.1, 0.9] });
 
     observer.observe(heroSection);
+    
+    // Registrar observer en el contexto para cleanup
+    if (isInitialized) {
+      gsapManager.registerEventListener(HEXAGON_CONTEXT, heroSection, 'intersect', () => {
+        observer.disconnect();
+      });
+    }
   }
 }
 
 export function cleanupHexagonTransition() {
-  if (scrollTriggerInstance) {
-    scrollTriggerInstance.kill();
-    scrollTriggerInstance = null;
-  }
-  if (transitionTimeline) {
-    transitionTimeline.kill();
-    transitionTimeline = null;
-  }
-  if (ScrollTrigger) {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  if (isInitialized) {
+    gsapManager.cleanupContext(HEXAGON_CONTEXT);
+    isInitialized = false;
+    console.log('Hexagon transition cleaned up');
   }
 }
 
 export function refreshHexagonTransition() {
-  if (ScrollTrigger) {
-    ScrollTrigger.refresh();
+  if (isInitialized) {
+    gsapManager.refreshScrollTriggers();
   }
 }
 
-// Auto-cleanup
-// window.addEventListener('beforeunload', cleanupHexagonTransition);
-// window.addEventListener('visibilitychange', () => {
-//   if (document.hidden) cleanupHexagonTransition();
-// });
-
+// Exports para compatibilidad con la API anterior
 export { setupHexagonTransition, resetHexagonState, resetSectionsState, fallbackTransition }; 

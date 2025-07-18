@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://bemytech.com', // Base URL for production
+  site: 'https://bemytech.io', // Base URL for production
   integrations: [tailwind()],
   server: {
     host: true,

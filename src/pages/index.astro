@@ -125,16 +125,51 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
     aria-hidden="true"
   >
     <div class="text-center animate-fade-in-up">
-      <div class="loader-hexagon w-16 h-16 mx-auto mb-4 relative animate-spin">
-        <div
-          class="hexagon-inner w-full h-full bg-gradient-to-br from-primary to-green-500 relative"
-        >
-          <div class="absolute inset-0.5 bg-[#0D0D0D] hexagon-clip"></div>
-        </div>
+      <!-- BEMYTECH Logo SVG with Animation -->
+      <div class="loader-logo w-32 h-36 mx-auto mb-8 relative p-4">
+        <svg width="277" height="323" viewBox="0 0 277 323" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <!-- Top Hexagon -->
+          <path 
+            d="M235.792 64.6952C235.792 74.0125 236.024 83.3405 235.626 92.6405C235.528 94.8965 233.915 97.9712 232.044 99.1285C216.992 108.439 201.678 117.323 186.523 126.472C182.575 128.856 179.167 129.267 174.932 126.723C158.508 116.855 141.838 107.4 125.41 97.5378C123.762 96.5485 122.215 93.8512 122.192 91.9285C121.982 74.2098 122.115 56.4872 122.155 38.7672C122.164 34.3845 123.996 31.2592 127.918 28.9805C143.538 19.9005 159.071 10.6712 174.576 1.39383C177.774 -0.519506 180.516 -0.434175 183.723 1.47116C199.728 10.9778 215.798 20.3778 231.923 29.6778C234.836 31.3565 235.903 33.4565 235.847 36.7432C235.691 46.0592 235.792 55.3778 235.792 64.6952Z" 
+            fill="#82C232" 
+            class="hex-1"
+            style="animation-delay: 0s"
+          />
+          <!-- Right Hexagon -->
+          <path 
+            d="M275.186 175.136C275.221 175.136 275.257 175.136 275.292 175.136V165.719C275.257 165.719 275.221 165.719 275.186 165.719V175.136ZM209.214 166.713C209.177 166.737 209.141 166.76 209.105 166.783V202.52C209.141 202.52 209.177 202.52 209.214 202.52V166.713ZM208.037 184.068C208.037 178.245 208.09 172.421 208.001 166.6C207.978 165.099 208.401 164.181 209.72 163.416C219.986 157.467 230.226 151.471 240.449 145.444C241.588 144.772 242.489 144.773 243.629 145.439C254.009 151.501 264.408 157.535 274.833 163.52C276.013 164.197 276.357 165 276.352 166.308C276.302 178.031 276.289 189.755 276.349 201.477C276.358 203.316 275.788 204.408 274.133 205.36C264.05 211.161 254.026 217.064 244.024 223.004C242.765 223.752 241.856 223.683 240.64 222.971C230.334 216.932 220.005 210.936 209.649 204.985C208.392 204.264 207.989 203.408 208.006 202.001C208.076 196.024 208.036 190.045 208.037 184.068Z" 
+            fill="#82C232" 
+            class="hex-2"
+            style="animation-delay: 0.3s"
+          />
+          <!-- Left Large Hexagon -->
+          <path 
+            d="M2.59802 247.973C2.68335 247.973 2.76869 247.972 2.85402 247.972ZM0.0846877 204.581C0.0873544 190.888 0.211354 177.193 0.002021 163.502C-0.0513123 159.972 0.942021 157.814 4.04335 156.017C28.186 142.025 52.2674 127.926 76.3047 113.754C78.9847 112.173 81.1034 112.176 83.7847 113.743C108.195 127.999 132.649 142.185 157.163 156.261C159.938 157.853 160.746 159.742 160.734 162.816C160.619 190.385 160.587 217.954 160.727 245.523C160.749 249.845 159.407 252.413 155.518 254.651C131.807 268.293 108.233 282.174 84.7127 296.144C81.754 297.901 79.6127 297.741 76.754 296.065C52.5207 281.865 28.23 267.763 3.87669 253.772C0.919354 252.073 -0.025979 250.06 0.0126877 246.754C0.175354 232.698 0.082021 218.64 0.0846877 204.581Z" 
+            fill="#82C232" 
+            class="hex-3"
+            style="animation-delay: 0.6s"
+          />
+          <!-- Bottom Right Hexagon -->
+          <path 
+            d="M205.747 294.234C205.768 294.234 205.788 294.234 205.81 294.234V288.683C205.788 288.683 205.768 288.683 205.747 288.683V294.234ZM166.859 289.27C166.838 289.283 166.816 289.297 166.795 289.31V310.375C166.816 310.375 166.838 310.375 166.859 310.375V289.27ZM166.164 299.499C166.166 296.066 166.196 292.634 166.144 289.202C166.131 288.317 166.379 287.777 167.156 287.326C173.208 283.818 179.244 280.285 185.27 276.731C185.942 276.335 186.472 276.337 187.146 276.729C193.264 280.302 199.394 283.858 205.539 287.387C206.234 287.786 206.436 288.259 206.434 289.03C206.404 295.941 206.398 302.851 206.432 309.762C206.438 310.845 206.102 311.489 205.126 312.05C199.183 315.469 193.274 318.949 187.378 322.45C186.636 322.891 186.099 322.851 185.383 322.431C179.308 318.871 173.219 315.337 167.115 311.83C166.374 311.403 166.136 310.899 166.147 310.07C166.187 306.547 166.164 303.023 166.164 299.499Z" 
+            fill="#82C232" 
+            class="hex-4"
+            style="animation-delay: 0.9s"
+          />
+        </svg>
       </div>
-      <p class="text-xl font-bold text-primary tracking-wider animate-pulse">
+      <p class="text-2xl font-bold text-accent tracking-wider animate-pulse">
         BEMYTECH
       </p>
+      <p class="text-sm text-gray-400 mt-2">
+        <span id="loading-text" class="animate-pulse">Preparando experiencia tecnológica...</span>
+      </p>
+      <!-- Barra de progreso siempre centrada -->
+      <div class="mt-4 flex justify-center">
+        <div class="w-32 h-1 bg-gray-800 rounded-full overflow-hidden">
+          <div class="loading-bar h-full bg-gradient-to-r from-accent to-green-400 rounded-full transform -translate-x-full"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -148,9 +183,9 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
     </section>
 
     <!-- Hexagon Transition: Hero to Services -->
-    <HexagonTransition />
+    <!-- <HexagonTransition /> -->
 
-    <section class="h-[80vh]"></section>
+    <section class="h-[40vh]"></section>
     <!-- Services Section -->
     <Services t={t} />
 
@@ -235,6 +270,115 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
     @apply opacity-0 invisible;
   }
 
+  /* Animaciones del logo BEMYTECH */
+  @keyframes hexGlow {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) rotate(-10deg);
+      filter: drop-shadow(0 0 0px #82C232);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1) rotate(5deg);
+      filter: drop-shadow(0 0 15px #82C232);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 8px #82C232);
+    }
+  }
+
+  @keyframes hexPulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 8px #82C232);
+    }
+    50% {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px #82C232);
+    }
+  }
+
+  @keyframes hexRotate {
+    0% {
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 8px #82C232);
+    }
+    25% {
+      transform: scale(1.03) rotate(2deg);
+      filter: drop-shadow(0 0 12px #82C232);
+    }
+    50% {
+      transform: scale(1.05) rotate(0deg);
+      filter: drop-shadow(0 0 20px #82C232);
+    }
+    75% {
+      transform: scale(1.03) rotate(-2deg);
+      filter: drop-shadow(0 0 12px #82C232);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 8px #82C232);
+    }
+  }
+
+  .hex-1, .hex-2, .hex-3, .hex-4 {
+    animation: hexGlow 1.2s ease-out forwards;
+  }
+
+  /* Animación continua después de la aparición inicial */
+  .hex-1 {
+    animation: hexGlow 1.2s ease-out forwards, hexRotate 3s ease-in-out infinite 1.5s;
+  }
+
+  .hex-2 {
+    animation: hexGlow 1.2s ease-out forwards, hexRotate 3.5s ease-in-out infinite 2s;
+  }
+
+  .hex-3 {
+    animation: hexGlow 1.2s ease-out forwards, hexRotate 4s ease-in-out infinite 2.5s;
+  }
+
+  .hex-4 {
+    animation: hexGlow 1.2s ease-out forwards, hexRotate 3.2s ease-in-out infinite 3s;
+  }
+
+  .loader-logo:hover .hex-1,
+  .loader-logo:hover .hex-2,
+  .loader-logo:hover .hex-3,
+  .loader-logo:hover .hex-4 {
+    animation: hexPulse 2s ease-in-out infinite;
+  }
+
+  .loader-logo {
+    transform: translateZ(0);
+    will-change: transform;
+    animation: logoFloat 4s ease-in-out infinite 1s;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.02);
+    }
+  }
+
+  @keyframes loadingBar {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  .loading-bar {
+    animation: loadingBar 2.5s ease-out forwards;
+  }
+
   /* Custom utility animations */
   @keyframes fade-in-up {
     from {
@@ -298,59 +442,14 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
 </style>
 
 <script>
-  // Centralized Performance-Optimized Script
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  // Centralized script usando GSAP Manager
+  import { gsapManager } from "../utils/gsapManager";
   import { initHexagonTransition } from "../utils/hexagonTransition";
 
-  // Global performance and cleanup management
-  class PerformanceManager {
-    private static instance: PerformanceManager;
-    private scrollTriggers: ScrollTrigger[] = [];
-    private animationTimelines: gsap.core.Timeline[] = [];
-    private intersectionObservers: IntersectionObserver[] = [];
-    private resizeListeners: (() => void)[] = [];
-
-    static getInstance(): PerformanceManager {
-      if (!PerformanceManager.instance) {
-        PerformanceManager.instance = new PerformanceManager();
-      }
-      return PerformanceManager.instance;
-    }
-
-    // Register ScrollTrigger for cleanup
-    registerScrollTrigger(trigger: ScrollTrigger) {
-      this.scrollTriggers.push(trigger);
-    }
-
-    // Register timeline for cleanup
-    registerTimeline(timeline: gsap.core.Timeline) {
-      this.animationTimelines.push(timeline);
-    }
-
-    // Register observer for cleanup
-    registerObserver(observer: IntersectionObserver) {
-      this.intersectionObservers.push(observer);
-    }
-
-    // Register resize listener for cleanup
-    registerResizeListener(listener: () => void) {
-      this.resizeListeners.push(listener);
-      window.addEventListener("resize", listener, { passive: true });
-    }
-
-    // Cleanup all registered animations and listeners
-
-    // Refresh all ScrollTriggers (for responsive updates)
-    refresh() {
-      ScrollTrigger.refresh();
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", function () {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const perfManager = PerformanceManager.getInstance();
+    // Crear contexto principal para la página
+    const PAGE_CONTEXT = 'main-page';
+    gsapManager.createContext(PAGE_CONTEXT);
 
     // Page loader functionality
     const pageLoader = document.getElementById("page-loader");
@@ -362,12 +461,36 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
       }
     }
 
+    // Dynamic loading text
+    const loadingTexts = [
+      "Preparando experiencia tecnológica...",
+      "Cargando innovación...",
+      "Iniciando sistemas BEMYTECH...",
+      "Optimizando rendimiento...",
+      "¡Casi listo!"
+    ];
+    
+    let textIndex = 0;
+    const loadingTextElement = document.getElementById("loading-text");
+    
+    if (loadingTextElement) {
+      const textInterval = setInterval(() => {
+        textIndex = (textIndex + 1) % loadingTexts.length;
+        loadingTextElement.textContent = loadingTexts[textIndex];
+      }, 500);
+      
+      // Clear interval when page loads
+      setTimeout(() => {
+        clearInterval(textInterval);
+      }, 2500);
+    }
+
     // Hide loader after critical content is loaded
     if (document.readyState === "complete") {
-      setTimeout(hideLoader, 800);
+      setTimeout(hideLoader, 2500); // Increased delay to appreciate animation
     } else {
       window.addEventListener("load", () => {
-        setTimeout(hideLoader, 800);
+        setTimeout(hideLoader, 2500); // Increased delay to appreciate animation
       });
     }
 
@@ -394,7 +517,7 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
       };
 
       window.addEventListener("scroll", updateProgress, { passive: true });
-      perfManager.registerResizeListener(updateProgress);
+      gsapManager.registerEventListener(PAGE_CONTEXT, window, 'resize', updateProgress, { passive: true });
     }
 
     // Navigation Dots Active State
@@ -424,7 +547,7 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
       }, observerOptions);
 
       sections.forEach((section) => navObserver.observe(section));
-      perfManager.registerObserver(navObserver);
+      // Observer es gestionado automáticamente por el navegador
 
       // Smooth scroll for navigation links
       navLinks.forEach((link) => {
@@ -511,7 +634,7 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
     document.querySelectorAll("video[data-src]").forEach((video) => {
       lazyLoadObserver.observe(video);
     });
-    perfManager.registerObserver(lazyLoadObserver);
+    // Observer es gestionado automáticamente por el navegador
 
     // Performance monitoring
     if ("requestIdleCallback" in window) {
@@ -526,17 +649,17 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
         const handleResize = () => {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(() => {
-            ScrollTrigger.refresh();
+            gsapManager.refreshScrollTriggers();
           }, 250);
         };
 
-        perfManager.registerResizeListener(handleResize);
+        gsapManager.registerEventListener(PAGE_CONTEXT, window, 'resize', handleResize, { passive: true });
       });
     }
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
-        ScrollTrigger?.refresh(true);
+        gsapManager.refreshScrollTriggers();
       }
     });
 
@@ -564,17 +687,23 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
     window.addEventListener("error", (e) => {
       if (e.message.includes("gsap") || e.message.includes("ScrollTrigger")) {
         console.warn("Animation error caught and handled:", e.message);
-        // Attempt to refresh ScrollTrigger
-        if (ScrollTrigger) {
-          ScrollTrigger.refresh();
-        }
+        // Attempt to refresh ScrollTrigger using GSAP Manager
+        gsapManager.refreshScrollTriggers();
       }
     });
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        ScrollTrigger.refresh(true);
-      }
+    // Initialize Hexagon Transition
+    initHexagonTransition({
+      heroSelector: "#hero",
+      servicesSelector: "#services", 
+      hexagonSelector: "#hexagon-transition",
+    }).catch((error) => {
+      console.warn("Hexagon transition initialization failed:", error);
     });
+
+    // Debug info
+    if (import.meta.env?.DEV) {
+      console.log('Main page GSAP context created:', gsapManager.getDebugInfo());
+    }
   });
 </script>

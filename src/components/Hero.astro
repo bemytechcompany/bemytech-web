@@ -1,6 +1,6 @@
 ---
-// Hero.astro - Parallax Hero section with three background layers
-// Features: Layered parallax scrolling, GSAP animations, performance optimized
+// Hero.astro - Hero section refactorizado con GSAP Manager
+// Evita conflictos con otros componentes usando el sistema centralizado
 
 interface Props {
   t: (key: string) => string;
@@ -9,18 +9,11 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<!-- <section
-  id="hero"
-  class="relative h-screen w-full overflow-hidden bg-[#0D0D0D] flex items-center justify-center"
-  aria-label={t("hero.title")}
-> -->
 <section
   id="hero"
   class="relative h-screen w-full overflow-hidden flex items-center justify-center"
   aria-label={t("hero.title")}
 >
-  <!-- Note: Background layers are now handled by ParallaxLayers component -->
-
   <!-- Content Layer -->
   <div class="relative z-30 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
     <!-- Main Title -->
@@ -84,47 +77,20 @@ const { t } = Astro.props;
 </section>
 
 <style>
-  /* EXTREME performance optimization for aggressive parallax */
+  /* Optimización de rendimiento para parallax */
   #hero {
     transform: translateZ(0);
-    perspective: 2000px;
-    perspective-origin: center center;
-    overflow: hidden;
     will-change: transform;
-  }
-
-  /* Ultra-optimized parallax layers for EXTREME movement */
-  [data-parallax-bg],
-  [data-parallax-mid],
-  [data-parallax-fore] {
     backface-visibility: hidden;
-    transform: translateZ(0);
-    transform-style: preserve-3d;
-    will-change: transform, filter, opacity;
-    isolation: isolate;
-    contain: layout style paint;
   }
 
-  /* AGGRESSIVE content animations setup */
+  /* Optimización para elementos animados */
   [data-hero-title],
   [data-hero-subtitle],
   [data-hero-cta] {
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
     transform: translateZ(0);
-    transform-style: preserve-3d;
     backface-visibility: hidden;
-    isolation: isolate;
-    contain: layout style paint;
-  }
-
-  /* Force GPU acceleration for all animated elements */
-  [data-parallax-bg],
-  [data-parallax-mid],
-  [data-parallax-fore],
-  [data-hero-title],
-  [data-hero-subtitle],
-  [data-hero-cta] {
-    transform: translate3d(0, 0, 0);
   }
 
   /* Responsive text sizing */
@@ -140,22 +106,15 @@ const { t } = Astro.props;
     }
   }
 
-  /* Accessibility - Complete motion disable for extreme effects */
+  /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
-    #hero {
-      perspective: none !important;
-    }
-
-    [data-parallax-bg],
-    [data-parallax-mid],
-    [data-parallax-fore],
+    #hero,
     [data-hero-title],
     [data-hero-subtitle],
     [data-hero-cta] {
       transform: none !important;
       animation: none !important;
       transition: none !important;
-      filter: none !important;
       will-change: auto !important;
     }
 
@@ -164,7 +123,7 @@ const { t } = Astro.props;
     }
   }
 
-  /* Focus styles for accessibility */
+  /* Focus styles */
   a:focus-visible {
     outline: 2px solid #8bc53f;
     outline-offset: 2px;
@@ -172,247 +131,123 @@ const { t } = Astro.props;
 </style>
 
 <script>
-  // Hero parallax implementation with GSAP
-  document.addEventListener("DOMContentLoaded", async () => {
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+  import { gsapManager, gsap } from '../utils/gsapManager';
 
-    if (prefersReducedMotion) {
-      return; // Skip animations if user prefers reduced motion
+  document.addEventListener("DOMContentLoaded", () => {
+    // Crear contexto para Hero
+    const HERO_CONTEXT = 'hero';
+    gsapManager.createContext(HERO_CONTEXT);
+
+    // Verificar reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('Reduced motion detected - simplified hero animations');
+      return;
     }
 
-    try {
-      // Dynamically import GSAP modules
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    // Obtener elementos
+    const heroSection = document.getElementById("hero");
+    const heroTitle = document.querySelector("[data-hero-title]") as HTMLElement;
+    const heroSubtitle = document.querySelector("[data-hero-subtitle]") as HTMLElement;
+    const heroCta = document.querySelector("[data-hero-cta]") as HTMLElement;
 
-      // Register ScrollTrigger plugin
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Get elements
-      const heroSection = document.getElementById("hero");
-
-      // Note: Background parallax is now handled by ParallaxLayers component
-      // Focus on content animations only
-      const heroTitle = document.querySelector(
-        "[data-hero-title]",
-      ) as HTMLElement;
-      const heroSubtitle = document.querySelector(
-        "[data-hero-subtitle]",
-      ) as HTMLElement;
-      const heroCta = document.querySelector("[data-hero-cta]") as HTMLElement;
-
-      if (!heroSection) return;
-
-      // Background and layer parallax is now handled by ParallaxLayers component
-
-      // EXTREME content animations with INSANE 3D effects
-      if (heroTitle) {
-        gsap.to(heroTitle, {
-          y: -400,
-          x: -150,
-          opacity: 0.05,
-          scale: 0.3,
-          rotation: 25,
-          rotateX: 70,
-          rotateY: 45,
-          rotateZ: 15,
-          z: -500,
-          skewX: 20,
-          skewY: 10,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top+=80 top",
-            end: "bottom-=100 top",
-            scrub: 0.1,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-
-      if (heroSubtitle) {
-        gsap.to(heroSubtitle, {
-          y: -300,
-          x: 120,
-          opacity: 0.08,
-          scale: 0.4,
-          rotation: -20,
-          rotateX: -50,
-          rotateY: -35,
-          rotateZ: -10,
-          z: -400,
-          skewX: -15,
-          skewY: -8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top+=80 top",
-            end: "bottom-=100 top",
-            scrub: 0.15,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-
-      if (heroCta) {
-        gsap.to(heroCta, {
-          y: -250,
-          x: -80,
-          opacity: 0.1,
-          scale: 0.5,
-          rotation: 15,
-          rotateX: 40,
-          rotateY: 30,
-          rotateZ: 8,
-          z: -300,
-          skewX: 12,
-          skewY: 6,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top+=80 top",
-            end: "bottom-=100 top",
-            scrub: 0.2,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-
-      // DRAMATIC entrance animations with EXTREME effects
-      const tl = gsap.timeline({ delay: 0.3 });
-
-      if (heroTitle) {
-        tl.fromTo(
-          heroTitle,
-          {
-            y: 200,
-            x: -100,
-            opacity: 0,
-            scale: 0.3,
-            rotation: -45,
-            rotateX: 90,
-            rotateY: 45,
-            z: -500,
-            skewX: 30,
-          },
-          {
-            y: 0,
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            rotateX: 0,
-            rotateY: 0,
-            z: 0,
-            skewX: 0,
-            duration: 1.5,
-            ease: "back.out(2)",
-          },
-        );
-      }
-
-      if (heroSubtitle) {
-        tl.fromTo(
-          heroSubtitle,
-          {
-            y: 150,
-            x: 80,
-            opacity: 0,
-            scale: 0.4,
-            rotation: 30,
-            rotateX: -60,
-            rotateY: -30,
-            z: -300,
-            skewX: -20,
-          },
-          {
-            y: 0,
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            rotateX: 0,
-            rotateY: 0,
-            z: 0,
-            skewX: 0,
-            duration: 1.2,
-            ease: "back.out(1.7)",
-          },
-          "-=1",
-        );
-      }
-
-      if (heroCta) {
-        tl.fromTo(
-          heroCta,
-          {
-            y: 100,
-            x: -60,
-            opacity: 0,
-            scale: 0.5,
-            rotation: -20,
-            rotateX: 45,
-            rotateY: 30,
-            z: -200,
-            skewX: 15,
-          },
-          {
-            y: 0,
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            rotateX: 0,
-            rotateY: 0,
-            z: 0,
-            skewX: 0,
-            duration: 1,
-            ease: "back.out(1.5)",
-          },
-          "-=0.8",
-        );
-      }
-
-
-      // Clean up on page visibility change or unload
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") {
-          ScrollTrigger.refresh(true);
-        }
-      });
-      // Refresh ScrollTrigger on resize
-      let resizeTimeout: ReturnType<typeof setTimeout>;
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 100);
-      });
-    } catch (error) {
-      console.warn("GSAP loading failed:", error);
-      // Graceful degradation - show content without animations
-      const elements = [
-        document.querySelector("[data-hero-title]"),
-        document.querySelector("[data-hero-subtitle]"),
-        document.querySelector("[data-hero-cta]"),
-      ];
-
-      elements.forEach((el) => {
-        if (el) {
-          (el as HTMLElement).style.opacity = "1";
-          (el as HTMLElement).style.transform = "none";
-        }
-      });
+    if (!heroSection || !heroTitle || !heroSubtitle || !heroCta) {
+      console.warn('Hero elements not found');
+      return;
     }
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        ScrollTrigger.refresh(true);
+    // Animaciones de parallax en scroll
+    gsapManager.createScrollTrigger(HERO_CONTEXT, {
+      trigger: heroSection,
+      start: "top+=80 top",
+      end: "bottom-=100 top",
+      scrub: 0.1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        
+        // Título con movimiento dramático
+        gsap.set(heroTitle, {
+          y: -400 * progress,
+          x: -150 * progress,
+          opacity: Math.max(0.05, 1 - progress * 0.95),
+          scale: Math.max(0.3, 1 - progress * 0.7),
+          rotation: 25 * progress
+        });
+
+        // Subtítulo con movimiento contrario
+        gsap.set(heroSubtitle, {
+          y: -300 * progress,
+          x: 120 * progress,
+          opacity: Math.max(0.08, 1 - progress * 0.92),
+          scale: Math.max(0.4, 1 - progress * 0.6),
+          rotation: -20 * progress
+        });
+
+        // CTA con movimiento moderado
+        gsap.set(heroCta, {
+          y: -250 * progress,
+          x: -80 * progress,
+          opacity: Math.max(0.1, 1 - progress * 0.9),
+          scale: Math.max(0.5, 1 - progress * 0.5),
+          rotation: 15 * progress
+        });
       }
     });
+
+    // Animaciones de entrada
+    const entranceTimeline = gsapManager.createTimeline(HERO_CONTEXT, { delay: 0.3 });
+
+    entranceTimeline
+      .fromTo(heroTitle, {
+        y: 200,
+        x: -100,
+        opacity: 0,
+        scale: 0.3,
+        rotation: -45
+      }, {
+        y: 0,
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1.5,
+        ease: "back.out(2)"
+      })
+      .fromTo(heroSubtitle, {
+        y: 150,
+        x: 80,
+        opacity: 0,
+        scale: 0.4,
+        rotation: 30
+      }, {
+        y: 0,
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1.2,
+        ease: "back.out(1.7)"
+      }, "-=1")
+      .fromTo(heroCta, {
+        y: 100,
+        x: -60,
+        opacity: 0,
+        scale: 0.5,
+        rotation: -20
+      }, {
+        y: 0,
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "back.out(1.5)"
+      }, "-=0.8");
+
+    // Debug info para desarrollo
+    if (import.meta.env?.DEV) {
+      console.log('Hero GSAP context created:', gsapManager.getDebugInfo());
+    }
   });
 </script>
 

@@ -8,27 +8,39 @@ interface Props {
 
 const { t } = Astro.props;
 
-// Services data configuration
+// Services data configuration - Tema oscuro con acentos verde lima
 const services = [
   {
     id: 'development',
     icon: 'code',
-    color: 'from-blue-500 to-cyan-500'
+    color: 'from-gray-700 to-gray-600',
+    bgColor: 'from-gray-800/40 to-gray-900/60',
+    borderColor: 'border-gray-600/20',
+    accentColor: '#8BC53F'
   },
   {
     id: 'consulting',
     icon: 'lightbulb',
-    color: 'from-purple-500 to-pink-500'
+    color: 'from-gray-700 to-gray-600',
+    bgColor: 'from-gray-800/40 to-gray-900/60',
+    borderColor: 'border-gray-600/20',
+    accentColor: '#8BC53F'
   },
   {
     id: 'ai',
     icon: 'brain',
-    color: 'from-green-500 to-emerald-500'
+    color: 'from-gray-700 to-gray-600',
+    bgColor: 'from-gray-800/40 to-gray-900/60',
+    borderColor: 'border-gray-600/20',
+    accentColor: '#8BC53F'
   },
   {
     id: 'support',
     icon: 'shield',
-    color: 'from-orange-500 to-red-500'
+    color: 'from-gray-700 to-gray-600',
+    bgColor: 'from-gray-800/40 to-gray-900/60',
+    borderColor: 'border-gray-600/20',
+    accentColor: '#8BC53F'
   }
 ];
 ---
@@ -65,26 +77,31 @@ const services = [
           data-service={service.id}
         >
           <!-- 3D Flip Card Container -->
-          <div class="flip-card w-full h-80">
-            <div class="flip-card-inner relative w-full h-full">
+          <div class="flip-card w-full h-80 relative">
+            <!-- Efecto de fondo neón y línea recorriendo el borde -->
+            <div class="neon-glow absolute inset-0 rounded-2xl pointer-events-none z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <svg class="border-light absolute inset-0 w-full h-full pointer-events-none z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="calc(100% - 4px)" height="calc(100% - 4px)" rx="16" ry="16" fill="none" stroke="#8BC53F" stroke-width="2" stroke-dasharray="8,4" class="animated-border" />
+            </svg>
+            <div class="flip-card-inner relative w-full h-full z-10">
               
               <!-- Front Side -->
-              <div class="flip-card-front absolute inset-0 w-full h-full">
-                <div class="relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-primary/20 shadow-xl">
+              <div class="flip-card-front absolute inset-0 w-full h-full z-20">
+                <div class={`relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900/95 to-gray-800/95 ${service.bgColor} rounded-2xl border ${service.borderColor} shadow-xl backdrop-blur-sm`}>
                   
                   <!-- Hexagon Background -->
                   <div class="absolute inset-0 opacity-10">
                     <svg viewBox="0 0 100 100" class="w-full h-full">
                       <defs>
                         <linearGradient id={`hexGradient-${service.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style="stop-color:#8BC53F;stop-opacity:0.3" />
-                          <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:0.1" />
+                          <stop offset="0%" style="stop-color:#6B7280;stop-opacity:0.2" />
+                          <stop offset="100%" style="stop-color:#4B5563;stop-opacity:0.05" />
                         </linearGradient>
                       </defs>
                       <polygon 
                         points="50,5 90,25 90,75 50,95 10,75 10,25" 
                         fill={`url(#hexGradient-${service.id})`} 
-                        stroke="#8BC53F" 
+                        stroke="#6B7280" 
                         stroke-width="0.5"
                       />
                     </svg>
@@ -92,7 +109,7 @@ const services = [
 
                   <!-- Icon -->
                   <div class="relative z-10 mb-6">
-                    <div class={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} p-4 shadow-xl transform group-hover:scale-110 transition-transform duration-300`}>
+                    <div class={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} p-4 shadow-xl transform group-hover:scale-110 transition-transform duration-300 ring-2 ring-white/10 group-hover:ring-accent/50`}>
                       {service.icon === 'code' && (
                         <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path d="M8.5 6l-5.5 6 5.5 6 1.5-1.5-4-4.5 4-4.5-1.5-1.5zm7 0l5.5 6-5.5 6-1.5-1.5 4-4.5-4-4.5 1.5-1.5z"/>
@@ -117,13 +134,13 @@ const services = [
                   </div>
 
                   <!-- Title -->
-                  <h3 class="text-xl md:text-2xl font-bold text-center text-primary mb-4">
+                  <h3 class="text-xl md:text-2xl font-bold text-center text-white mb-4 drop-shadow-lg">
                     {t(`services.${service.id}.title`)}
                   </h3>
 
                   <!-- Hover Indicator -->
                   <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                    <div class="flex items-center space-x-2 text-primary text-sm font-medium opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="flex items-center space-x-2 text-gray-400 text-sm font-medium opacity-60 group-hover:opacity-100 group-hover:text-accent transition-all duration-300">
                       <span>Hover para más info</span>
                       <svg class="w-4 h-4 transform group-hover:rotate-180 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M7 14l5-5 5 5z"/>
@@ -134,27 +151,27 @@ const services = [
               </div>
 
               <!-- Back Side -->
-              <div class="flip-card-back absolute inset-0 w-full h-full">
-                <div class="relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br from-primary/90 to-secondary/90 rounded-2xl border border-primary/30 shadow-xl">
+              <div class="flip-card-back absolute inset-0 w-full h-full z-20">
+                <div class={`relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br ${service.color} rounded-2xl border ${service.borderColor} shadow-xl backdrop-blur-sm`}>
                   
                   <!-- Background Pattern -->
-                  <div class="absolute inset-0 opacity-10">
+                  <div class="absolute inset-0 opacity-5">
                     <div class="hex-pattern-small absolute inset-0"></div>
                   </div>
 
                   <!-- Content -->
                   <div class="relative z-10 text-center">
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6 drop-shadow-lg">
                       {t(`services.${service.id}.title`)}
                     </h3>
-                    <p class="text-white/90 text-base md:text-lg leading-relaxed">
+                    <p class="text-white/95 text-base md:text-lg leading-relaxed drop-shadow-md">
                       {t(`services.${service.id}.description`)}
                     </p>
                   </div>
 
                   <!-- Decorative Elements -->
-                  <div class="absolute top-4 right-4 w-8 h-8 border border-white/30 rotate-45 opacity-50"></div>
-                  <div class="absolute bottom-4 left-4 w-6 h-6 bg-white/10 rotate-12"></div>
+                  <div class="absolute top-4 right-4 w-8 h-8 border border-white/20 rotate-45 opacity-40"></div>
+                  <div class="absolute bottom-4 left-4 w-6 h-6 bg-white/10 rotate-12 rounded"></div>
                 </div>
               </div>
             </div>
@@ -165,16 +182,16 @@ const services = [
 
     <!-- Call to Action -->
     <div class="text-center mt-16">
-      <p class="text-lg text-gray-300 mb-6">
+      <p class="text-lg text-gray-400 mb-6">
         ¿Necesitas una solución personalizada?
       </p>
       <a 
         href="#contact" 
-        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-primary/25"
+        class="inline-flex items-center px-8 py-4 bg-gray-800/60 hover:bg-gray-700/80 text-white font-semibold rounded-full border border-gray-600/30 hover:border-accent/50 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-accent/10 group"
         aria-label="Contact us for custom solutions"
       >
         Hablemos de tu proyecto
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 group-hover:text-accent transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>
       </a>
@@ -183,10 +200,12 @@ const services = [
 </section>
 
 <style>
-  /* Hardware accelerated 3D flip cards - Enhanced visibility */
+  /* Hardware accelerated 3D flip cards - Fixed implementation */
   .flip-card {
     perspective: 1000px;
     transform: translateZ(0);
+    width: 100%;
+    height: 20rem; /* 320px */
   }
   
   .flip-card-inner {
@@ -194,9 +213,8 @@ const services = [
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform-style: preserve-3d;
-    transform: translateZ(0);
   }
   
   .service-card:hover .flip-card-inner {
@@ -208,24 +226,36 @@ const services = [
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     border-radius: 1rem;
-    transform: translateZ(1px);
+    overflow: hidden;
+  }
+  
+  .flip-card-front {
+    z-index: 20;
+    transform: rotateY(0deg);
   }
   
   .flip-card-back {
     transform: rotateY(180deg);
+    z-index: 20;
   }
 
-  /* Enhanced hover lift effect */
+  /* Enhanced hover effects - Tema oscuro */
   .service-card {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
     transform: translateZ(0);
   }
   
   .service-card:hover {
-    transform: translateZ(0) translateY(-8px);
+    transform: translateY(-4px);
+    filter: brightness(1.1);
+  }
+
+  /* Icon hover effect con acento verde lima */
+  .service-card:hover .flip-card-front .rounded-2xl {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 197, 63, 0.2);
   }
 
   /* Static hexagon patterns */
@@ -234,7 +264,6 @@ const services = [
       repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px),
       repeating-linear-gradient(60deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px),
       repeating-linear-gradient(120deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px);
-    transform: translateZ(0);
   }
 
   .hex-pattern-small {
@@ -242,7 +271,6 @@ const services = [
       repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px),
       repeating-linear-gradient(60deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px),
       repeating-linear-gradient(120deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px);
-    transform: translateZ(0);
   }
 
   /* Video optimization */
@@ -257,20 +285,12 @@ const services = [
     }
     
     .flip-card {
-      height: 320px;
+      height: 18rem; /* Slightly smaller on mobile */
     }
     
-    /* Enable flip on mobile with better transform */
-    .service-card:hover .flip-card-inner {
+    /* Touch-friendly hover effect on mobile */
+    .service-card:active .flip-card-inner {
       transform: rotateY(180deg);
-    }
-    
-    /* Ensure proper visibility on mobile */
-    .flip-card-front,
-    .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
     }
   }
 
@@ -285,21 +305,94 @@ const services = [
     }
     
     .service-card:hover .flip-card-inner {
-      transform: translateZ(0);
+      transform: none;
+    }
+    
+    /* Show back content without animation for accessibility */
+    .service-card:hover .flip-card-back {
+      position: relative;
+      transform: none;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+    }
+    
+    .service-card:hover .flip-card-front {
+      display: none;
     }
   }
 
-  /* Performance optimization - GPU acceleration for all animated elements */
+  /* Performance optimization */
   .service-card,
-  .flip-card,
-  .flip-card-inner,
-  .flip-card-front,
-  .flip-card-back,
-  .hex-pattern,
-  .hex-pattern-small {
+  .flip-card-inner {
     will-change: transform;
-    backface-visibility: hidden;
-    transform: translateZ(0);
+  }
+
+  /* Efecto de fondo neón verde lima */
+  .neon-glow {
+    background: radial-gradient(
+      circle at center,
+      rgba(139, 197, 63, 0.15) 0%,
+      rgba(139, 197, 63, 0.08) 40%,
+      transparent 70%
+    );
+    box-shadow: 
+      inset 0 0 20px rgba(139, 197, 63, 0.1),
+      0 0 30px rgba(139, 197, 63, 0.1),
+      0 0 60px rgba(139, 197, 63, 0.05);
+    animation: neonPulse 3s ease-in-out infinite;
+  }
+
+  /* Animación de luz recorriendo el borde de la tarjeta */
+  .animated-border {
+    stroke-dasharray: 12 250;
+    stroke-dashoffset: 0;
+    animation: borderTravel 4s linear infinite;
+    filter: drop-shadow(0 0 8px #8BC53F) drop-shadow(0 0 16px rgba(139, 197, 63, 0.6));
+    stroke-linecap: round;
+  }
+
+  /* Animación del pulso neón de fondo */
+  @keyframes neonPulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+
+  /* Animación de la línea recorriendo el perímetro */
+  @keyframes borderTravel {
+    0% {
+      stroke-dashoffset: 262;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: -262;
+      opacity: 0;
+    }
+  }
+
+  /* Efecto adicional en hover para intensificar el neón */
+  .service-card:hover .neon-glow {
+    box-shadow: 
+      inset 0 0 30px rgba(139, 197, 63, 0.2),
+      0 0 50px rgba(139, 197, 63, 0.2),
+      0 0 100px rgba(139, 197, 63, 0.1);
+  }
+
+  .service-card:hover .animated-border {
+    filter: drop-shadow(0 0 12px #8BC53F) drop-shadow(0 0 24px rgba(139, 197, 63, 0.8));
+    animation-duration: 2.5s;
+    stroke-width: 3;
   }
 </style>
 

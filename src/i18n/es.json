@@ -37,34 +37,34 @@
     "title": "Nuestros Proyectos",
     "subtitle": "Explora algunos de nuestros trabajos más destacados y las soluciones innovadoras que hemos desarrollado",
     "project1": {
-      "title": "Sistema de Gestión Empresarial",
-      "description": "Plataforma web integral para la gestión de recursos humanos, inventarios y procesos empresariales.",
-      "category": "Desarrollo Web",
-      "tech": "React, Node.js, PostgreSQL"
+      "title": "Raffle",
+      "description": "Aplicativo movil para la creación y gestión de rifas digitales. Permite organizar sorteos, vender boletos en línea y mostrar los premios de forma clara y atractiva. Ideal para emprendimientos, causas sociales o lanzamientos de productos.",
+      "category": "Desarrollo Movil",
+      "tech": "Flutter, MySQLlite"
     },
     "project2": {
-      "title": "App Móvil E-commerce",
-      "description": "Aplicación móvil completa con pasarela de pagos, gestión de inventario y análisis en tiempo real.",
-      "category": "Desarrollo Móvil",
-      "tech": "React Native, Firebase, Stripe"
+      "title": "Castevo",
+      "description": "Software de gestión inmobiliaria que centraliza el control de propiedades, contratos, pagos y reportes. Diseñado para facilitar la administración de arriendos, con automatización de tareas y un panel intuitivo para inmobiliarias y propietarios.",
+      "category": "Aplicativo Web",
+      "tech": "NextJS, Supabase"
     },
     "project3": {
-      "title": "IA para Análisis de Datos",
-      "description": "Sistema de inteligencia artificial para análisis predictivo y procesamiento de grandes volúmenes de datos.",
-      "category": "Inteligencia Artificial",
-      "tech": "Python, TensorFlow, AWS"
+      "title": "Viatika",
+      "description": "Herramienta para gestionar viáticos entre empresas, empleados y comercios aliados. Automatiza solicitudes, aprobaciones y control de gastos en un solo lugar.",
+      "category": "Aplicativo web, Aplicativo movil",
+      "tech": "NextJS, Supabase, Flutter"
     },
     "project4": {
-      "title": "Infraestructura Cloud",
-      "description": "Migración completa a la nube con arquitectura escalable y sistemas de monitoreo avanzados.",
-      "category": "Consultoría IT",
-      "tech": "AWS, Docker, Kubernetes"
+      "title": "Visual Emotion",
+      "description": "Plataforma de gestión de entrevistas con inteligencia artificial para análisis de emociones y sentimientos. Usa IA como observadora pasiva para enriquecer la comprensión del comportamiento durante las entrevistas.",
+      "category": "Aplicativo web",
+      "tech": "NextJS, Supabase, Python, Inteligencia Artificial"
     },
     "project5": {
-      "title": "Blockchain DeFi Platform",
-      "description": "Plataforma descentralizada para finanzas con smart contracts y protocolos de seguridad avanzados.",
-      "category": "Blockchain",
-      "tech": "Solidity, Web3.js, Ethereum"
+      "title": "RikDriver",
+      "description": "Plataforma de movilidad integral lanzada en Colombia, diseñada para ofrecer servicios de transporte de personas y vehículos, entrega de domicilios y envíos, alquiler de autos y motos, y conducción responsable durante eventos",
+      "category": "Aplicativo web, Aplicativo movil",
+      "tech": "NextJS, Firebase, Flutter, Wompi"
     },
     "viewProject": "Ver Proyecto",
     "technologies": "Tecnologías",
@@ -162,10 +162,45 @@
       "button": "Enviar otro mensaje"
     },
     "info": {
-      "address": "Madrid, España",
-      "phone": "+34 600 123 456",
-      "email": "hola@bemytech.com",
+      "address": "Pereira, Colombia",
+      "phone": "+57 311 430 22 56",
+      "email": "contacto@bemytech.com",
       "hours": "Lunes - Viernes: 9:00 - 18:00"
+    }
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "subtitle": "Información sobre cómo recopilamos, utilizamos y protegemos tu información personal",
+    "lastUpdated": "Última actualización",
+    "sections": {
+      "intro": {
+        "title": "Introducción",
+        "content": "En BEMYTECH valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta política describe cómo recopilamos, utilizamos y protegemos la información que nos proporcionas."
+      },
+      "dataCollection": {
+        "title": "Recopilación de Información",
+        "content": "Recopilamos información que nos proporcionas directamente, como tu nombre, correo electrónico y mensajes cuando te comunicas con nosotros a través de nuestros formularios de contacto."
+      },
+      "dataUse": {
+        "title": "Uso de la Información",
+        "content": "Utilizamos tu información para responder a tus consultas, proporcionarte nuestros servicios y mejorar nuestros productos y servicios."
+      },
+      "dataSharing": {
+        "title": "Compartir Información",
+        "content": "No vendemos, alquilamos o compartimos tu información personal con terceros sin tu consentimiento explícito, excepto cuando sea requerido por ley."
+      },
+      "dataSecurity": {
+        "title": "Seguridad de los Datos",
+        "content": "Implementamos medidas de seguridad técnicas y organizativas para proteger tu información personal contra acceso no autorizado, alteración, divulgación o destrucción."
+      },
+      "userRights": {
+        "title": "Tus Derechos",
+        "content": "Tienes derecho a acceder, rectificar, actualizar o solicitar la eliminación de tu información personal. Para ejercer estos derechos, contáctanos."
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Si tienes preguntas sobre esta política de privacidad, puedes contactarnos a través de nuestros canales de comunicación."
+      }
     }
   },
   "footer": {

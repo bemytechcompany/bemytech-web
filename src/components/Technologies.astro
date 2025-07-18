@@ -224,14 +224,21 @@ const technologies = [
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsapManager, gsap } from '../utils/gsapManager';
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Header animations
-    gsap.fromTo('[data-tech-title]', 
+    // Crear contexto para Technologies
+    const TECH_CONTEXT = 'technologies';
+    gsapManager.createContext(TECH_CONTEXT);
+
+    // Verificar reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      console.log('Reduced motion detected - simplified technologies animations');
+      return;
+    }
+
+    // Header animations con ScrollTrigger
+    const titleAnimation = gsap.fromTo('[data-tech-title]', 
       { 
         opacity: 0, 
         y: 50,
@@ -243,16 +250,20 @@ const technologies = [
         scale: 1,
         duration: 1.2, 
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#technologies',
-          start: 'top 80%',
-          end: 'top 20%',
-          toggleActions: 'play none none reverse'
-        }
+        paused: true
       }
     );
 
-    gsap.fromTo('[data-tech-subtitle]', 
+    gsapManager.createScrollTrigger(TECH_CONTEXT, {
+      trigger: '#technologies',
+      start: 'top 80%',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse',
+      onEnter: () => titleAnimation.play(),
+      onLeaveBack: () => titleAnimation.reverse()
+    });
+
+    const subtitleAnimation = gsap.fromTo('[data-tech-subtitle]', 
       { 
         opacity: 0, 
         y: 30 
@@ -263,17 +274,21 @@ const technologies = [
         duration: 1,
         delay: 0.3,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '#technologies',
-          start: 'top 80%',
-          end: 'top 20%',
-          toggleActions: 'play none none reverse'
-        }
+        paused: true
       }
     );
 
+    gsapManager.createScrollTrigger(TECH_CONTEXT, {
+      trigger: '#technologies',
+      start: 'top 80%',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse',
+      onEnter: () => subtitleAnimation.play(),
+      onLeaveBack: () => subtitleAnimation.reverse()
+    });
+
     // Technology items staggered animation
-    gsap.fromTo('[data-tech-item]', 
+    const itemsAnimation = gsap.fromTo('[data-tech-item]', 
       {
         opacity: 0,
         y: 30,
@@ -292,73 +307,84 @@ const technologies = [
           ease: "power2.out"
         },
         ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: '[data-tech-grid]',
-          start: 'top 85%',
-          end: 'bottom 15%',
-          toggleActions: 'play none none reverse'
-        }
+        paused: true
       }
     );
 
-    // Individual hover animations
+    gsapManager.createScrollTrigger(TECH_CONTEXT, {
+      trigger: '[data-tech-grid]',
+      start: 'top 85%',
+      end: 'bottom 15%',
+      toggleActions: 'play none none reverse',
+      onEnter: () => itemsAnimation.play(),
+      onLeaveBack: () => itemsAnimation.reverse()
+    });
+
+    // Individual hover animations usando GSAP Manager
     document.querySelectorAll('[data-tech-item]').forEach((item) => {
       const hexagon = item.querySelector('svg');
       const icon = item.querySelector('.relative.z-10');
       
-      item.addEventListener('mouseenter', () => {
-        gsap.to(hexagon, {
-          rotationZ: 180,
-          scale: 1.1,
-          duration: 0.6,
-          ease: 'power2.out'
-        });
-        
-        gsap.to(icon, {
-          rotationY: 360,
-          scale: 1.2,
-          duration: 0.8,
-          ease: 'power2.out'
-        });
+      gsapManager.registerEventListener(TECH_CONTEXT, item, 'mouseenter', () => {
+        const hoverTimeline = gsapManager.createTimeline(TECH_CONTEXT);
+        hoverTimeline
+          .to(hexagon, {
+            rotationZ: 180,
+            scale: 1.1,
+            duration: 0.6,
+            ease: 'power2.out'
+          }, 0)
+          .to(icon, {
+            rotationY: 360,
+            scale: 1.2,
+            duration: 0.8,
+            ease: 'power2.out'
+          }, 0);
       });
 
-      item.addEventListener('mouseleave', () => {
-        gsap.to(hexagon, {
-          rotationZ: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: 'power2.out'
-        });
-        
-        gsap.to(icon, {
-          rotationY: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: 'power2.out'
-        });
+      gsapManager.registerEventListener(TECH_CONTEXT, item, 'mouseleave', () => {
+        const leaveTimeline = gsapManager.createTimeline(TECH_CONTEXT);
+        leaveTimeline
+          .to(hexagon, {
+            rotationZ: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power2.out'
+          }, 0)
+          .to(icon, {
+            rotationY: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+          }, 0);
       });
     });
 
     // Floating background hexagons animation
-    gsap.to('#technologies .absolute.top-10', {
+    const bgTimeline1 = gsapManager.createTimeline(TECH_CONTEXT, { repeat: -1 });
+    bgTimeline1.to('#technologies .absolute.top-10', {
       rotationZ: 360,
       duration: 20,
-      repeat: -1,
       ease: 'none'
     });
 
-    gsap.to('#technologies .absolute.bottom-20', {
+    const bgTimeline2 = gsapManager.createTimeline(TECH_CONTEXT, { repeat: -1 });
+    bgTimeline2.to('#technologies .absolute.bottom-20', {
       rotationZ: -360,
       duration: 25,
-      repeat: -1,
       ease: 'none'
     });
 
-    gsap.to('#technologies .absolute.top-1\\/2', {
+    const bgTimeline3 = gsapManager.createTimeline(TECH_CONTEXT, { repeat: -1 });
+    bgTimeline3.to('#technologies .absolute.top-1\\/2', {
       rotationZ: 360,
       duration: 15,
-      repeat: -1,
       ease: 'none'
     });
+
+    // Debug info para desarrollo
+    if (import.meta.env?.DEV) {
+      console.log('Technologies GSAP context created:', gsapManager.getDebugInfo());
+    }
   });
 </script> 

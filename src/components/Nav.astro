@@ -1,51 +1,87 @@
-<nav>
+---
+// Nav.astro - Navegación principal refactorizada
+// Usa GSAP Manager y no interfiere con otros componentes
+---
+
+<nav class="navigation-container">
     <div class="logo">
-        <a href="#">BEMYTECH</a>
+        <a href="#" class="flex items-center space-x-3 group">
+            <!-- BEMYTECH Logo SVG -->
+            <div class="nav-logo w-6 h-7 relative">
+                <svg width="277" height="323" viewBox="0 0 277 323" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <!-- Top Hexagon -->
+                    <path 
+                        d="M235.792 64.6952C235.792 74.0125 236.024 83.3405 235.626 92.6405C235.528 94.8965 233.915 97.9712 232.044 99.1285C216.992 108.439 201.678 117.323 186.523 126.472C182.575 128.856 179.167 129.267 174.932 126.723C158.508 116.855 141.838 107.4 125.41 97.5378C123.762 96.5485 122.215 93.8512 122.192 91.9285C121.982 74.2098 122.115 56.4872 122.155 38.7672C122.164 34.3845 123.996 31.2592 127.918 28.9805C143.538 19.9005 159.071 10.6712 174.576 1.39383C177.774 -0.519506 180.516 -0.434175 183.723 1.47116C199.728 10.9778 215.798 20.3778 231.923 29.6778C234.836 31.3565 235.903 33.4565 235.847 36.7432C235.691 46.0592 235.792 55.3778 235.792 64.6952Z" 
+                        fill="#82C232" 
+                        class="nav-hex-1"
+                    />
+                    <!-- Right Hexagon -->
+                    <path 
+                        d="M275.186 175.136C275.221 175.136 275.257 175.136 275.292 175.136V165.719C275.257 165.719 275.221 165.719 275.186 165.719V175.136ZM209.214 166.713C209.177 166.737 209.141 166.76 209.105 166.783V202.52C209.141 202.52 209.177 202.52 209.214 202.52V166.713ZM208.037 184.068C208.037 178.245 208.09 172.421 208.001 166.6C207.978 165.099 208.401 164.181 209.72 163.416C219.986 157.467 230.226 151.471 240.449 145.444C241.588 144.772 242.489 144.773 243.629 145.439C254.009 151.501 264.408 157.535 274.833 163.52C276.013 164.197 276.357 165 276.352 166.308C276.302 178.031 276.289 189.755 276.349 201.477C276.358 203.316 275.788 204.408 274.133 205.36C264.05 211.161 254.026 217.064 244.024 223.004C242.765 223.752 241.856 223.683 240.64 222.971C230.334 216.932 220.005 210.936 209.649 204.985C208.392 204.264 207.989 203.408 208.006 202.001C208.076 196.024 208.036 190.045 208.037 184.068Z" 
+                        fill="#82C232" 
+                        class="nav-hex-2"
+                    />
+                    <!-- Left Large Hexagon -->
+                    <path 
+                        d="M2.59802 247.973C2.68335 247.973 2.76869 247.972 2.85402 247.972ZM0.0846877 204.581C0.0873544 190.888 0.211354 177.193 0.002021 163.502C-0.0513123 159.972 0.942021 157.814 4.04335 156.017C28.186 142.025 52.2674 127.926 76.3047 113.754C78.9847 112.173 81.1034 112.176 83.7847 113.743C108.195 127.999 132.649 142.185 157.163 156.261C159.938 157.853 160.746 159.742 160.734 162.816C160.619 190.385 160.587 217.954 160.727 245.523C160.749 249.845 159.407 252.413 155.518 254.651C131.807 268.293 108.233 282.174 84.7127 296.144C81.754 297.901 79.6127 297.741 76.754 296.065C52.5207 281.865 28.23 267.763 3.87669 253.772C0.919354 252.073 -0.025979 250.06 0.0126877 246.754C0.175354 232.698 0.082021 218.64 0.0846877 204.581Z" 
+                        fill="#82C232" 
+                        class="nav-hex-3"
+                    />
+                    <!-- Bottom Right Hexagon -->
+                    <path 
+                        d="M205.747 294.234C205.768 294.234 205.788 294.234 205.81 294.234V288.683C205.788 288.683 205.768 288.683 205.747 288.683V294.234ZM166.859 289.27C166.838 289.283 166.816 289.297 166.795 289.31V310.375C166.816 310.375 166.838 310.375 166.859 310.375V289.27ZM166.164 299.499C166.166 296.066 166.196 292.634 166.144 289.202C166.131 288.317 166.379 287.777 167.156 287.326C173.208 283.818 179.244 280.285 185.27 276.731C185.942 276.335 186.472 276.337 187.146 276.729C193.264 280.302 199.394 283.858 205.539 287.387C206.234 287.786 206.436 288.259 206.434 289.03C206.404 295.941 206.398 302.851 206.432 309.762C206.438 310.845 206.102 311.489 205.126 312.05C199.183 315.469 193.274 318.949 187.378 322.45C186.636 322.891 186.099 322.851 185.383 322.431C179.308 318.871 173.219 315.337 167.115 311.83C166.374 311.403 166.136 310.899 166.147 310.07C166.187 306.547 166.164 303.023 166.164 299.499Z" 
+                        fill="#82C232" 
+                        class="nav-hex-4"
+                    />
+                </svg>
+            </div>
+            <span class="bemytech-text">BEMYTECH</span>
+        </a>
     </div>
-    <div class="menu-toggle">
+    <div class="menu-toggle" data-menu-toggle>
         <p id="menu-open">Menu</p>
         <p id="menu-close">Close</p>
     </div>
 </nav>
 
-<div class="menu-overlay">
-    <div class="menu-content">
+<div class="menu-overlay" data-menu-overlay>
+    <div class="menu-content" data-menu-content>
         <div class="menu-items">
             <div class="col-lg">
-                <div class="menu-preview-img">
+                <div class="menu-preview-img" data-menu-preview>
                     <img src="/images/1.png" alt="previsualizar" />
                 </div>
             </div>
             <div class="col-sm">
                 <div class="menu-links">
                     <div class="link">
-                        <a href="#" data-img="/images/1.png">Home</a>
+                        <a href="#hero" data-img="/images/1.png">Home</a>
                     </div>
                     <div class="link">
-                        <a href="#" data-img="/images/2.png">About</a>
+                        <a href="#services" data-img="/images/2.png">Nosotros</a>
                     </div>
                     <div class="link">
-                        <a href="#" data-img="/images/3.png">Services</a>
+                        <a href="#portfolio" data-img="/images/3.png">Servicios</a>
                     </div>
                     <div class="link">
-                        <a href="#" data-img="/images/4.png">Portfolio</a>
+                        <a href="#technologies" data-img="/images/4.png">Portafolio</a>
                     </div>
                     <div class="link">
-                        <a href="#" data-img="/images/5.png">Contact</a>
+                        <a href="#contact" data-img="/images/5.png">Contacto</a>
                     </div>
                 </div>
                 <div class="menu-socials">
                     <div class="social">
-                        <a href="#">Facebook</a>
+                        <a href="https://www.facebook.com/share/1E6X5ATCPK/?mibextid=wwXIfr">Facebook</a>
                     </div>
                     <div class="social">
-                        <a href="#">Whatsapp</a>
+                        <a href="https://wa.me/+573114302256?text=Bybemytech%20Company">Whatsapp</a>
                     </div>
                     <div class="social">
-                        <a href="#">LinkeIn</a>
+                        <a href="https://www.linkedin.com/company/bemytech-company">LinkedIn</a>
                     </div>
                     <div class="social">
-                        <a href="#">Instagram</a>
+                        <a href="https://bemytech.io/privacy-policy">Politicas de Privacidad</a>
                     </div>
                 </div>
             </div>
@@ -62,52 +98,69 @@
     </div>
 </div>
 
-<div class="container-main">
-    <slot />
-</div>
+<!-- Contenedor independiente para el efecto blur -->
+<div class="page-blur-overlay" data-page-blur></div>
+
 <script>
-    import gsap from "gsap";
+import { gsapManager, gsap } from '../utils/gsapManager';
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const container = document.querySelector(".container-main");
-        const menuToggle = document.querySelector(".menu-toggle");
-        const menuOverlay = document.querySelector(".menu-overlay");
-        const menuContent = document.querySelector(".menu-content");
-        const menuPreviewImg = document.querySelector(".menu-preview-img");
-        const menuLinks = document.querySelectorAll(".link a");
+document.addEventListener("DOMContentLoaded", () => {
+    // Crear contexto para navegación
+    const NAV_CONTEXT = 'navigation';
+    gsapManager.createContext(NAV_CONTEXT);
 
-        let isOpen = false;
-        let isAnimating = false;
+    // Verificar reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        console.log('Reduced motion detected - simplified navigation');
+        return;
+    }
 
-        menuToggle?.addEventListener("click", () => {
-            if (!isOpen) openMenu();
-            else closeMenu();
-        });
+    // Elementos del DOM
+    const menuToggle = document.querySelector("[data-menu-toggle]") as HTMLElement;
+    const menuOverlay = document.querySelector("[data-menu-overlay]") as HTMLElement;
+    const menuContent = document.querySelector("[data-menu-content]") as HTMLElement;
+    const menuPreviewImg = document.querySelector("[data-menu-preview]") as HTMLElement;
+    const menuLinks = document.querySelectorAll(".link a");
+    const pageBlur = document.querySelector("[data-page-blur]") as HTMLElement;
 
-        function cleanupPreviewImages() {
-            const previewImages = menuPreviewImg!.querySelectorAll("img");
-            if (previewImages.length > 1) {
-                for (let i = 0; i < previewImages.length - 1; i++) {
-                    menuPreviewImg?.removeChild(previewImages[i]);
-                }
+    if (!menuToggle || !menuOverlay || !menuContent || !menuPreviewImg || !pageBlur) {
+        console.warn('Navigation elements not found');
+        return;
+    }
+
+    let isOpen = false;
+    let isAnimating = false;
+
+    // Función para limpiar imágenes de preview
+    function cleanupPreviewImages() {
+        const previewImages = menuPreviewImg.querySelectorAll("img");
+        if (previewImages.length > 1) {
+            for (let i = 0; i < previewImages.length - 1; i++) {
+                menuPreviewImg.removeChild(previewImages[i]);
             }
         }
+    }
 
-        function resetPreviewImage() {
-            menuPreviewImg!.innerHTML = "";
-            const defaultPreviewImg = document.createElement("img");
-            defaultPreviewImg.src = "/images/1.png";
-            defaultPreviewImg.style.height = "100%";
-            defaultPreviewImg.style.width = "100%";
-            defaultPreviewImg.style.objectFit = "cover";
-            menuPreviewImg?.appendChild(defaultPreviewImg);
-        }
+    // Función para resetear imagen de preview
+    function resetPreviewImage() {
+        menuPreviewImg.innerHTML = "";
+        const defaultPreviewImg = document.createElement("img");
+        defaultPreviewImg.src = "/images/1.png";
+        defaultPreviewImg.style.height = "100%";
+        defaultPreviewImg.style.width = "100%";
+        defaultPreviewImg.style.objectFit = "cover";
+        menuPreviewImg.appendChild(defaultPreviewImg);
+    }
 
-        function animateMenuToggle(isOpening: boolean) {
-            const open = document.querySelector("p#menu-open");
-            const close = document.querySelector("p#menu-close");
+    // Animación del toggle del menú
+    function animateMenuToggle(isOpening: boolean) {
+        const open = document.querySelector("p#menu-open");
+        const close = document.querySelector("p#menu-close");
 
-            gsap.to(isOpening ? open : close, {
+        const toggleTimeline = gsapManager.createTimeline(NAV_CONTEXT);
+        
+        toggleTimeline
+            .to(isOpening ? open : close, {
                 x: isOpening ? -5 : 5,
                 y: isOpening ? -10 : 10,
                 rotation: isOpening ? -5 : 5,
@@ -115,9 +168,8 @@
                 delay: 0.25,
                 duration: 0.5,
                 ease: "power2.out",
-            });
-
-            gsap.to(isOpening ? close : open, {
+            })
+            .to(isOpening ? close : open, {
                 x: 0,
                 y: 0,
                 rotation: 0,
@@ -125,26 +177,31 @@
                 delay: 0.5,
                 duration: 0.5,
                 ease: "power2.out",
-            });
-        }
+            }, 0);
+    }
 
-        function openMenu() {
-            if (isAnimating || isOpen) return;
-            isAnimating = true;
+    // Abrir menú
+    function openMenu() {
+        if (isAnimating || isOpen) return;
+        isAnimating = true;
 
-            gsap.to(container, {
-                rotation: 10,
-                x: 300,
-                y: 450,
-                scale: 1.5,
-                transformOrigin: "100% 0%",
+        const openTimeline = gsapManager.createTimeline(NAV_CONTEXT, {
+            onComplete: () => {
+                isOpen = true;
+                isAnimating = false;
+            }
+        });
+
+        // Efecto blur en la página usando overlay independiente
+        openTimeline
+            .set(pageBlur, { display: 'block' })
+            .to(pageBlur, {
+                opacity: 1,
+                backdropFilter: 'blur(10px)',
                 duration: 1.25,
                 ease: "power4.inOut",
-            });
-
-            animateMenuToggle(true);
-
-            gsap.to(menuContent, {
+            }, 0)
+            .to(menuContent, {
                 rotation: 0,
                 x: 0,
                 y: 0,
@@ -152,45 +209,48 @@
                 opacity: 1,
                 duration: 1.25,
                 ease: "power4.inOut",
-            });
-
-            gsap.to([".link a", ".social a"], {
+            }, 0)
+            .to([".link a", ".social a"], {
                 y: "0%",
                 opacity: 1,
                 duration: 1,
                 delay: 0.75,
                 stagger: 0.1,
                 ease: "power3.out",
-            });
-
-            gsap.to(menuOverlay, {
+            }, 0)
+            .to(menuOverlay, {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)",
                 duration: 1.25,
                 ease: "power4.inOut",
-                onComplete: () => {
-                    isOpen = true;
-                    isAnimating = false;
-                },
-            });
-        }
+            }, 0);
 
-        function closeMenu() {
-            if (isAnimating || !isOpen) return;
-            isAnimating = true;
+        animateMenuToggle(true);
+    }
 
-            gsap.to(container, {
-                rotation: 0,
-                x: 0,
-                y: 0,
-                scale: 1,
-                transformOrigin: "100% 0%",
+    // Cerrar menú
+    function closeMenu() {
+        if (isAnimating || !isOpen) return;
+        isAnimating = true;
+
+        const closeTimeline = gsapManager.createTimeline(NAV_CONTEXT, {
+            onComplete: () => {
+                isOpen = false;
+                isAnimating = false;
+                gsap.set([".link a", ".social a"], { y: "120%" });
+                resetPreviewImage();
+                gsap.set(pageBlur, { display: 'none' });
+            }
+        });
+
+        // Remover efecto blur
+        closeTimeline
+            .to(pageBlur, {
+                opacity: 0,
+                backdropFilter: 'blur(0px)',
                 duration: 1.25,
                 ease: "power4.inOut",
-            });
-
-            animateMenuToggle(false);
-
-            gsap.to(menuContent, {
+            }, 0)
+            .to(menuContent, {
                 rotation: -15,
                 x: -100,
                 y: -100,
@@ -198,62 +258,105 @@
                 opacity: 0.25,
                 duration: 1.25,
                 ease: "power4.inOut",
-            });
-
-            gsap.to(menuOverlay, {
+            }, 0)
+            .to(menuOverlay, {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
                 duration: 1.25,
                 ease: "power4.inOut",
-                onComplete: () => {
-                    isOpen = false;
-                    isAnimating = false;
-                    gsap.set([".link a", ".social a"], {
-                        y: "120%",
-                    });
-                    resetPreviewImage();
-                },
-            });
-        }
+            }, 0);
 
-        menuLinks?.forEach((link) => {
-            link.addEventListener("mouseover", () => {
-                if (!isOpen || isAnimating) return;
+        animateMenuToggle(false);
+    }
 
-                const imgSrc = link.getAttribute("data-img");
+    // Event listener para el toggle del menú
+    gsapManager.registerEventListener(NAV_CONTEXT, menuToggle, 'click', () => {
+        if (!isOpen) openMenu();
+        else closeMenu();
+    });
 
-                if (!imgSrc) return;
+    // Event listeners para las imágenes de preview
+    menuLinks.forEach((link) => {
+        gsapManager.registerEventListener(NAV_CONTEXT, link, 'mouseover', () => {
+            if (!isOpen || isAnimating) return;
 
-                const previewImages = menuPreviewImg?.querySelectorAll("img");
+            const imgSrc = link.getAttribute("data-img");
+            if (!imgSrc) return;
 
-                if (
-                    previewImages!.length > 0 &&
-                    previewImages![previewImages!.length - 1].src.endsWith(imgSrc)
-                )
-                    return;
+            const previewImages = menuPreviewImg.querySelectorAll("img");
 
-                const newPreviewImg = document.createElement("img");
-                newPreviewImg.src = imgSrc;
-                newPreviewImg.style.opacity = "0";
-                newPreviewImg.style.transform = "scale(1.25) rotate(10deg)";
-                newPreviewImg.style.height = "100%";
-                newPreviewImg.style.width = "100%";
-                newPreviewImg.style.objectFit = "cover";
+            if (
+                previewImages.length > 0 &&
+                previewImages[previewImages.length - 1].src.endsWith(imgSrc)
+            )
+                return;
 
-                menuPreviewImg?.appendChild(newPreviewImg);
-                cleanupPreviewImages();
+            const newPreviewImg = document.createElement("img");
+            newPreviewImg.src = imgSrc;
+            newPreviewImg.style.opacity = "0";
+            newPreviewImg.style.transform = "scale(1.25) rotate(10deg)";
+            newPreviewImg.style.height = "100%";
+            newPreviewImg.style.width = "100%";
+            newPreviewImg.style.objectFit = "cover";
 
-                gsap.to(newPreviewImg, {
-                    opacity: 1,
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.75,
-                    ease: "power2.out",
-                });
+            menuPreviewImg.appendChild(newPreviewImg);
+            cleanupPreviewImages();
+
+            const previewTimeline = gsapManager.createTimeline(NAV_CONTEXT);
+            previewTimeline.to(newPreviewImg, {
+                opacity: 1,
+                scale: 1,
+                rotation: 0,
+                duration: 0.75,
+                ease: "power2.out",
             });
         });
+
+        // Smooth scroll para los links
+        gsapManager.registerEventListener(NAV_CONTEXT, link, 'click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) {
+                    // Cerrar menú primero
+                    if (isOpen) closeMenu();
+                    
+                    // Scroll suave al target
+                    setTimeout(() => {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, isOpen ? 1300 : 0); // Esperar a que se cierre el menú
+                }
+            }
+        });
     });
+
+    // Cerrar menú con Escape
+    gsapManager.registerEventListener(NAV_CONTEXT, document, 'keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Escape' && isOpen) {
+            closeMenu();
+        }
+    });
+
+    // Debug info (solo en desarrollo)
+    if (import.meta.env.DEV) {
+        console.log('Nav GSAP context created:', gsapManager.getDebugInfo());
+    }
+});
 </script>
+
 <style>
+    /* Variables CSS para consistency */
+    :root {
+        --nav-primary-color: #fff;
+        --nav-accent-color: #8BC53F;
+        --nav-bg-color: #0f0f0f;
+        --nav-transition: all 0.3s ease;
+    }
+
     img {
         width: 100%;
         height: 100%;
@@ -261,7 +364,7 @@
     }
 
     h1 {
-        color: #fff;
+        color: var(--nav-primary-color);
         font-size: 7rem;
         font-weight: 400;
         letter-spacing: -0.2rem;
@@ -272,13 +375,13 @@
     p {
         position: relative;
         text-decoration: none;
-        color: #fff;
+        color: var(--nav-primary-color);
         font-size: 1rem;
         font-weight: 300;
         user-select: none;
     }
 
-    nav {
+    .navigation-container {
         position: fixed;
         width: 100vw;
         padding: 2.5rem;
@@ -286,10 +389,69 @@
         justify-content: space-between;
         align-items: center;
         z-index: 1000;
+        pointer-events: none;
+    }
+
+    .navigation-container > * {
+        pointer-events: auto;
     }
 
     .logo a {
         font-weight: 600;
+        transition: var(--nav-transition);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem; /* space-x-3 */
+    }
+
+    .logo a:hover {
+        color: var(--nav-accent-color);
+    }
+
+    /* Logo animations */
+    .nav-logo {
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+    }
+
+    .nav-logo:hover {
+        transform: scale(1.1) translateZ(0);
+    }
+
+    .nav-hex-1, .nav-hex-2, .nav-hex-3, .nav-hex-4 {
+        transition: all 0.3s ease;
+        transform-origin: center;
+    }
+
+    .group:hover .nav-hex-1 {
+        transform: scale(1.05) rotate(2deg);
+        filter: drop-shadow(0 0 8px #82C232);
+    }
+
+    .group:hover .nav-hex-2 {
+        transform: scale(1.03) rotate(-1deg);
+        filter: drop-shadow(0 0 6px #82C232);
+        animation-delay: 0.1s;
+    }
+
+    .group:hover .nav-hex-3 {
+        transform: scale(1.02) rotate(1deg);
+        filter: drop-shadow(0 0 10px #82C232);
+        animation-delay: 0.2s;
+    }
+
+    .group:hover .nav-hex-4 {
+        transform: scale(1.04) rotate(-2deg);
+        filter: drop-shadow(0 0 7px #82C232);
+        animation-delay: 0.3s;
+    }
+
+    .bemytech-text {
+        transition: color 0.3s ease;
+    }
+
+    .group:hover .bemytech-text {
+        color: var(--nav-accent-color);
     }
 
     .menu-toggle {
@@ -297,24 +459,43 @@
         width: 3rem;
         height: 1.5rem;
         cursor: pointer;
+        transition: var(--nav-transition);
+    }
+
+    .menu-toggle:hover {
+        transform: scale(1.05);
     }
 
     .menu-toggle p {
         position: absolute;
         transform-origin: top left;
         will-change: transform, opacity;
+        transition: var(--nav-transition);
+    }
+
+    /* Page blur overlay - independiente del layout principal */
+    .page-blur-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(0px);
+        opacity: 0;
+        z-index: 400;
+        pointer-events: none;
+        display: none;
+        will-change: backdrop-filter, opacity;
     }
 
     .menu-overlay {
         position: fixed;
         width: 100vw;
         height: 100svh;
-        background-color: #0f0f0f;
-        /* background-image: url("/images/bg.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat; */
+        background-color: var(--nav-bg-color);
         z-index: 500;
+        will-change: clip-path;
     }
 
     .menu-content {
@@ -355,6 +536,7 @@
         width: 45%;
         height: 100%;
         overflow: hidden;
+        border-radius: 1rem;
     }
 
     .menu-preview-img img {
@@ -380,26 +562,34 @@
     .social {
         padding-bottom: 6px;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        overflow: hidden;
     }
 
     .link a,
     .social a {
         display: inline-block;
         will-change: transform;
-        transition: color 0.5s;
+        transition: var(--nav-transition);
     }
 
     .link a {
         font-size: 3.5rem;
-        line-height: -0.02rem;
+        line-height: 1;
+    }
+
+    .link a:hover {
+        color: var(--nav-accent-color);
+        transform: translateX(10px);
     }
 
     .social a {
         color: #8f8f8f;
+        transition: var(--nav-transition);
     }
 
     .social a:hover {
-        color: #fff;
+        color: var(--nav-accent-color);
+        transform: translateX(5px);
     }
 
     .menu-footer {
@@ -412,6 +602,14 @@
         justify-content: space-between;
     }
 
+    .menu-footer a {
+        transition: var(--nav-transition);
+    }
+
+    .menu-footer a:hover {
+        color: var(--nav-accent-color);
+    }
+
     .link a::after,
     .social a::after,
     .menu-footer a::after {
@@ -421,7 +619,7 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background: #fff;
+        background: var(--nav-accent-color);
         transform: scaleX(0);
         transform-origin: right;
         transition: transform 0.3s cubic-bezier(0.6, 0, 0.4, 1);
@@ -434,35 +632,7 @@
         transform-origin: left;
     }
 
-    .container-main {
-/* 
-        will-change: transform;
-        transform-origin: right top; */
-    }
-
-    .hero {
-        position: relative;
-        width: 100vw;
-        height: 100svh;
-        padding: 2.5rem;
-        display: flex;
-        align-items: flex-end;
-        overflow: hidden;
-    }
-
-    .hero-img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100svh;
-        z-index: -1;
-    }
-
-    .hero h1 {
-        width: 80%;
-    }
-
+    /* Estados iniciales */
     .menu-toggle p#menu-close {
         opacity: 0;
         transform: translateX(-5px) translateY(10px) rotate(5deg);
@@ -475,8 +645,7 @@
     }
 
     .menu-content {
-        transform: translateX(-100px) translateY(-100px) scale(1.5)
-            rotate(-15deg);
+        transform: translateX(-100px) translateY(-100px) scale(1.5) rotate(-15deg);
         opacity: 0.25;
     }
 
@@ -484,11 +653,14 @@
         clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
     }
 
+    /* Responsive design */
     @media (max-width: 900px) {
-        .hero h1 {
-            width: 100%;
-            font-size: 4rem;
-            letter-spacing: 0;
+        .navigation-container {
+            padding: 2rem;
+        }
+
+        .link a {
+            font-size: 2.5rem;
         }
 
         .menu-items .col-lg {
@@ -500,5 +672,37 @@
         .menu-footer a::after {
             display: none;
         }
+
+        .menu-items,
+        .menu-footer {
+            padding: 2rem;
+        }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        .menu-toggle:hover,
+        .link a:hover,
+        .social a:hover {
+            transform: none !important;
+        }
+    }
+
+    /* Performance optimizations */
+    .menu-toggle,
+    .menu-overlay,
+    .menu-content,
+    .page-blur-overlay,
+    .menu-preview-img img,
+    .link a,
+    .social a {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transform: translateZ(0);
     }
 </style>

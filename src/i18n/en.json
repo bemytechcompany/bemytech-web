@@ -168,6 +168,41 @@
       "hours": "Monday - Friday: 9:00 - 18:00"
     }
   },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "Information about how we collect, use and protect your personal information",
+    "lastUpdated": "Last updated",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "At BEMYTECH we value your privacy and are committed to protecting your personal information. This policy describes how we collect, use and protect the information you provide to us."
+      },
+      "dataCollection": {
+        "title": "Information Collection",
+        "content": "We collect information that you provide to us directly, such as your name, email address and messages when you contact us through our contact forms."
+      },
+      "dataUse": {
+        "title": "Use of Information",
+        "content": "We use your information to respond to your inquiries, provide you with our services and improve our products and services."
+      },
+      "dataSharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell, rent or share your personal information with third parties without your explicit consent, except when required by law."
+      },
+      "dataSecurity": {
+        "title": "Data Security",
+        "content": "We implement technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure or destruction."
+      },
+      "userRights": {
+        "title": "Your Rights",
+        "content": "You have the right to access, rectify, update or request deletion of your personal information. To exercise these rights, contact us."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have questions about this privacy policy, you can contact us through our communication channels."
+      }
+    }
+  },
   "footer": {
     "company": "BEMYTECH",
     "description": "Innovative technology solutions for your business growth",

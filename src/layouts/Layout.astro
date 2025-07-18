@@ -1,9 +1,8 @@
 ---
-// Layout.astro - Main layout component for BEMYTECH landing page
+// Layout.astro - Global layout component
 // Includes GSAP setup, i18n configuration, SEO meta tags, and global styles
 
 import { getTranslationsForSSR, getCurrentLanguage, getLanguageClass } from '../utils/i18n';
-import Navbar from '../components/Navbar.astro';
 import Nav from '../components/Nav.astro';
 import '../styles/globals.css';
 
@@ -111,12 +110,14 @@ const languageClass = getLanguageClass(lang);
   <body class="font-sans text-base leading-relaxed text-white bg-[#0d0d0d] bg-[url('/images/bg.png')] bg-cover bg-no-repeat bg-center bg-fixed overflow-x-hidden antialiased">
 
     <!-- Navigation -->
-    <!-- <Navbar t={t} currentLang={currentLang} /> -->
-    <Nav>
+    <Nav />
+    
+    <!-- Main Content Container -->
+    <div class="container-main">
       <main id="main-content">
         <slot />
-        </main>
-    </Nav>
+      </main>
+    </div>
 
     
 
