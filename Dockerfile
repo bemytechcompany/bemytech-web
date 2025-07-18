@@ -29,5 +29,5 @@ COPY --from=builder /app/dist ./dist
 # Exponer el puerto
 EXPOSE 4321
 
-# Comando para iniciar el servidor
-CMD ["serve", "-s", "dist", "-l", "4321"] 
+# Comando para iniciar el servidor (sin -s para servir archivos estáticos correctamente)
+CMD ["serve", "dist", "-l", "4321"] 
