@@ -1,0 +1,60 @@
+---
+alwaysApply: true
+---
+
+# Proyecto: Landing Page Corporativa con Animaciones Avanzadas
+
+1. La landing está construida en Astro, usando:
+   - GSAP para todas las animaciones.
+   - Three.js para objetos 3D.
+   - Tailwind Css para todos los estilos.
+   - Internacionalización (i18n) para Español e Inglés.
+   - Estructura basada en componentes reutilizables.
+
+2. El diseño está centrado en UX/UI moderno:
+   - Animaciones suaves, creativas, con scroll trigger y parallax.
+   - Transiciones entre secciones con sinergia visual.
+   - La forma base de la identidad es el **hexágono**, debe estar presente en múltiples elementos.
+   - Existe un "companion" animado (objeto 3D o visual) que recorre el sitio.
+
+3. Toda la programación debe seguir buenas prácticas:
+   - Código limpio, comentado, modular y escalable.
+   - Separar cada sección en componentes dentro de `/src/components`.
+   - Programación en inglés, pero contenido fácil de traducir con archivos `.json` para cada idioma.
+
+4. Las animaciones deben usar GSAP de forma avanzada:
+   - ScrollTrigger, timelines, motionPath, stagger, etc.
+   - Expansión de imágenes, transiciones suaves, interacción por hover, reveals.
+
+5. En el portafolio se usará scroll horizontal con GSAP.
+   - Incluir modelos 3D hechos en Blender (formato GLTF).
+   - Los elementos deben tener interactividad visual y de contenido.
+
+6. El cursor debe ser personalizado:
+   - Forma base: círculo o hexágono con glow.
+   - Reacciona al hover, click y zonas interactivas (agrandarse, cambiar forma, mostrar texto como “Click” o “View”).
+   - Debe seguir suavemente al puntero (con GSAP).
+
+7. Todo lo visual debe sentirse moderno, con una atmósfera futurista-tecnológica, sin sobrecargar al usuario.
+
+8. Las decisiones de diseño y código deben pensar en rendimiento, accesibilidad y mantenibilidad.
+
+9. Para animaciones y lógica de interfaz, usar únicamente GSAP (no Framer ni Anime.js).
+10. La estructura base del sitio debe tener:
+    - `/components`
+    - `/layouts`
+    - `/pages`
+    - `/i18n`
+    - `/styles`
+    - `/utils`
+11. All content, code, and structure must follow SEO best practices to ensure the landing page ranks high on search engines:
+
+   - Use semantic HTML (`<section>`, `<article>`, `<header>`, `<footer>`, etc.).
+   - Each page/section must include a unique, descriptive `<title>`, `<meta description>`, and relevant Open Graph tags when needed.
+   - Headings must be hierarchical (`<h1>` once, followed by `<h2>`, `<h3>`, etc.).
+   - Images must include descriptive `alt` attributes.
+   - Use clean, readable URLs and meaningful component names.
+   - Optimize performance (lazy loading of assets, compressed images).
+   - Add structured data (JSON-LD) for important content like services, projects, or business info.
+   - Ensure the site is accessible (ARIA labels where needed).
+   - Prefer static content for crawlability unless dynamic content is hydrated properly.

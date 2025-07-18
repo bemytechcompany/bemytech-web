@@ -1,0 +1,387 @@
+---
+// HexagonTransition.astro - Multiple hexagons transition component
+---
+
+<div
+  id="hexagon-transition"
+  class="fixed inset-0 z-50 pointer-events-none"
+  data-hexagon-container
+  style="opacity: 0; transform: scale(0)"
+>
+  <!-- Multiple Hexagons -->
+  <div class="absolute inset-0" data-hexagons-group>
+    <!-- Hexagon 1 - Top Left -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="1"
+      style="top: 20%; left: 20%; transform: translate(-50%, -50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-black via-green-900 to-emerald-700"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-blue-400/60 via-purple-400/60 to-cyan-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexagon 2 - Top Right -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="2"
+      style="top: 25%; right: 20%; transform: translate(50%, -50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-purple-400/60 via-pink-400/60 to-blue-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexagon 3 - Middle Left -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="3"
+      style="top: 50%; left: 15%; transform: translate(-50%, -50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-cyan-400/60 via-teal-400/60 to-blue-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexagon 4 - Middle Right -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="4"
+      style="top: 45%; right: 15%; transform: translate(50%, -50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-pink-500 via-rose-500 to-purple-500"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-pink-400/60 via-rose-400/60 to-purple-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexagon 5 - Bottom Left -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="5"
+      style="bottom: 25%; left: 25%; transform: translate(-50%, 50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-teal-500 via-emerald-500 to-cyan-500"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-teal-400/60 via-emerald-400/60 to-cyan-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexagon 6 - Bottom Right -->
+    <div
+      class="absolute w-16 h-16 hexagon-item"
+      data-hexagon-item="6"
+      style="bottom: 20%; right: 25%; transform: translate(50%, 50%)"
+    >
+      <div class="hexagon-shape relative w-full h-full">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-500"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+          data-hexagon-body
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-violet-400/60 via-indigo-400/60 to-purple-400/60"
+          style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(4px); transform: scale(1.3);"
+          data-hexagon-glow
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Central Unified Hexagon -->
+  <div
+    class="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2"
+    data-unified-hexagon
+    style="opacity: 0; transform: scale(0)"
+  >
+    <div class="hexagon-shape relative w-full h-full">
+      <!-- Main unified hexagon body -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black via-green-900 to-emerald-700"
+        style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+        data-unified-body
+      >
+      </div>
+
+      <!-- Enhanced glow layers -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-green-700/80 via-emerald-700/80 to-black/80"
+        style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(6px); transform: scale(1.4);"
+        data-unified-glow-1
+      >
+      </div>
+
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-blue-300/40 via-purple-300/40 to-cyan-300/40"
+        style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(12px); transform: scale(1.8);"
+        data-unified-glow-2
+      >
+      </div>
+
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-blue-200/20 via-purple-200/20 to-cyan-200/20"
+        style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); filter: blur(24px); transform: scale(2.5);"
+        data-unified-glow-3
+      >
+      </div>
+
+      <!-- Inner highlight -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-transparent via-white/30 to-white/10"
+        style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"
+        data-unified-highlight
+      >
+      </div>
+    </div>
+
+    <!-- Floating particles -->
+    <div class="absolute inset-0 pointer-events-none" data-unified-particles>
+      {
+        [...Array(8)].map((_, i) => (
+          <div
+            class="absolute w-1 h-1 bg-emerald-400 rounded-full opacity-80"
+            style={`top: ${15 + i * 8}%; left: ${10 + i * 10}%; animation: float ${1.5 + i * 0.2}s ease-in-out infinite alternate;`}
+            data-unified-particle={i}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Masked services reveal clone -->
+  <div
+    class="absolute inset-0 z-[60] pointer-events-none transition-all"
+    data-services-mask
+    style="clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%); opacity: 0;"
+  >
+    <div
+      class="w-full h-full flex items-center justify-center text-white text-3xl font-bold"
+    >
+      <div class="text-center max-w-2xl px-6">
+        <p class="text-emerald-400 text-sm uppercase tracking-widest mb-2">
+          Nuestros Servicios
+        </p>
+        <h2 class="text-white text-4xl font-bold mb-4">
+          Soluciones a tu medida
+        </h2>
+        <p class="text-gray-300 text-lg">
+          Diseñamos, desarrollamos e implementamos soluciones tecnológicas
+          personalizadas para empresas y startups.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full screen overlay -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-black/95 via-green-900/90 to-emerald-800/90"
+    style="clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%); opacity: 0;"
+    data-hexagon-overlay
+  >
+  </div>
+</div>
+
+<style>
+  #hexagon-transition {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hexagon-shape {
+    will-change: transform, filter;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hexagon-item {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-15px, -15px) rotate(15deg);
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes hexagon-pulse {
+    0%,
+    100% {
+      filter: blur(4px) brightness(1);
+    }
+    50% {
+      filter: blur(8px) brightness(1.3);
+    }
+  }
+
+  [data-unified-glow-1] {
+    animation: hexagon-pulse 2s ease-in-out infinite;
+  }
+
+  [data-unified-glow-2] {
+    animation: hexagon-pulse 2.5s ease-in-out infinite reverse;
+  }
+
+  [data-unified-glow-3] {
+    animation: hexagon-pulse 3s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px) {
+    .hexagon-item {
+      width: 3rem;
+      height: 3rem;
+    }
+    [data-unified-hexagon] {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hexagon-item {
+      width: 5rem;
+      height: 5rem;
+    }
+    [data-unified-hexagon] {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+  [data-hexagon-body],
+  [data-hexagon-glow],
+  [data-unified-body],
+  [data-unified-glow-1],
+  [data-unified-glow-2],
+  [data-unified-glow-3],
+  [data-unified-highlight],
+  [data-hexagon-overlay] {
+    will-change: transform, filter, opacity, clip-path;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-unified-glow-1],
+    [data-unified-glow-2],
+    [data-unified-glow-3] {
+      animation: none !important;
+    }
+    [data-unified-particle] {
+      animation: none !important;
+    }
+    * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { initHexagonTransition } from "../utils/hexagonTransition";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initHexagonTransition({
+      heroSelector: "#hero",
+      servicesSelector: "#services",
+      hexagonSelector: "#hexagon-transition",
+    }).catch((error) => {
+      console.warn("Hexagon transition initialization failed:", error);
+    });
+
+    const hexagonContainer = document.getElementById("hexagon-transition");
+    if (hexagonContainer) {
+      hexagonContainer.style.opacity = "0";
+      hexagonContainer.style.transform = "scale(0)";
+      hexagonContainer.style.pointerEvents = "none";
+    }
+
+    const hexagonItems = document.querySelectorAll("[data-hexagon-item]");
+    hexagonItems.forEach((hexagon) => {
+      const randomRotation = Math.random() * 360;
+      (hexagon as HTMLElement).style.transform +=
+        `rotate(${randomRotation}deg)`;
+      (hexagon as HTMLElement).style.opacity = "0";
+      (hexagon as HTMLElement).style.scale = "0";
+    });
+
+    const unifiedHexagon = document.querySelector("[data-unified-hexagon]");
+    if (unifiedHexagon) {
+      (unifiedHexagon as HTMLElement).style.opacity = "0";
+      (unifiedHexagon as HTMLElement).style.transform =
+        "translate(-50%, -50%) scale(0)";
+    }
+
+    const particles = document.querySelectorAll("[data-unified-particle]");
+    particles.forEach((particle) => {
+      const randomX = Math.random() * 80 + 10;
+      const randomY = Math.random() * 80 + 10;
+      const randomDelay = Math.random() * 2;
+
+      (particle as HTMLElement).style.left = `${randomX}%`;
+      (particle as HTMLElement).style.top = `${randomY}%`;
+      (particle as HTMLElement).style.animationDelay = `${randomDelay}s`;
+    });
+  });
+</script>

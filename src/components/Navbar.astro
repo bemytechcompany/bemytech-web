@@ -1,0 +1,400 @@
+---
+// Navbar.astro - Modern navigation component with hexagonal design
+// Includes language switcher, smooth animations, and responsive design
+
+interface Props {
+  t: (key: string) => string;
+  currentLang: 'es' | 'en';
+}
+
+const { t, currentLang } = Astro.props;
+
+// Navigation items
+const navItems = [
+  { key: 'home', href: '#hero' },
+  { key: 'services', href: '#services' },
+  { key: 'portfolio', href: '#portfolio' },
+  { key: 'testimonials', href: '#testimonials' },
+  { key: 'contact', href: '#contact' }
+];
+
+// Language options
+const languages = [
+  { code: 'es', name: 'ES', flag: '🇪🇸' },
+  { code: 'en', name: 'EN', flag: '🇺🇸' }
+];
+---
+
+<nav 
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-accent/20 transition-all duration-300"
+  data-navbar
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a 
+          href="#hero" 
+          class="flex items-center space-x-3 text-white hover:text-accent transition-colors duration-300"
+          aria-label="BEMYTECH Home"
+        >
+          <!-- Hexagonal Logo -->
+          <div class="w-10 h-10 lg:w-12 lg:h-12 relative">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#8BC53F;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
+                </linearGradient>
+                <filter id="logoGlow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <polygon 
+                points="50,5 90,25 90,75 50,95 10,75 10,25" 
+                fill="url(#logoGradient)" 
+                stroke="#8BC53F" 
+                stroke-width="2"
+                filter="url(#logoGlow)"
+                class="animate-pulse"
+              />
+              <text 
+                x="50" 
+                y="55" 
+                text-anchor="middle" 
+                fill="white" 
+                font-size="20" 
+                font-weight="bold"
+                class="font-mono"
+              >B</text>
+            </svg>
+          </div>
+          
+          <!-- Brand Name -->
+          <div class="hidden sm:block">
+            <span class="text-xl lg:text-2xl font-bold text-white">BEMYTECH</span>
+            <div class="text-xs text-accent font-medium">Tech Solutions</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="nav-link relative text-white/80 hover:text-accent font-medium transition-all duration-300 py-2 px-3 group"
+            data-nav-link={item.key}
+          >
+            {t(`nav.${item.key}`)}
+            
+            <!-- Hover underline effect -->
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+            
+            <!-- Hexagonal hover indicator -->
+            <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-2 h-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <svg viewBox="0 0 10 10" class="w-full h-full text-accent fill-current">
+                <polygon points="5,0.5 8.5,2.5 8.5,7.5 5,9.5 1.5,7.5 1.5,2.5" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Language Switcher & Mobile Menu -->
+      <div class="flex items-center space-x-4">
+        
+        <!-- Language Switcher -->
+        <div class="relative language-switcher">
+          <button
+            class="flex items-center space-x-2 text-white/80 hover:text-accent font-medium transition-colors duration-300 py-2 px-3 rounded-lg border border-accent/20 hover:border-accent/40 backdrop-blur-sm"
+            data-language-toggle
+          >
+            <span class="text-sm">{languages.find(lang => lang.code === currentLang)?.flag}</span>
+            <span class="hidden sm:inline text-sm font-semibold">{currentLang.toUpperCase()}</span>
+            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          
+          <!-- Language Dropdown -->
+          <div 
+            class="absolute right-0 mt-2 w-32 bg-black/90 backdrop-blur-md rounded-lg border border-accent/20 shadow-xl opacity-0 invisible transition-all duration-300 transform translate-y-2"
+            data-language-dropdown
+          >
+            {languages.map((lang) => (
+              <a
+                href={`?lang=${lang.code}`}
+                class={`flex items-center space-x-3 px-4 py-3 text-sm font-medium transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg ${
+                  currentLang === lang.code 
+                    ? 'text-accent bg-accent/10' 
+                    : 'text-white/80 hover:text-accent hover:bg-accent/5'
+                }`}
+                data-language-option={lang.code}
+              >
+                <span>{lang.flag}</span>
+                <span>{lang.name}</span>
+                {currentLang === lang.code && (
+                  <svg class="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="md:hidden flex items-center justify-center w-10 h-10 text-white/80 hover:text-accent border border-accent/20 hover:border-accent/40 rounded-lg transition-colors duration-300"
+          data-mobile-menu-toggle
+          aria-label="Toggle navigation menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div 
+      class="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-b border-accent/20 opacity-0 invisible transition-all duration-300 transform -translate-y-4"
+      data-mobile-menu
+    >
+      <div class="py-4 px-4 space-y-2">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="block py-3 px-4 text-white/80 hover:text-accent hover:bg-accent/5 font-medium transition-all duration-300 rounded-lg"
+            data-mobile-nav-link={item.key}
+          >
+            {t(`nav.${item.key}`)}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Navbar scroll behavior */
+  #navbar {
+    transform: translateZ(0);
+    will-change: transform, background-color;
+  }
+
+  #navbar.scrolled {
+    @apply bg-black/95 shadow-lg border-accent/30;
+  }
+
+  /* Language dropdown animations */
+  .language-switcher:hover [data-language-dropdown] {
+    @apply opacity-100 visible translate-y-0;
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-open [data-mobile-menu] {
+    @apply opacity-100 visible translate-y-0;
+  }
+
+  /* Navigation link active state */
+  .nav-link.active {
+    @apply text-accent;
+  }
+
+  .nav-link.active span {
+    @apply w-full;
+  }
+
+  /* Hardware acceleration */
+  .nav-link,
+  [data-language-toggle],
+  [data-mobile-menu-toggle] {
+    transform: translateZ(0);
+  }
+
+  /* Smooth hover transitions */
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(139, 197, 63, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 6px;
+    transform: translateZ(0);
+  }
+
+  .nav-link:hover::before {
+    opacity: 1;
+  }
+
+  /* Responsive font sizes */
+  @media (max-width: 640px) {
+    .nav-link {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Animation for logo pulse */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  .animate-pulse {
+    animation: pulse 3s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('navbar');
+    const languageToggle = document.querySelector('[data-language-toggle]');
+    const languageDropdown = document.querySelector('[data-language-dropdown]');
+    const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+    const mobileNavLinks = document.querySelectorAll('[data-mobile-nav-link]');
+
+    // Navbar scroll behavior
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (navbar) {
+        if (currentScrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        
+        // Hide/show navbar on scroll
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          navbar.style.transform = 'translateY(-100%)';
+        } else {
+          navbar.style.transform = 'translateY(0)';
+        }
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    // Throttled scroll handler
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 10);
+    });
+
+    // Language dropdown toggle
+    if (languageToggle && languageDropdown) {
+      languageToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('opacity-0');
+        languageDropdown.classList.toggle('invisible');
+        languageDropdown.classList.toggle('translate-y-2');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        if (languageDropdown) {
+          languageDropdown.classList.add('opacity-0', 'invisible', 'translate-y-2');
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', () => {
+        document.body.classList.toggle('mobile-menu-open');
+        mobileMenu.classList.toggle('opacity-0');
+        mobileMenu.classList.toggle('invisible');
+        mobileMenu.classList.toggle('-translate-y-4');
+      });
+    }
+
+    // Active navigation link tracking
+    const updateActiveLink = () => {
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+
+      sections.forEach((section) => {
+        const sectionEl = section as HTMLElement;
+        const sectionTop = sectionEl.offsetTop;
+        const sectionHeight = sectionEl.clientHeight;
+        if (window.scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id') || '';
+        }
+      });
+
+      // Update desktop nav links
+      navLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-nav-link') === current || 
+            (current === 'hero' && link.getAttribute('data-nav-link') === 'home')) {
+          link.classList.add('active');
+        }
+      });
+
+      // Update mobile nav links
+      mobileNavLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-mobile-nav-link') === current ||
+            (current === 'hero' && link.getAttribute('data-mobile-nav-link') === 'home')) {
+          link.classList.add('active');
+        }
+      });
+    };
+
+    // Throttled scroll handler for active links
+    let activeTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener('scroll', () => {
+      if (activeTimeout) {
+        clearTimeout(activeTimeout);
+      }
+      activeTimeout = setTimeout(updateActiveLink, 100);
+    });
+
+    // Initialize active link on load
+    updateActiveLink();
+
+    // Smooth scrolling for nav links
+    const allNavLinks = [...navLinks, ...mobileNavLinks];
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            // Close mobile menu if open
+            if (mobileMenu) {
+              mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-4');
+              document.body.classList.remove('mobile-menu-open');
+            }
+            
+            // Smooth scroll to target
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+  });
+</script> 

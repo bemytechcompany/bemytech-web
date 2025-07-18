@@ -1,0 +1,180 @@
+{
+  "hero": {
+    "title": "Soluciones Tecnológicas",
+    "titleAccent": "Innovadoras",
+    "subtitle": "Desarrollamos software robusto y escalable con más de 5 años de experiencia. Transformamos ideas en soluciones digitales que impulsan el crecimiento de tu negocio.",
+    "cta": "Descubre Nuestros Servicios",
+    "scrollText": "Scroll"
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "portfolio": "Portafolio",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Ofrecemos soluciones tecnológicas completas para hacer crecer tu negocio",
+    "development": {
+      "title": "Desarrollo Web",
+      "description": "Creamos aplicaciones web modernas, responsivas y optimizadas para el mejor rendimiento."
+    },
+    "consulting": {
+      "title": "Consultoría IT",
+      "description": "Asesoramos en la implementación de tecnologías que maximicen la eficiencia de tu empresa."
+    },
+    "ai": {
+      "title": "Inteligencia Artificial",
+      "description": "Implementamos soluciones de IA para automatizar procesos y mejorar la toma de decisiones."
+    },
+    "support": {
+      "title": "Soporte Técnico",
+      "description": "Brindamos soporte continuo para garantizar el funcionamiento óptimo de tus sistemas."
+    }
+  },
+  "portfolio": {
+    "title": "Nuestros Proyectos",
+    "subtitle": "Explora algunos de nuestros trabajos más destacados y las soluciones innovadoras que hemos desarrollado",
+    "project1": {
+      "title": "Sistema de Gestión Empresarial",
+      "description": "Plataforma web integral para la gestión de recursos humanos, inventarios y procesos empresariales.",
+      "category": "Desarrollo Web",
+      "tech": "React, Node.js, PostgreSQL"
+    },
+    "project2": {
+      "title": "App Móvil E-commerce",
+      "description": "Aplicación móvil completa con pasarela de pagos, gestión de inventario y análisis en tiempo real.",
+      "category": "Desarrollo Móvil",
+      "tech": "React Native, Firebase, Stripe"
+    },
+    "project3": {
+      "title": "IA para Análisis de Datos",
+      "description": "Sistema de inteligencia artificial para análisis predictivo y procesamiento de grandes volúmenes de datos.",
+      "category": "Inteligencia Artificial",
+      "tech": "Python, TensorFlow, AWS"
+    },
+    "project4": {
+      "title": "Infraestructura Cloud",
+      "description": "Migración completa a la nube con arquitectura escalable y sistemas de monitoreo avanzados.",
+      "category": "Consultoría IT",
+      "tech": "AWS, Docker, Kubernetes"
+    },
+    "project5": {
+      "title": "Blockchain DeFi Platform",
+      "description": "Plataforma descentralizada para finanzas con smart contracts y protocolos de seguridad avanzados.",
+      "category": "Blockchain",
+      "tech": "Solidity, Web3.js, Ethereum"
+    },
+    "viewProject": "Ver Proyecto",
+    "technologies": "Tecnologías",
+    "scrollHint": "Scroll para explorar proyectos"
+  },
+  "technologies": {
+    "title": "Tecnologías",
+    "subtitle": "Trabajamos con las herramientas más avanzadas del mercado",
+    "react": {
+      "name": "React",
+      "description": "Biblioteca para interfaces de usuario dinámicas"
+    },
+    "astro": {
+      "name": "Astro",
+      "description": "Framework moderno para sitios web rápidos"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "description": "Runtime de JavaScript para el backend"
+    },
+    "typescript": {
+      "name": "TypeScript",
+      "description": "JavaScript con tipado estático"
+    },
+    "tailwind": {
+      "name": "Tailwind CSS",
+      "description": "Framework de CSS utility-first"
+    },
+    "gsap": {
+      "name": "GSAP",
+      "description": "Biblioteca de animaciones web profesionales"
+    },
+    "threejs": {
+      "name": "Three.js",
+      "description": "Biblioteca JavaScript para gráficos 3D"
+    },
+    "aws": {
+      "name": "AWS",
+      "description": "Servicios de computación en la nube"
+    },
+    "docker": {
+      "name": "Docker",
+      "description": "Plataforma de contenedores"
+    },
+    "postgresql": {
+      "name": "PostgreSQL",
+      "description": "Base de datos relacional avanzada"
+    },
+    "mongodb": {
+      "name": "MongoDB",
+      "description": "Base de datos NoSQL flexible"
+    },
+    "python": {
+      "name": "Python",
+      "description": "Lenguaje versátil para IA y backend"
+    }
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Testimonios reales de empresas que confiaron en nosotros",
+    "testimonial1": {
+      "text": "BEMYTECH transformó completamente nuestra infraestructura digital. Su equipo entregó una solución robusta y escalable que superó nuestras expectativas."
+    },
+    "testimonial2": {
+      "text": "La consultoría en IA que recibimos fue excepcional. Implementaron algoritmos que mejoraron nuestra eficiencia operativa en un 40%."
+    },
+    "testimonial3": {
+      "text": "El desarrollo de nuestra plataforma e-commerce fue perfecto. Interface intuitiva, código limpio y soporte técnico de primera clase."
+    },
+    "cta": "¿Listo para llevar tu proyecto al siguiente nivel?",
+    "ctaButton": "Comencemos tu proyecto"
+  },
+  "navigation": {
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "contact": {
+    "title": "Contactanos",
+    "subtitle": "¿Tienes un proyecto en mente? Hablemos sobre cómo podemos ayudarte",
+    "form": {
+      "name": "Nombre completo",
+      "namePlaceholder": "Ingresa tu nombre",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@empresa.com",
+      "company": "Empresa",
+      "companyPlaceholder": "Nombre de tu empresa",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos sobre tu proyecto...",
+      "send": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "required": "Este campo es obligatorio"
+    },
+    "success": {
+      "title": "¡Mensaje enviado!",
+      "subtitle": "Gracias por contactarnos. Te responderemos pronto.",
+      "button": "Enviar otro mensaje"
+    },
+    "info": {
+      "address": "Madrid, España",
+      "phone": "+34 600 123 456",
+      "email": "hola@bemytech.com",
+      "hours": "Lunes - Viernes: 9:00 - 18:00"
+    }
+  },
+  "footer": {
+    "company": "BEMYTECH",
+    "description": "Soluciones tecnológicas innovadoras para el crecimiento de tu negocio",
+    "rights": "Todos los derechos reservados",
+    "links": {
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Uso"
+    }
+  }
+} 

@@ -1,0 +1,235 @@
+---
+// Layout.astro - Main layout component for BEMYTECH landing page
+// Includes GSAP setup, i18n configuration, SEO meta tags, and global styles
+
+import { getTranslationsForSSR, getCurrentLanguage, getLanguageClass } from '../utils/i18n';
+import Navbar from '../components/Navbar.astro';
+import Nav from '../components/Nav.astro';
+import '../styles/globals.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'es' | 'en';
+  noIndex?: boolean;
+}
+
+// Get current language from URL params or default to Spanish
+const currentLang = Astro.url.searchParams.get('lang') as 'es' | 'en' || 'es';
+
+// Load translations for SSR
+const { t } = await getTranslationsForSSR(currentLang);
+
+// Props with defaults
+const {
+  title = `${t('hero.title')} ${t('hero.titleAccent')} | BEMYTECH`,
+  description = t('hero.subtitle'),
+  lang = currentLang,
+  noIndex = false
+} = Astro.props;
+
+// Generate language class for CSS
+const languageClass = getLanguageClass(lang);
+---
+
+<!doctype html>
+<html lang={lang} class={languageClass}>
+	<head>
+    <!-- Essential Meta Tags -->
+		<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="desarrollo web, consultoría IT, inteligencia artificial, soporte técnico, BEMYTECH, soluciones tecnológicas" />
+    <meta name="author" content="BEMYTECH" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="BEMYTECH" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    
+    <!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Robots -->
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0D0D0D" />
+    <meta name="color-scheme" content="dark" />
+    
+    <!-- GSAP will be loaded dynamically via imports for better performance -->
+    
+    <!-- Performance Optimization -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Google Fonts - Inter for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BEMYTECH",
+      "description": "Soluciones tecnológicas innovadoras para el crecimiento de tu negocio",
+      "url": "https://bemytech.com",
+      "logo": "https://bemytech.com/logo.png",
+      "sameAs": [
+        "https://linkedin.com/company/bemytech",
+        "https://twitter.com/bemytech"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish", "English"]
+      }
+    }
+    </script>
+
+    <!-- Page-specific head content -->
+    <slot name="head" />
+	</head>
+  
+  <body class="font-sans text-base leading-relaxed text-white bg-[#0d0d0d] bg-[url('/images/bg.png')] bg-cover bg-no-repeat bg-center bg-fixed overflow-x-hidden antialiased">
+
+    <!-- Navigation -->
+    <!-- <Navbar t={t} currentLang={currentLang} /> -->
+    <Nav>
+      <main id="main-content">
+        <slot />
+        </main>
+    </Nav>
+
+    
+
+    <!-- Language Detection and Setup Script -->
+    <script>
+      // Language detection and setup
+      (window as any).currentLanguage = document.documentElement.lang || 'es';
+      
+      // Store language preference
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('preferred-language', (window as any).currentLanguage);
+      }
+      
+      // GSAP will be handled by dynamic imports in individual pages
+    </script>
+
+    <!-- Cursor system removed for better performance -->
+
+    <!-- Smooth Scrolling -->
+    <script>
+      // Smooth scrolling for anchor links
+      document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('a[href^="#"]');
+        
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const targetHref = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+            const target = document.querySelector(targetHref || '');
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+      });
+    </script>
+	</body>
+</html>
+<style is:global>
+  /* CSS Reset and essential styles */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  /* Typography overrides */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold leading-tight text-white;
+  }
+
+  p {
+    @apply text-white/80 leading-relaxed;
+  }
+
+  a {
+    @apply text-accent no-underline transition-all duration-300;
+  }
+
+  a:hover {
+    @apply text-accent/80;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary/30 text-white;
+  }
+
+  ::-moz-selection {
+    @apply bg-primary/30 text-white;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/80;
+  }
+
+  /* Focus styles for accessibility */
+  :focus {
+    @apply outline-2 outline-primary outline-offset-2;
+  }
+
+  /* Utility classes */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  /* Mobile optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
+  }
+</style>

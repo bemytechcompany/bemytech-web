@@ -1,0 +1,580 @@
+---
+// index.astro - Main optimized landing page for BEMYTECH
+// Features: All components integrated, GSAP centralized, lazy loading, performance optimized
+
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Portfolio from "../components/Portfolio.astro";
+import Technologies from "../components/Technologies.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Contact from "../components/Contact.astro";
+import HexagonTransition from "../components/HexagonTransition.astro";
+import { getTranslationsForSSR } from "../utils/i18n";
+
+// Get language from URL params or default to Spanish
+const lang = (Astro.url.searchParams.get("lang") as "es" | "en") || "es";
+
+// Load translations for the current language
+const { t } = await getTranslationsForSSR(lang);
+
+// Enhanced SEO configuration
+const seoTitle = `${t("hero.title")} ${t("hero.titleAccent")} | BEMYTECH`;
+const seoDescription = t("hero.subtitle");
+const baseURL = Astro.site || "http://localhost:4322";
+const canonicalURL = new URL(Astro.url.pathname, baseURL);
+---
+
+<Layout title={seoTitle} description={seoDescription} lang={lang}>
+  <!-- Enhanced SEO and Performance Meta Tags -->
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <!-- Open Graph Images -->
+    <meta property="og:image" content={`${baseURL}/og-image.jpg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="twitter:image" content={`${baseURL}/og-image.jpg`} />
+
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- Lazy loading for background videos -->
+    <!-- Video preload removed for performance -->
+  </Fragment>
+
+  <!-- Navigation Menu (Fixed) -->
+  <nav
+    class="fixed top-24 left-8 z-50 hidden lg:flex flex-col gap-4 opacity-90 hover:opacity-100 transition-opacity duration-300"
+    data-main-nav
+    aria-label="Main navigation"
+  >
+    <a
+      href="#hero"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Hero section"
+      data-section="hero"></a>
+    <a
+      href="#services"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Services section"
+      data-section="services"></a>
+    <a
+      href="#portfolio"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Portfolio section"
+      data-section="portfolio"></a>
+    <a
+      href="#technologies"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Technologies section"
+      data-section="technologies"></a>
+    <a
+      href="#testimonials"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Testimonials section"
+      data-section="testimonials"></a>
+    <a
+      href="#contact"
+      class="nav-link w-3 h-3 rounded-full bg-white/30 hover:bg-accent transition-all duration-300 cursor-pointer"
+      aria-label="Go to Contact section"
+      data-section="contact"></a>
+  </nav>
+
+  <!-- Language Switcher (Fixed Position) -->
+  <!-- <div
+    class="fixed top-8 right-8 z-50 flex items-center gap-2 bg-black/80 backdrop-blur-sm border border-primary/20 rounded-lg px-4 py-2 transition-all duration-300 hover:bg-black/90 hover:border-primary/40"
+  >
+    <a
+      href={`/?lang=es`}
+      class={`text-xs font-semibold px-2 py-1 rounded transition-all duration-300 tracking-wider ${lang === "es" ? "text-primary bg-primary/20" : "text-white/60 hover:text-primary hover:bg-primary/10"}`}
+      data-cursor-text="Español"
+      aria-label="Switch to Spanish"
+    >
+      ES
+    </a>
+    <span class="text-white/30 text-sm" aria-hidden="true">|</span>
+    <a
+      href={`/?lang=en`}
+      class={`text-xs font-semibold px-2 py-1 rounded transition-all duration-300 tracking-wider ${lang === "en" ? "text-primary bg-primary/20" : "text-white/60 hover:text-primary hover:bg-primary/10"}`}
+      data-cursor-text="English"
+      aria-label="Switch to English"
+    >
+      EN
+    </a>
+  </div> -->
+
+  <!-- Scroll Progress Indicator -->
+  <div
+    class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-green-400 z-50 origin-left scale-x-0 transition-transform duration-100"
+    data-scroll-progress
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Page Loading Indicator -->
+  <div
+    id="page-loader"
+    class="fixed inset-0 w-full h-full bg-[#0D0D0D] z-[9999] flex items-center justify-center opacity-100 visible transition-all duration-500"
+    aria-hidden="true"
+  >
+    <div class="text-center animate-fade-in-up">
+      <div class="loader-hexagon w-16 h-16 mx-auto mb-4 relative animate-spin">
+        <div
+          class="hexagon-inner w-full h-full bg-gradient-to-br from-primary to-green-500 relative"
+        >
+          <div class="absolute inset-0.5 bg-[#0D0D0D] hexagon-clip"></div>
+        </div>
+      </div>
+      <p class="text-xl font-bold text-primary tracking-wider animate-pulse">
+        BEMYTECH
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content Sections -->
+  <main>
+    <!-- Hero Section with Parallax Layers -->
+    <section class="relative">
+      <div class="relative z-10">
+        <Hero t={t} />
+      </div>
+    </section>
+
+    <!-- Hexagon Transition: Hero to Services -->
+    <HexagonTransition />
+
+    <section class="h-[80vh]"></section>
+    <!-- Services Section -->
+    <Services t={t} />
+
+    <!-- Liquid Transition: Services to Portfolio -->
+
+    <!-- Portfolio Section with Parallax Layers -->
+    <section class="relative">
+      <div class="relative z-10">
+        <Portfolio t={t} />
+      </div>
+    </section>
+
+    <!-- Liquid Transition: Portfolio to Technologies -->
+
+
+    <!-- Technologies Section with Parallax Layers -->
+    <section class="relative">
+      <div class="relative z-10">
+        <Technologies t={t} />
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <Testimonials t={t} />
+
+    <!-- Contact Section -->
+    <Contact t={t} />
+  </main>
+
+  <!-- Skip to Content Link for Accessibility -->
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-white px-4 py-2 rounded-lg z-[10000]"
+  >
+    Skip to main content
+  </a>
+
+  <!-- Back to Top Button -->
+  <button
+    id="back-to-top"
+    class="fixed bottom-8 right-8 w-12 h-12 bg-accent hover:bg-accent/80 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 z-40 group"
+    aria-label="Back to top"
+    data-cursor-text="Top"
+  >
+    <svg
+      class="w-6 h-6 mx-auto transform group-hover:-translate-y-1 transition-transform duration-300"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+</Layout>
+
+<style>
+  /* Essential animations and utilities */
+  .hexagon-clip {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  .hexagon-inner {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  .hexagon-inner::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: #0d0d0d;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  #page-loader.hidden {
+    @apply opacity-0 invisible;
+  }
+
+  /* Custom utility animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease;
+  }
+
+  /* Navigation active states */
+  .nav-link.active {
+    @apply bg-accent scale-125;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .focus\:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .fixed.top-8.right-8 {
+      @apply top-4 right-4 px-3 py-1.5;
+    }
+
+    #back-to-top {
+      @apply bottom-4 right-4 w-10 h-10;
+    }
+  }
+</style>
+
+<script>
+  // Centralized Performance-Optimized Script
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { initHexagonTransition } from "../utils/hexagonTransition";
+
+  // Global performance and cleanup management
+  class PerformanceManager {
+    private static instance: PerformanceManager;
+    private scrollTriggers: ScrollTrigger[] = [];
+    private animationTimelines: gsap.core.Timeline[] = [];
+    private intersectionObservers: IntersectionObserver[] = [];
+    private resizeListeners: (() => void)[] = [];
+
+    static getInstance(): PerformanceManager {
+      if (!PerformanceManager.instance) {
+        PerformanceManager.instance = new PerformanceManager();
+      }
+      return PerformanceManager.instance;
+    }
+
+    // Register ScrollTrigger for cleanup
+    registerScrollTrigger(trigger: ScrollTrigger) {
+      this.scrollTriggers.push(trigger);
+    }
+
+    // Register timeline for cleanup
+    registerTimeline(timeline: gsap.core.Timeline) {
+      this.animationTimelines.push(timeline);
+    }
+
+    // Register observer for cleanup
+    registerObserver(observer: IntersectionObserver) {
+      this.intersectionObservers.push(observer);
+    }
+
+    // Register resize listener for cleanup
+    registerResizeListener(listener: () => void) {
+      this.resizeListeners.push(listener);
+      window.addEventListener("resize", listener, { passive: true });
+    }
+
+    // Cleanup all registered animations and listeners
+
+    // Refresh all ScrollTriggers (for responsive updates)
+    refresh() {
+      ScrollTrigger.refresh();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const perfManager = PerformanceManager.getInstance();
+
+    // Page loader functionality
+    const pageLoader = document.getElementById("page-loader");
+
+    function hideLoader() {
+      if (pageLoader) {
+        pageLoader.classList.add("hidden");
+        setTimeout(() => pageLoader.remove(), 500);
+      }
+    }
+
+    // Hide loader after critical content is loaded
+    if (document.readyState === "complete") {
+      setTimeout(hideLoader, 800);
+    } else {
+      window.addEventListener("load", () => {
+        setTimeout(hideLoader, 800);
+      });
+    }
+
+    // Initialize Hexagon Transition
+    // initHexagonTransition({
+    //   heroSelector: "#hero",
+    //   servicesSelector: "#services",
+    //   hexagonSelector: "#hexagon-transition",
+    // }).catch((error) => {
+    //   console.warn("Hexagon transition initialization failed:", error);
+    // });
+
+    // Scroll Progress Indicator
+    const scrollProgress = document.querySelector(
+      "[data-scroll-progress]",
+    ) as HTMLElement;
+    if (scrollProgress) {
+      const updateProgress = () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollTop / docHeight;
+        scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+      };
+
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      perfManager.registerResizeListener(updateProgress);
+    }
+
+    // Navigation Dots Active State
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]");
+
+    if (navLinks.length && sections.length) {
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: "-20% 0px -20% 0px",
+      };
+
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            navLinks.forEach((link) => {
+              const linkSection = link.getAttribute("data-section");
+              if (linkSection === sectionId) {
+                link.classList.add("active");
+              } else {
+                link.classList.remove("active");
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => navObserver.observe(section));
+      perfManager.registerObserver(navObserver);
+
+      // Smooth scroll for navigation links
+      navLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute("data-section");
+          const targetSection = document.getElementById(targetId!);
+          if (targetSection) {
+            targetSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    }
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById("back-to-top");
+    if (backToTopBtn) {
+      const toggleBackToTop = () => {
+        const scrolled = window.pageYOffset > 500;
+        backToTopBtn.classList.toggle("opacity-100", scrolled);
+        backToTopBtn.classList.toggle("visible", scrolled);
+        backToTopBtn.classList.toggle("opacity-0", !scrolled);
+        backToTopBtn.classList.toggle("invisible", !scrolled);
+      };
+
+      window.addEventListener("scroll", toggleBackToTop, { passive: true });
+
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    }
+
+    // Language switcher functionality with loading state
+    const languageLinks = document.querySelectorAll('[href*="?lang="]');
+    languageLinks.forEach((link) => {
+      link.addEventListener(
+        "click",
+        function (this: HTMLAnchorElement, e: Event) {
+          e.preventDefault();
+
+          const href = this.getAttribute("href");
+          if (href) {
+            // Show loader
+            if (pageLoader && !pageLoader.classList.contains("hidden")) {
+              pageLoader.classList.remove("hidden");
+            }
+
+            // Navigate after short delay
+            setTimeout(() => {
+              window.location.href = href;
+            }, 200);
+          }
+        },
+      );
+    });
+
+    // Lazy Loading for Heavy Assets
+    const lazyLoadConfig = {
+      threshold: 0.1,
+      rootMargin: "50px 0px",
+    };
+
+    // Lazy load videos
+    const lazyLoadObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const video = entry.target as HTMLVideoElement;
+          if (video.dataset.src) {
+            video.src = video.dataset.src;
+            video.load();
+            lazyLoadObserver.unobserve(video);
+          }
+        }
+      });
+    }, lazyLoadConfig);
+
+    // Observe videos for lazy loading
+    document.querySelectorAll("video[data-src]").forEach((video) => {
+      lazyLoadObserver.observe(video);
+    });
+    perfManager.registerObserver(lazyLoadObserver);
+
+    // Performance monitoring
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(() => {
+        // Cleanup on page unload
+        // window.addEventListener("beforeunload", () => {
+        //   perfManager.cleanup();
+        // });
+
+        // Responsive refresh handler
+        let resizeTimeout: NodeJS.Timeout;
+        const handleResize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 250);
+        };
+
+        perfManager.registerResizeListener(handleResize);
+      });
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        ScrollTrigger?.refresh(true);
+      }
+    });
+
+    // Prefetch next page assets on hover (if needed)
+    document.querySelectorAll('a[href^="/"]').forEach((link) => {
+      link.addEventListener(
+        "mouseenter",
+        function (this: HTMLElement) {
+          const href = this.getAttribute("href");
+          if (
+            href &&
+            !document.querySelector(`link[rel="prefetch"][href="${href}"]`)
+          ) {
+            const prefetchLink = document.createElement("link");
+            prefetchLink.rel = "prefetch";
+            prefetchLink.href = href;
+            document.head.appendChild(prefetchLink);
+          }
+        },
+        { once: true },
+      );
+    });
+
+    // Enhanced error boundary for animations
+    window.addEventListener("error", (e) => {
+      if (e.message.includes("gsap") || e.message.includes("ScrollTrigger")) {
+        console.warn("Animation error caught and handled:", e.message);
+        // Attempt to refresh ScrollTrigger
+        if (ScrollTrigger) {
+          ScrollTrigger.refresh();
+        }
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        ScrollTrigger.refresh(true);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,180 @@
+{
+  "hero": {
+    "title": "Innovative Technology",
+    "titleAccent": "Solutions",
+    "subtitle": "We develop robust and scalable software with over 5 years of experience. We transform ideas into digital solutions that drive your business growth.",
+    "cta": "Discover Our Services",
+    "scrollText": "Scroll"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We offer comprehensive technology solutions to grow your business",
+    "development": {
+      "title": "Web Development",
+      "description": "We create modern, responsive web applications optimized for the best performance."
+    },
+    "consulting": {
+      "title": "IT Consulting",
+      "description": "We advise on implementing technologies that maximize your company's efficiency."
+    },
+    "ai": {
+      "title": "Artificial Intelligence",
+      "description": "We implement AI solutions to automate processes and improve decision-making."
+    },
+    "support": {
+      "title": "Technical Support",
+      "description": "We provide ongoing support to ensure optimal performance of your systems."
+    }
+  },
+  "portfolio": {
+    "title": "Our Projects",
+    "subtitle": "Explore some of our most outstanding work and the innovative solutions we have developed",
+    "project1": {
+      "title": "Enterprise Management System",
+      "description": "Comprehensive web platform for human resources, inventory management and business processes.",
+      "category": "Web Development",
+      "tech": "React, Node.js, PostgreSQL"
+    },
+    "project2": {
+      "title": "E-commerce Mobile App",
+      "description": "Complete mobile application with payment gateway, inventory management and real-time analytics.",
+      "category": "Mobile Development",
+      "tech": "React Native, Firebase, Stripe"
+    },
+    "project3": {
+      "title": "AI Data Analysis",
+      "description": "Artificial intelligence system for predictive analysis and processing of large data volumes.",
+      "category": "Artificial Intelligence",
+      "tech": "Python, TensorFlow, AWS"
+    },
+    "project4": {
+      "title": "Cloud Infrastructure",
+      "description": "Complete cloud migration with scalable architecture and advanced monitoring systems.",
+      "category": "IT Consulting",
+      "tech": "AWS, Docker, Kubernetes"
+    },
+    "project5": {
+      "title": "Blockchain DeFi Platform",
+      "description": "Decentralized finance platform with smart contracts and advanced security protocols.",
+      "category": "Blockchain",
+      "tech": "Solidity, Web3.js, Ethereum"
+    },
+    "viewProject": "View Project",
+    "technologies": "Technologies",
+    "scrollHint": "Scroll to explore projects"
+  },
+  "technologies": {
+    "title": "Technologies",
+    "subtitle": "We work with the most advanced tools in the market",
+    "react": {
+      "name": "React",
+      "description": "Library for dynamic user interfaces"
+    },
+    "astro": {
+      "name": "Astro",
+      "description": "Modern framework for fast websites"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "description": "JavaScript runtime for backend"
+    },
+    "typescript": {
+      "name": "TypeScript",
+      "description": "JavaScript with static typing"
+    },
+    "tailwind": {
+      "name": "Tailwind CSS",
+      "description": "Utility-first CSS framework"
+    },
+    "gsap": {
+      "name": "GSAP",
+      "description": "Professional web animation library"
+    },
+    "threejs": {
+      "name": "Three.js",
+      "description": "JavaScript library for 3D graphics"
+    },
+    "aws": {
+      "name": "AWS",
+      "description": "Cloud computing services"
+    },
+    "docker": {
+      "name": "Docker",
+      "description": "Container platform"
+    },
+    "postgresql": {
+      "name": "PostgreSQL",
+      "description": "Advanced relational database"
+    },
+    "mongodb": {
+      "name": "MongoDB",
+      "description": "Flexible NoSQL database"
+    },
+    "python": {
+      "name": "Python",
+      "description": "Versatile language for AI and backend"
+    }
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Real testimonials from companies that trusted us",
+    "testimonial1": {
+      "text": "BEMYTECH completely transformed our digital infrastructure. Their team delivered a robust and scalable solution that exceeded our expectations."
+    },
+    "testimonial2": {
+      "text": "The AI consulting we received was exceptional. They implemented algorithms that improved our operational efficiency by 40%."
+    },
+    "testimonial3": {
+      "text": "The development of our e-commerce platform was perfect. Intuitive interface, clean code and first-class technical support."
+    },
+    "cta": "Ready to take your project to the next level?",
+    "ctaButton": "Start your project"
+  },
+  "navigation": {
+    "skipToContent": "Skip to main content"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a project in mind? Let's talk about how we can help you",
+    "form": {
+      "name": "Full name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email address",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company",
+      "companyPlaceholder": "Your company name",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "required": "This field is required"
+    },
+    "success": {
+      "title": "Message sent!",
+      "subtitle": "Thank you for contacting us. We'll get back to you soon.",
+      "button": "Send another message"
+    },
+    "info": {
+      "address": "Madrid, Spain",
+      "phone": "+34 600 123 456",
+      "email": "hello@bemytech.com",
+      "hours": "Monday - Friday: 9:00 - 18:00"
+    }
+  },
+  "footer": {
+    "company": "BEMYTECH",
+    "description": "Innovative technology solutions for your business growth",
+    "rights": "All rights reserved",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    }
+  }
+} 

@@ -1,0 +1,356 @@
+---
+// LiquidTransition.astro - Seamless liquid morphing transitions between sections
+// Features: SVG-based wave animations, GSAP morphing, responsive design
+
+interface Props {
+  type: 'hero-to-services' | 'services-to-portfolio' | 'portfolio-to-technologies';
+  className?: string;
+}
+
+const { type, className = '' } = Astro.props;
+
+// Different wave configurations for each transition
+const waveConfigs = {
+  'hero-to-services': {
+    paths: [
+      'M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z',
+      'M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,90.7C672,85,768,75,864,80C960,85,1056,107,1152,112C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
+    ],
+    colors: ['#8BC53F', '#4CAF50'],
+    direction: 'down'
+  },
+  'services-to-portfolio': {
+    paths: [
+      'M0,96L60,112C120,128,240,160,360,165.3C480,171,600,149,720,128C840,107,960,85,1080,85.3C1200,85,1320,107,1380,117.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z',
+      'M0,128L60,144C120,160,240,192,360,197.3C480,203,600,181,720,160C840,139,960,117,1080,117.3C1200,117,1320,139,1380,149.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z'
+    ],
+    colors: ['#0D0D0D', '#1a1a1a'],
+    direction: 'up'
+  },
+  'portfolio-to-technologies': {
+    paths: [
+      'M0,160L80,170.7C160,181,320,203,480,208C640,213,800,203,960,181.3C1120,160,1280,128,1360,112L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z',
+      'M0,192L80,202.7C160,213,320,235,480,240C640,245,800,235,960,213.3C1120,192,1280,160,1360,144L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z'
+    ],
+    colors: ['#8BC53F', '#2E7D32'],
+    direction: 'down'
+  }
+};
+
+const config = waveConfigs[type];
+---
+
+<div 
+  class={`liquid-transition relative w-full overflow-hidden ${className}`}
+  data-liquid-transition={type}
+  style={`height: 120px; z-index: 50;`}
+>
+  <!-- SVG Wave Container -->
+  <svg 
+    class="absolute inset-0 w-full h-full"
+    viewBox="0 0 1440 320"
+    preserveAspectRatio="none"
+    data-wave-svg
+  >
+    <defs>
+      <!-- Gradient definitions -->
+      <linearGradient 
+        id={`wave-gradient-${type}-1`} 
+        x1="0%" y1="0%" x2="100%" y2="100%"
+      >
+        <stop offset="0%" style={`stop-color:${config.colors[0]};stop-opacity:0.8`} />
+        <stop offset="100%" style={`stop-color:${config.colors[1]};stop-opacity:0.6`} />
+      </linearGradient>
+      
+      <linearGradient 
+        id={`wave-gradient-${type}-2`} 
+        x1="0%" y1="0%" x2="100%" y2="100%"
+      >
+        <stop offset="0%" style={`stop-color:${config.colors[1]};stop-opacity:0.6`} />
+        <stop offset="100%" style={`stop-color:${config.colors[0]};stop-opacity:0.4`} />
+      </linearGradient>
+
+      <!-- Glow filter -->
+      <filter id={`wave-glow-${type}`}>
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Background wave -->
+    <path 
+      d={config.paths[0]}
+      fill={`url(#wave-gradient-${type}-1)`}
+      class="wave-bg"
+      data-wave-path="bg"
+      filter={`url(#wave-glow-${type})`}
+    />
+
+    <!-- Foreground wave -->
+    <path 
+      d={config.paths[1]}
+      fill={`url(#wave-gradient-${type}-2)`}
+      class="wave-fg"
+      data-wave-path="fg"
+      filter={`url(#wave-glow-${type})`}
+    />
+
+    <!-- Floating particles -->
+    {Array.from({ length: 5 }).map((_, i) => (
+      <circle
+        cx={200 + i * 250}
+        cy={100 + (i % 2) * 50}
+        r={3 + i}
+        fill={config.colors[0]}
+        opacity="0.3"
+        class="wave-particle"
+        data-particle-index={i}
+      />
+    ))}
+  </svg>
+
+  <!-- Hexagonal accent elements -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div 
+      class="absolute left-1/4 top-1/2 transform -translate-y-1/2 w-8 h-8 opacity-20"
+      data-hex-accent="left"
+    >
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-accent">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+      </svg>
+    </div>
+    
+    <div 
+      class="absolute right-1/3 top-1/3 w-6 h-6 opacity-15"
+      data-hex-accent="right"
+    >
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-accent">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Liquid transition optimizations */
+  .liquid-transition {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Wave path optimizations */
+  .wave-bg,
+  .wave-fg {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  /* Particle animations */
+  .wave-particle {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Hexagon accent optimizations */
+  [data-hex-accent] {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .liquid-transition {
+      height: 80px;
+    }
+  }
+
+  /* Accessibility - Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .wave-bg,
+    .wave-fg,
+    .wave-particle,
+    [data-hex-accent] {
+      animation: none !important;
+      transform: translateZ(0) !important;
+    }
+  }
+
+  /* Performance optimizations */
+  .liquid-transition * {
+    backface-visibility: hidden;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    try {
+      // Dynamically import GSAP modules
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Get all liquid transition elements
+      const liquidTransitions = document.querySelectorAll('[data-liquid-transition]');
+
+      liquidTransitions.forEach((transition) => {
+        const transitionType = transition.getAttribute('data-liquid-transition');
+        const wavePaths = transition.querySelectorAll('[data-wave-path]');
+        const particles = transition.querySelectorAll('.wave-particle');
+        const hexAccents = transition.querySelectorAll('[data-hex-accent]');
+
+        // Wave morphing animation
+        wavePaths.forEach((path, index) => {
+          gsap.to(path, {
+            morphSVG: index === 0 ? 
+              'M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,90.7C672,85,768,75,864,80C960,85,1056,107,1152,112C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z' :
+              'M0,96L48,101.3C96,107,192,117,288,122.7C384,128,480,128,576,122.7C672,117,768,107,864,112C960,117,1056,139,1152,144C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z',
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+          });
+
+          // Scroll-triggered scale animation
+          gsap.fromTo(path, 
+            { 
+              scaleY: 0.8,
+              transformOrigin: "bottom"
+            },
+            {
+              scaleY: 1.2,
+              transformOrigin: "bottom",
+              ease: "none",
+              scrollTrigger: {
+                trigger: transition,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        });
+
+        // Floating particles animation
+        particles.forEach((particle, index) => {
+          // Continuous floating motion
+          gsap.to(particle, {
+            y: `+=${10 + index * 5}`,
+            x: `+=${5 + index * 3}`,
+            duration: 3 + index,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+          });
+
+          // Scroll-triggered movement
+          gsap.to(particle, {
+            x: `+=${50 + index * 20}`,
+            opacity: 0.8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: transition,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+        // Hexagon accents animation
+        hexAccents.forEach((hex, index) => {
+          // Continuous rotation
+          gsap.to(hex, {
+            rotation: 360,
+            duration: 20 + index * 5,
+            repeat: -1,
+            ease: "none"
+          });
+
+          // Scroll-triggered scale and fade
+          gsap.fromTo(hex,
+            {
+              scale: 0.5,
+              opacity: 0.1
+            },
+            {
+              scale: 1.2,
+              opacity: 0.4,
+              ease: "none",
+              scrollTrigger: {
+                trigger: transition,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.5,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        });
+
+        // Section reveal animation
+        gsap.fromTo(transition,
+          {
+            clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)"
+          },
+          {
+            clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
+            duration: 1.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: transition,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+              invalidateOnRefresh: true
+            }
+          }
+        );
+      });
+
+      // Cleanup function for ScrollTriggers
+      const cleanup = () => {
+        ScrollTrigger.getAll().forEach(trigger => {
+          if (trigger.vars?.trigger && 
+              (trigger.vars.trigger as Element).closest('[data-liquid-transition]')) {
+            trigger.kill();
+          }
+        });
+      };
+
+      // Clean up on page visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cleanup();
+        }
+      });
+
+      window.addEventListener('beforeunload', cleanup);
+
+      // Refresh on resize
+      let resizeTimeout: ReturnType<typeof setTimeout>;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
+      });
+
+    } catch (error) {
+      console.warn('Liquid transition GSAP failed:', error);
+      // Graceful degradation - just show static waves
+    }
+  });
+</script> 

@@ -1,0 +1,63 @@
+---
+alwaysApply: true
+---
+# Context: BEMYTECH–style Landing Page (Clean, Tech, Hex-based)
+
+## Company overview
+- BEMYTECH ofrece “soluciones tecnológicas innovadoras” con más de 5 años de experiencia.
+- Servicios: Desarrollo Web, Consultoría IT, Soporte técnico, IA, software robusto y escalable.
+- Secciones típicas:
+  - Hero (mensaje fuerte + CTA)
+  - Servicios (Innovación, Desarrollo, Consultoría)
+  - Proyectos (casos de éxito con imágenes y testimonios)
+  - Tecnología (stack & herramientas)
+  - Contacto (formulario + datos)
+- Estética: geometría + formas poligonales, geometría limpia, sensación tecnológica y profesional.
+
+## UX/UI & Design Goals
+- Atmosfera futurista + profesional + amigable.
+- Uso de **hexágonos** como forma principal de diseño y animación.
+- Fondos geométricos, texturas abstractas, elementos 3D limpios.
+
+## Key Functionalities to Implement
+1. **Hero Section**
+   - Imagen 3D o arte abstracto animado.
+   - Texto animado (reveal, typing, glitch).
+   - Botón CTA animado (morphing/bounce).
+2. **Services Section**
+   - Tarjetas hexagonales que giran o expanden con hover.
+   - Texto + iconografía SVG animada.
+3. **Portfolio Section**
+   - Scroll horizontal con GSAP ScrollTrigger.
+   - Modelo 3D hexagonal interactivo (apto para GLTF).
+   - Información emergente (overlay) al clic.
+4. **Tecnologías**
+   - Grid animado de hexágonos (iconos de herramientas / logos).
+   - Animaciones por entrada en viewport (stagger).
+5. **Testimonios**
+   - Slider o grid, animado al scroll o hover.
+6. **Contacto**
+   - Formulario con inputs animados (border glow, focus).
+   - CTA animado al envío exitoso.
+
+## Animations & Interactive behaviors
+- Usar GSAP: Timelines, ScrollTrigger, motionPath, stagger, splitText, clip-path.
+- Cursor personalizado (círculo/hexágono glow).
+- Companion 3D: dron o núcleo hexagonal que acompaña scroll y eventos.
+- Parallax en fondos/banners.
+- Transiciones suaves entre secciones (fade + slide).
+- Cursor cambia de forma o texto sobre CTAs ("Click", "View", etc.).
+
+## i18n Requirements
+- Contenido en archivos JSON por idioma.
+  - ej. `/i18n/en.json`, `/i18n/es.json`.
+- Prompting siempre para generar contenido con keys de texto (“hero.title”, “services.card1.title”, etc).
+- Código en inglés; contenido extraído a archivos JSON.
+
+## Code Quality & Project Structure
+- Tech Stack:
+  - Astro (.astro components)
+  - GSAP
+  - Three.js
+  - JSON i18n
+- Structure:

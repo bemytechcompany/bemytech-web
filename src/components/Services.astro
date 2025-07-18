@@ -1,0 +1,326 @@
+---
+// Services.astro - Enhanced Services section with improved flip cards and video background
+// Zero memory leaks, optimized CSS animations, green titles
+
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+// Services data configuration
+const services = [
+  {
+    id: 'development',
+    icon: 'code',
+    color: 'from-blue-500 to-cyan-500'
+  },
+  {
+    id: 'consulting',
+    icon: 'lightbulb',
+    color: 'from-purple-500 to-pink-500'
+  },
+  {
+    id: 'ai',
+    icon: 'brain',
+    color: 'from-green-500 to-emerald-500'
+  },
+  {
+    id: 'support',
+    icon: 'shield',
+    color: 'from-orange-500 to-red-500'
+  }
+];
+---
+
+<section 
+  id="services" 
+  class="relative min-h-screen bg-[#0D0D0D] text-white py-20 overflow-hidden"
+  aria-label={t('services.title')}
+>
+
+  <!-- Static Hexagon Background Pattern -->
+  <div class="absolute inset-0 opacity-5 z-5">
+    <div class="hex-pattern absolute inset-0"></div>
+  </div>
+
+  <!-- Container -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-accent">
+        {t('services.title')}
+      </h2>
+      <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {t('services.subtitle')}
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12">
+      {services.map((service) => (
+        <div 
+          class="service-card group relative w-full max-w-sm mx-auto"
+          data-service={service.id}
+        >
+          <!-- 3D Flip Card Container -->
+          <div class="flip-card w-full h-80">
+            <div class="flip-card-inner relative w-full h-full">
+              
+              <!-- Front Side -->
+              <div class="flip-card-front absolute inset-0 w-full h-full">
+                <div class="relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-primary/20 shadow-xl">
+                  
+                  <!-- Hexagon Background -->
+                  <div class="absolute inset-0 opacity-10">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                      <defs>
+                        <linearGradient id={`hexGradient-${service.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" style="stop-color:#8BC53F;stop-opacity:0.3" />
+                          <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:0.1" />
+                        </linearGradient>
+                      </defs>
+                      <polygon 
+                        points="50,5 90,25 90,75 50,95 10,75 10,25" 
+                        fill={`url(#hexGradient-${service.id})`} 
+                        stroke="#8BC53F" 
+                        stroke-width="0.5"
+                      />
+                    </svg>
+                  </div>
+
+                  <!-- Icon -->
+                  <div class="relative z-10 mb-6">
+                    <div class={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} p-4 shadow-xl transform group-hover:scale-110 transition-transform duration-300`}>
+                      {service.icon === 'code' && (
+                        <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M8.5 6l-5.5 6 5.5 6 1.5-1.5-4-4.5 4-4.5-1.5-1.5zm7 0l5.5 6-5.5 6-1.5-1.5 4-4.5-4-4.5 1.5-1.5z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'lightbulb' && (
+                        <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'brain' && (
+                        <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M21.33 12.9c.09-.09.09-.24 0-.33l-1.24-1.24c-.09-.09-.24-.09-.33 0s-.09.24 0 .33l1.24 1.24c.09.09.24.09.33 0zm-1.74-1.74c.09-.09.09-.24 0-.33l-1.24-1.24c-.09-.09-.24-.09-.33 0s-.09.24 0 .33l1.24 1.24c.09.09.24.09.33 0zm-3.73-3.73c.09-.09.09-.24 0-.33l-1.24-1.24c-.09-.09-.24-.09-.33 0s-.09.24 0 .33l1.24 1.24c.09.09.24.09.33 0zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'shield' && (
+                        <svg class="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83V6.31l6-2.12 6 2.12v4.78z"/>
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="text-xl md:text-2xl font-bold text-center text-primary mb-4">
+                    {t(`services.${service.id}.title`)}
+                  </h3>
+
+                  <!-- Hover Indicator -->
+                  <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    <div class="flex items-center space-x-2 text-primary text-sm font-medium opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                      <span>Hover para más info</span>
+                      <svg class="w-4 h-4 transform group-hover:rotate-180 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14l5-5 5 5z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Side -->
+              <div class="flip-card-back absolute inset-0 w-full h-full">
+                <div class="relative w-full h-full p-8 flex flex-col items-center justify-center bg-gradient-to-br from-primary/90 to-secondary/90 rounded-2xl border border-primary/30 shadow-xl">
+                  
+                  <!-- Background Pattern -->
+                  <div class="absolute inset-0 opacity-10">
+                    <div class="hex-pattern-small absolute inset-0"></div>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="relative z-10 text-center">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6">
+                      {t(`services.${service.id}.title`)}
+                    </h3>
+                    <p class="text-white/90 text-base md:text-lg leading-relaxed">
+                      {t(`services.${service.id}.description`)}
+                    </p>
+                  </div>
+
+                  <!-- Decorative Elements -->
+                  <div class="absolute top-4 right-4 w-8 h-8 border border-white/30 rotate-45 opacity-50"></div>
+                  <div class="absolute bottom-4 left-4 w-6 h-6 bg-white/10 rotate-12"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-16">
+      <p class="text-lg text-gray-300 mb-6">
+        ¿Necesitas una solución personalizada?
+      </p>
+      <a 
+        href="#contact" 
+        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-primary/25"
+        aria-label="Contact us for custom solutions"
+      >
+        Hablemos de tu proyecto
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hardware accelerated 3D flip cards - Enhanced visibility */
+  .flip-card {
+    perspective: 1000px;
+    transform: translateZ(0);
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+  }
+  
+  .service-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    transform: translateZ(1px);
+  }
+  
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Enhanced hover lift effect */
+  .service-card {
+    transition: transform 0.3s ease;
+    transform: translateZ(0);
+  }
+  
+  .service-card:hover {
+    transform: translateZ(0) translateY(-8px);
+  }
+
+  /* Static hexagon patterns */
+  .hex-pattern {
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px),
+      repeating-linear-gradient(60deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px),
+      repeating-linear-gradient(120deg, transparent, transparent 35px, rgba(139, 197, 63, 0.03) 35px, rgba(139, 197, 63, 0.03) 36px);
+    transform: translateZ(0);
+  }
+
+  .hex-pattern-small {
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px),
+      repeating-linear-gradient(60deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px),
+      repeating-linear-gradient(120deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 21px);
+    transform: translateZ(0);
+  }
+
+  /* Video optimization */
+  video {
+    filter: brightness(0.6) contrast(1.2) saturate(1.1);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .service-card {
+      max-width: 300px;
+    }
+    
+    .flip-card {
+      height: 320px;
+    }
+    
+    /* Enable flip on mobile with better transform */
+    .service-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    /* Ensure proper visibility on mobile */
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* Accessibility - Completely disable animations for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flip-card-inner {
+      transition: none;
+    }
+    
+    .service-card:hover {
+      transform: translateZ(0);
+    }
+    
+    .service-card:hover .flip-card-inner {
+      transform: translateZ(0);
+    }
+  }
+
+  /* Performance optimization - GPU acceleration for all animated elements */
+  .service-card,
+  .flip-card,
+  .flip-card-inner,
+  .flip-card-front,
+  .flip-card-back,
+  .hex-pattern,
+  .hex-pattern-small {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Simple video optimization
+    const video = document.querySelector('#services video') as HTMLVideoElement;
+    if (video) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {
+              video.style.display = 'none';
+            });
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(video);
+    }
+  });
+</script> 
