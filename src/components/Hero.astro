@@ -14,6 +14,53 @@ const { t } = Astro.props;
   class="relative h-screen w-full overflow-hidden flex items-center justify-center"
   aria-label={t("hero.title")}
 >
+  <!-- Flying Hexagon Comets Background -->
+  <div class="absolute inset-0 z-10 overflow-hidden pointer-events-none" data-hexagon-comets>
+    <!-- Hexagon Comet 1 -->
+    <div class="hex-comet hex-comet-1 absolute text-accent/30" data-hex-1>
+      <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current drop-shadow-lg">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+        <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" fill="rgba(139, 197, 63, 0.5)" />
+      </svg>
+      <div class="comet-trail"></div>
+    </div>
+    
+    <!-- Hexagon Comet 2 -->
+    <div class="hex-comet hex-comet-2 absolute text-accent/25" data-hex-2>
+      <svg viewBox="0 0 100 100" class="w-6 h-6 fill-current drop-shadow-lg">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+        <polygon points="50,20 70,35 70,65 50,80 30,65 30,35" fill="rgba(139, 197, 63, 0.4)" />
+      </svg>
+      <div class="comet-trail"></div>
+    </div>
+    
+    <!-- Hexagon Comet 3 -->
+    <div class="hex-comet hex-comet-3 absolute text-accent/20" data-hex-3>
+      <svg viewBox="0 0 100 100" class="w-10 h-10 fill-current drop-shadow-lg">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+        <polygon points="50,10 80,27 80,73 50,90 20,73 20,27" fill="rgba(139, 197, 63, 0.6)" />
+      </svg>
+      <div class="comet-trail"></div>
+    </div>
+    
+    <!-- Hexagon Comet 4 -->
+    <div class="hex-comet hex-comet-4 absolute text-accent/35" data-hex-4>
+      <svg viewBox="0 0 100 100" class="w-5 h-5 fill-current drop-shadow-lg">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+      </svg>
+      <div class="comet-trail"></div>
+    </div>
+    
+    <!-- Hexagon Comet 5 -->
+    <div class="hex-comet hex-comet-5 absolute text-accent/15" data-hex-5>
+      <svg viewBox="0 0 100 100" class="w-7 h-7 fill-current drop-shadow-lg">
+        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
+        <polygon points="50,18 72,32 72,68 50,82 28,68 28,32" fill="rgba(139, 197, 63, 0.3)" />
+      </svg>
+      <div class="comet-trail"></div>
+    </div>
+  </div>
+
   <!-- Content Layer -->
   <div class="relative z-30 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
     <!-- Main Title -->
@@ -35,7 +82,7 @@ const { t } = Astro.props;
 
     <!-- CTA Button -->
     <div
-      class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+      class="flex flex-col justify-center items-center"
       data-hero-cta
     >
       <a
@@ -43,11 +90,12 @@ const { t } = Astro.props;
         class="inline-flex items-center justify-center gap-2
           px-8 py-4 text-lg font-semibold
           bg-accent hover:bg-accent/90
-          text-black rounded-full
+          text-black hover:text-white rounded-full
           transition-all duration-300 ease-out
           transform hover:scale-105 hover:-translate-y-1
           shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/40
-          focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black"
+          focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black
+          group"
         aria-label={`${t("hero.cta")} - Contact us`}
       >
         {t("hero.cta")}
@@ -65,8 +113,8 @@ const { t } = Astro.props;
         </svg>
       </a>
 
-      <!-- Scroll Indicator -->
-      <div class="flex flex-col items-center text-white/60 mt-8 sm:mt-16">
+      <!-- Scroll Indicator - moved below button -->
+      <div class="flex flex-col items-center text-white/60 mt-12" data-scroll-indicator>
         <span class="text-sm uppercase tracking-wider mb-2"
           >{t("hero.scrollText")}</span
         >
@@ -87,10 +135,55 @@ const { t } = Astro.props;
   /* Optimización para elementos animados */
   [data-hero-title],
   [data-hero-subtitle],
-  [data-hero-cta] {
+  [data-hero-cta],
+  [data-scroll-indicator] {
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
+  }
+
+  /* Hexagon Comets Styling */
+  .hex-comet {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    will-change: transform;
+    opacity: 0;
+  }
+
+  .comet-trail {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(
+      90deg, 
+      rgba(139, 197, 63, 0.8) 0%, 
+      rgba(139, 197, 63, 0.4) 50%, 
+      transparent 100%
+    );
+    margin-left: -8px;
+    border-radius: 1px;
+    filter: blur(1px);
+  }
+
+  .hex-comet-1 { top: 10%; left: -10%; }
+  .hex-comet-2 { top: 25%; right: -10%; }
+  .hex-comet-3 { top: 60%; left: -15%; }
+  .hex-comet-4 { top: 75%; right: -8%; }
+  .hex-comet-5 { top: 40%; left: -12%; }
+
+  /* Floating animation for scroll indicator */
+  [data-scroll-indicator] {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Enhanced button hover effects */
+  .group:hover .comet-trail {
+    box-shadow: 0 0 15px rgba(139, 197, 63, 0.6);
   }
 
   /* Responsive text sizing */
@@ -104,6 +197,14 @@ const { t } = Astro.props;
       font-size: 1.125rem;
       line-height: 1.75rem;
     }
+
+    .hex-comet {
+      transform: scale(0.7);
+    }
+
+    .comet-trail {
+      width: 40px;
+    }
   }
 
   /* Accessibility */
@@ -111,7 +212,8 @@ const { t } = Astro.props;
     #hero,
     [data-hero-title],
     [data-hero-subtitle],
-    [data-hero-cta] {
+    [data-hero-cta],
+    [data-scroll-indicator] {
       transform: none !important;
       animation: none !important;
       transition: none !important;
@@ -121,12 +223,23 @@ const { t } = Astro.props;
     .animate-pulse {
       animation: none !important;
     }
+
+    .hex-comet {
+      display: none !important;
+    }
   }
 
   /* Focus styles */
   a:focus-visible {
     outline: 2px solid #8bc53f;
     outline-offset: 2px;
+  }
+
+  /* Performance optimizations */
+  .hex-comet svg,
+  .comet-trail {
+    will-change: transform;
+    backface-visibility: hidden;
   }
 </style>
 
@@ -243,6 +356,90 @@ const { t } = Astro.props;
         duration: 1,
         ease: "back.out(1.5)"
       }, "-=0.8");
+
+    // Animaciones de cometas hexagonales
+    const hexComets = document.querySelectorAll('[data-hex-1], [data-hex-2], [data-hex-3], [data-hex-4], [data-hex-5]');
+    
+    hexComets.forEach((comet, index) => {
+      const isFromLeft = index % 2 === 0;
+      const startX = isFromLeft ? -100 : window.innerWidth + 100;
+      const endX = isFromLeft ? window.innerWidth + 100 : -100;
+      const duration = 4 + Math.random() * 6; // 4-10 seconds
+      const delay = index * 2 + Math.random() * 3; // Staggered start
+
+      // Timeline de animación infinita para cada cometa
+      const cometTimeline = gsapManager.createTimeline(HERO_CONTEXT, {
+        repeat: -1,
+        delay: delay
+      });
+
+      cometTimeline
+        .set(comet, {
+          x: startX,
+          y: Math.random() * 100 - 50, // Variación vertical
+          opacity: 0,
+          rotation: Math.random() * 360,
+          scale: 0.8 + Math.random() * 0.4
+        })
+        .to(comet, {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out"
+        })
+        .to(comet, {
+          x: endX,
+          y: "+=50",
+          rotation: "+=180",
+          duration: duration,
+          ease: "none"
+        }, 0.2)
+        .to(comet, {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.in"
+        }, duration - 0.5);
+
+      // Animación de rotación continua para el hexágono
+      const hexagonSvg = comet.querySelector('svg');
+      if (hexagonSvg) {
+        gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 })
+          .to(hexagonSvg, {
+            rotation: 360,
+            duration: 8 + Math.random() * 4,
+            ease: "none"
+          });
+      }
+
+      // Animación del trail (estela)
+      const trail = comet.querySelector('.comet-trail');
+      if (trail) {
+        gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 })
+          .to(trail, {
+            scaleX: 1.5,
+            opacity: 0.8,
+            duration: 1,
+            yoyo: true,
+            ease: "power2.inOut"
+          });
+      }
+    });
+
+    // Animación especial para el scroll indicator
+    const scrollIndicator = document.querySelector('[data-scroll-indicator]');
+    if (scrollIndicator) {
+      const scrollAnimation = gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 });
+      scrollAnimation
+        .to(scrollIndicator, {
+          y: -10,
+          duration: 1.5,
+          ease: "power2.inOut"
+        })
+        .to(scrollIndicator, {
+          y: 0,
+          duration: 1.5,
+          ease: "power2.inOut"
+        });
+    }
 
     // Debug info para desarrollo
     if (import.meta.env?.DEV) {
