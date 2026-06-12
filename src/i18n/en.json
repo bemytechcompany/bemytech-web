@@ -1,78 +1,141 @@
 {
   "hero": {
-    "title": "Innovative Technology",
-    "titleAccent": "Solutions",
-    "subtitle": "We develop robust and scalable software with over 5 years of experience. We transform ideas into digital solutions that drive your business growth.",
-    "cta": "Discover Our Services",
-    "scrollText": "Scroll"
+    "badge": "Software studio · Pereira, Colombia",
+    "title": "We build the software that",
+    "titleAccent": "powers your business",
+    "subtitle": "We design and develop robust, scalable digital products — web, mobile and artificial intelligence. Over 5 years turning ideas into solutions that drive real growth.",
+    "cta": "Let's talk about your project",
+    "ctaSecondary": "View projects",
+    "scrollText": "Scroll",
+    "stats": {
+      "yearsValue": "5+",
+      "years": "Years of experience",
+      "productsValue": "5+",
+      "products": "Products in production",
+      "techsValue": "12+",
+      "techs": "Technologies mastered"
+    },
+    "terminal": {
+      "title": "bemytech — deploy",
+      "line1": "$ bemytech init --project your-idea",
+      "line2": "✓ Requirements analysis",
+      "line3": "✓ UX/UI design",
+      "line4": "✓ Agile development",
+      "line5": "✓ Testing & QA",
+      "line6": "→ Deployed to production 🚀"
+    }
   },
   "nav": {
     "home": "Home",
     "services": "Services",
+    "process": "Process",
     "portfolio": "Portfolio",
     "testimonials": "Testimonials",
-    "contact": "Contact"
+    "contact": "Contact",
+    "letsTalk": "Let's talk"
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "We offer comprehensive technology solutions to grow your business",
+    "label": "Services",
+    "title": "What we do",
+    "subtitle": "End-to-end technology solutions: from idea to production, with a team that masters the full stack.",
     "development": {
       "title": "Web Development",
-      "description": "We create modern, responsive web applications optimized for the best performance."
+      "description": "Modern, fast, SEO-optimized web applications. Tailor-made platforms that scale with your business.",
+      "tags": "Next.js · Astro · React"
     },
-    "consulting": {
-      "title": "IT Consulting",
-      "description": "We advise on implementing technologies that maximize your company's efficiency."
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "Cross-platform native apps from a single codebase. Smooth experiences on iOS and Android.",
+      "tags": "Flutter · Firebase"
     },
     "ai": {
       "title": "Artificial Intelligence",
-      "description": "We implement AI solutions to automate processes and improve decision-making."
+      "description": "Process automation, predictive analytics and AI models applied to real business problems.",
+      "tags": "Python · TensorFlow · LLMs"
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "description": "Scalable infrastructure, automated deployments and continuous monitoring in the cloud.",
+      "tags": "AWS · Docker · CI/CD"
+    },
+    "consulting": {
+      "title": "IT Consulting",
+      "description": "We guide your technology decisions: architecture, stack and digital strategy to maximize efficiency.",
+      "tags": "Architecture · Strategy"
     },
     "support": {
       "title": "Technical Support",
-      "description": "We provide ongoing support to ensure optimal performance of your systems."
+      "description": "Ongoing support, evolutionary maintenance and improvements so your systems never stop.",
+      "tags": "SLA · 24/7 Monitoring"
+    }
+  },
+  "process": {
+    "label": "Process",
+    "title": "How we work",
+    "subtitle": "A proven process that turns ideas into products running in production.",
+    "step1": {
+      "number": "01",
+      "title": "Discovery",
+      "description": "We understand your business, your users and the problem to solve. We define scope and priorities together."
+    },
+    "step2": {
+      "number": "02",
+      "title": "Design & architecture",
+      "description": "UX/UI prototypes and a technical architecture built to scale from day one."
+    },
+    "step3": {
+      "number": "03",
+      "title": "Iterative development",
+      "description": "Short sprints with working deliverables. You see real progress week after week."
+    },
+    "step4": {
+      "number": "04",
+      "title": "Launch & support",
+      "description": "Production deployment, monitoring and continuous improvement. We don't leave you alone after launch."
     }
   },
   "portfolio": {
-    "title": "Our Projects",
-    "subtitle": "Explore some of our most outstanding work and the innovative solutions we have developed",
+    "label": "Portfolio",
+    "title": "Products already up and running",
+    "subtitle": "Real software, in production, solving real problems for companies and users.",
     "project1": {
-      "title": "Enterprise Management System",
-      "description": "Comprehensive web platform for human resources, inventory management and business processes.",
-      "category": "Web Development",
-      "tech": "React, Node.js, PostgreSQL"
+      "title": "Raffle",
+      "description": "Mobile app for creating and managing digital raffles. Organize draws, sell tickets online and showcase prizes in a clear, attractive way. Ideal for startups, social causes or product launches.",
+      "category": "Mobile App",
+      "tech": "Flutter, SQLite"
     },
     "project2": {
-      "title": "E-commerce Mobile App",
-      "description": "Complete mobile application with payment gateway, inventory management and real-time analytics.",
-      "category": "Mobile Development",
-      "tech": "React Native, Firebase, Stripe"
+      "title": "Castevo",
+      "description": "Real estate management software that centralizes control of properties, contracts, payments and reports. Designed to simplify rental administration, with task automation and an intuitive dashboard for agencies and owners.",
+      "category": "Web Platform",
+      "tech": "Next.js, Supabase"
     },
     "project3": {
-      "title": "AI Data Analysis",
-      "description": "Artificial intelligence system for predictive analysis and processing of large data volumes.",
-      "category": "Artificial Intelligence",
-      "tech": "Python, TensorFlow, AWS"
+      "title": "Viatika",
+      "description": "Tool to manage travel allowances between companies, employees and partner merchants. Automates requests, approvals and expense control in one place.",
+      "category": "Web + Mobile",
+      "tech": "Next.js, Supabase, Flutter"
     },
     "project4": {
-      "title": "Cloud Infrastructure",
-      "description": "Complete cloud migration with scalable architecture and advanced monitoring systems.",
-      "category": "IT Consulting",
-      "tech": "AWS, Docker, Kubernetes"
+      "title": "Visual Emotion",
+      "description": "AI-powered interview management platform for emotion and sentiment analysis. Uses AI as a passive observer to enrich the understanding of behavior during interviews.",
+      "category": "AI Platform",
+      "tech": "Next.js, Supabase, Python, AI"
     },
     "project5": {
-      "title": "Blockchain DeFi Platform",
-      "description": "Decentralized finance platform with smart contracts and advanced security protocols.",
-      "category": "Blockchain",
-      "tech": "Solidity, Web3.js, Ethereum"
+      "title": "RikDrive",
+      "description": "Comprehensive mobility platform launched in Colombia: passenger and vehicle transport, deliveries and shipping, car and motorcycle rentals, and designated-driver services for events.",
+      "category": "Web + Mobile",
+      "tech": "Next.js, Firebase, Flutter, Wompi"
     },
     "viewProject": "View Project",
     "technologies": "Technologies",
     "scrollHint": "Scroll to explore projects"
   },
   "technologies": {
-    "title": "Technologies",
-    "subtitle": "We work with the most advanced tools in the market",
+    "label": "Stack",
+    "title": "Technologies we master",
+    "subtitle": "We pick the right tool for each problem — and we master it deeply.",
     "react": {
       "name": "React",
       "description": "Library for dynamic user interfaces"
@@ -101,48 +164,50 @@
       "name": "Three.js",
       "description": "JavaScript library for 3D graphics"
     },
-    "aws": {
-      "name": "AWS",
-      "description": "Cloud computing services"
-    },
-    "docker": {
-      "name": "Docker",
-      "description": "Container platform"
-    },
+    "aws": { "name": "AWS", "description": "Cloud computing services" },
+    "docker": { "name": "Docker", "description": "Container platform" },
     "postgresql": {
       "name": "PostgreSQL",
       "description": "Advanced relational database"
     },
-    "mongodb": {
-      "name": "MongoDB",
-      "description": "Flexible NoSQL database"
-    },
+    "mongodb": { "name": "MongoDB", "description": "Flexible NoSQL database" },
     "python": {
       "name": "Python",
       "description": "Versatile language for AI and backend"
     }
   },
   "testimonials": {
-    "title": "What Our Clients Say",
-    "subtitle": "Real testimonials from companies that trusted us",
+    "label": "Testimonials",
+    "title": "What our clients say",
+    "subtitle": "Companies that trusted us and now grow with their technology.",
     "testimonial1": {
-      "text": "BEMYTECH completely transformed our digital infrastructure. Their team delivered a robust and scalable solution that exceeded our expectations."
+      "text": "BEMYTECH completely transformed our digital infrastructure. Their team delivered a robust and scalable solution that exceeded our expectations.",
+      "tag": "Digital transformation"
     },
     "testimonial2": {
-      "text": "The AI consulting we received was exceptional. They implemented algorithms that improved our operational efficiency by 40%."
+      "text": "The AI consulting we received was exceptional. They implemented algorithms that improved our operational efficiency by 40%.",
+      "tag": "AI consulting"
     },
     "testimonial3": {
-      "text": "The development of our e-commerce platform was perfect. Intuitive interface, clean code and first-class technical support."
+      "text": "The development of our e-commerce platform was perfect. Intuitive interface, clean code and first-class technical support.",
+      "tag": "E-commerce platform"
     },
     "cta": "Ready to take your project to the next level?",
+    "ctaSubtitle": "Tell us your idea today and get a clear proposal, no strings attached.",
     "ctaButton": "Start your project"
   },
   "navigation": {
     "skipToContent": "Skip to main content"
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Have a project in mind? Let's talk about how we can help you",
+    "label": "Contact",
+    "title": "Let's talk about your project",
+    "subtitle": "Have an idea in mind? Write to us and we'll get back to you the same day.",
+    "whatsapp": {
+      "title": "Fast response via WhatsApp",
+      "text": "The shortest path to your quote: tell us what you need and we'll reply today.",
+      "button": "Chat on WhatsApp"
+    },
     "form": {
       "name": "Full name",
       "namePlaceholder": "Enter your name",
@@ -152,7 +217,7 @@
       "companyPlaceholder": "Your company name",
       "message": "Message",
       "messagePlaceholder": "Tell us about your project...",
-      "send": "Send Message",
+      "send": "Send via WhatsApp",
       "sending": "Sending...",
       "required": "This field is required"
     },
@@ -162,9 +227,13 @@
       "button": "Send another message"
     },
     "info": {
-      "address": "Madrid, Spain",
-      "phone": "+34 600 123 456",
-      "email": "hello@bemytech.com",
+      "addressLabel": "Location",
+      "address": "Pereira, Colombia",
+      "phoneLabel": "Phone",
+      "phone": "+57 311 430 22 56",
+      "emailLabel": "Email",
+      "email": "contacto@bemytech.com",
+      "hoursLabel": "Hours",
       "hours": "Monday - Friday: 9:00 - 18:00"
     }
   },
@@ -205,11 +274,17 @@
   },
   "footer": {
     "company": "BEMYTECH",
-    "description": "Innovative technology solutions for your business growth",
+    "description": "Innovative technology solutions for your business growth.",
+    "madeIn": "Made in Pereira, Colombia",
     "rights": "All rights reserved",
+    "sections": {
+      "navigate": "Navigation",
+      "contact": "Contact",
+      "legal": "Legal"
+    },
     "links": {
       "privacy": "Privacy Policy",
       "terms": "Terms of Use"
     }
   }
-} 
+}

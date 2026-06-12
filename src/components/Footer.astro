@@ -1,0 +1,91 @@
+---
+// Footer.astro - Site footer: brand, navigation, contact, legal
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { href: '#services', label: t('nav.services') },
+  { href: '#process', label: t('nav.process') },
+  { href: '#portfolio', label: t('nav.portfolio') },
+  { href: '#testimonials', label: t('nav.testimonials') },
+  { href: '#contact', label: t('nav.contact') },
+];
+---
+
+<footer class="relative border-t border-white/[0.07] bg-bemytech-dark/60">
+  <div class="section-shell py-14">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="flex items-center gap-3" aria-label="BEMYTECH - Home">
+          <svg width="26" height="30" viewBox="0 0 277 323" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M235.792 64.6952C235.792 74.0125 236.024 83.3405 235.626 92.6405C235.528 94.8965 233.915 97.9712 232.044 99.1285C216.992 108.439 201.678 117.323 186.523 126.472C182.575 128.856 179.167 129.267 174.932 126.723C158.508 116.855 141.838 107.4 125.41 97.5378C123.762 96.5485 122.215 93.8512 122.192 91.9285C121.982 74.2098 122.115 56.4872 122.155 38.7672C122.164 34.3845 123.996 31.2592 127.918 28.9805C143.538 19.9005 159.071 10.6712 174.576 1.39383C177.774 -0.519506 180.516 -0.434175 183.723 1.47116C199.728 10.9778 215.798 20.3778 231.923 29.6778C234.836 31.3565 235.903 33.4565 235.847 36.7432C235.691 46.0592 235.792 55.3778 235.792 64.6952Z" fill="#82C232"/>
+            <path d="M208.037 184.068C208.037 178.245 208.09 172.421 208.001 166.6C207.978 165.099 208.401 164.181 209.72 163.416C219.986 157.467 230.226 151.471 240.449 145.444C241.588 144.772 242.489 144.773 243.629 145.439C254.009 151.501 264.408 157.535 274.833 163.52C276.013 164.197 276.357 165 276.352 166.308C276.302 178.031 276.289 189.755 276.349 201.477C276.358 203.316 275.788 204.408 274.133 205.36C264.05 211.161 254.026 217.064 244.024 223.004C242.765 223.752 241.856 223.683 240.64 222.971C230.334 216.932 220.005 210.936 209.649 204.985C208.392 204.264 207.989 203.408 208.006 202.001C208.076 196.024 208.036 190.045 208.037 184.068Z" fill="#82C232"/>
+            <path d="M0.0846877 204.581C0.0873544 190.888 0.211354 177.193 0.002021 163.502C-0.0513123 159.972 0.942021 157.814 4.04335 156.017C28.186 142.025 52.2674 127.926 76.3047 113.754C78.9847 112.173 81.1034 112.176 83.7847 113.743C108.195 127.999 132.649 142.185 157.163 156.261C159.938 157.853 160.746 159.742 160.734 162.816C160.619 190.385 160.587 217.954 160.727 245.523C160.749 249.845 159.407 252.413 155.518 254.651C131.807 268.293 108.233 282.174 84.7127 296.144C81.754 297.901 79.6127 297.741 76.754 296.065C52.5207 281.865 28.23 267.763 3.87669 253.772C0.919354 252.073 -0.025979 250.06 0.0126877 246.754C0.175354 232.698 0.082021 218.64 0.0846877 204.581Z" fill="#82C232"/>
+            <path d="M166.164 299.499C166.166 296.066 166.196 292.634 166.144 289.202C166.131 288.317 166.379 287.777 167.156 287.326C173.208 283.818 179.244 280.285 185.27 276.731C185.942 276.335 186.472 276.337 187.146 276.729C193.264 280.302 199.394 283.858 205.539 287.387C206.234 287.786 206.436 288.259 206.434 289.03C206.404 295.941 206.398 302.851 206.432 309.762C206.438 310.845 206.102 311.489 205.126 312.05C199.183 315.469 193.274 318.949 187.378 322.45C186.636 322.891 186.099 322.851 185.383 322.431C179.308 318.871 173.219 315.337 167.115 311.83C166.374 311.403 166.136 310.899 166.147 310.07C166.187 306.547 166.164 303.023 166.164 299.499Z" fill="#82C232"/>
+          </svg>
+          <span class="font-display text-lg font-bold tracking-wide text-white">BEMY<span class="text-accent">TECH</span></span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
+          {t('footer.description')}
+        </p>
+        <p class="mt-4 inline-flex items-center gap-2 font-mono text-xs text-white/40">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          {t('footer.madeIn')}
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <nav aria-label="Footer navigation">
+        <h3 class="font-mono text-xs uppercase tracking-[0.25em] text-accent">{t('footer.sections.navigate')}</h3>
+        <ul class="mt-5 flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm text-white/60 transition-colors hover:text-accent">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Contact + Legal -->
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.25em] text-accent">{t('footer.sections.contact')}</h3>
+        <ul class="mt-5 flex flex-col gap-3 text-sm text-white/60">
+          <li>
+            <a href="mailto:contacto@bemytech.com" class="transition-colors hover:text-accent">{t('contact.info.email')}</a>
+          </li>
+          <li>
+            <a href="tel:+573114302256" class="transition-colors hover:text-accent">{t('contact.info.phone')}</a>
+          </li>
+          <li>{t('contact.info.address')}</li>
+        </ul>
+        <h3 class="mt-8 font-mono text-xs uppercase tracking-[0.25em] text-accent">{t('footer.sections.legal')}</h3>
+        <ul class="mt-5 flex flex-col gap-3 text-sm text-white/60">
+          <li>
+            <a href="/privacy-policy" class="transition-colors hover:text-accent">{t('footer.links.privacy')}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-7 sm:flex-row">
+      <p class="font-mono text-xs text-white/35">
+        © {year} {t('footer.company')}. {t('footer.rights')}.
+      </p>
+      <a
+        href="#hero"
+        class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-white/40 transition-colors hover:text-accent"
+      >
+        Top
+        <svg class="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>

@@ -1,450 +1,178 @@
 ---
-// Hero.astro - Hero section refactorizado con GSAP Manager
-// Evita conflictos con otros componentes usando el sistema centralizado
-
+// Hero.astro - Full-viewport hero: headline + CTAs + stats, animated deploy terminal
 interface Props {
   t: (key: string) => string;
 }
 
 const { t } = Astro.props;
+
+const WHATSAPP_URL = 'https://wa.me/573114302256?text=Hola%20BEMYTECH%2C%20quiero%20hablar%20sobre%20un%20proyecto';
+
+const terminalLines = [
+  { text: t('hero.terminal.line1'), cls: 'text-white' },
+  { text: t('hero.terminal.line2'), cls: 'text-accent' },
+  { text: t('hero.terminal.line3'), cls: 'text-accent' },
+  { text: t('hero.terminal.line4'), cls: 'text-accent' },
+  { text: t('hero.terminal.line5'), cls: 'text-accent' },
+  { text: t('hero.terminal.line6'), cls: 'text-accent-bright font-semibold' },
+];
+
+const stats = [
+  { value: t('hero.stats.yearsValue'), label: t('hero.stats.years') },
+  { value: t('hero.stats.productsValue'), label: t('hero.stats.products') },
+  { value: t('hero.stats.techsValue'), label: t('hero.stats.techs') },
+];
 ---
 
-<section
-  id="hero"
-  class="relative h-screen w-full overflow-hidden flex items-center justify-center"
-  aria-label={t("hero.title")}
->
-  <!-- Flying Hexagon Comets Background -->
-  <div class="absolute inset-0 z-10 overflow-hidden pointer-events-none" data-hexagon-comets>
-    <!-- Hexagon Comet 1 -->
-    <div class="hex-comet hex-comet-1 absolute text-accent/30" data-hex-1>
-      <svg viewBox="0 0 100 100" class="w-8 h-8 fill-current drop-shadow-lg">
-        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
-        <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" fill="rgba(139, 197, 63, 0.5)" />
-      </svg>
-      <div class="comet-trail"></div>
-    </div>
-    
-    <!-- Hexagon Comet 2 -->
-    <div class="hex-comet hex-comet-2 absolute text-accent/25" data-hex-2>
-      <svg viewBox="0 0 100 100" class="w-6 h-6 fill-current drop-shadow-lg">
-        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
-        <polygon points="50,20 70,35 70,65 50,80 30,65 30,35" fill="rgba(139, 197, 63, 0.4)" />
-      </svg>
-      <div class="comet-trail"></div>
-    </div>
-    
-    <!-- Hexagon Comet 3 -->
-    <div class="hex-comet hex-comet-3 absolute text-accent/20" data-hex-3>
-      <svg viewBox="0 0 100 100" class="w-10 h-10 fill-current drop-shadow-lg">
-        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
-        <polygon points="50,10 80,27 80,73 50,90 20,73 20,27" fill="rgba(139, 197, 63, 0.6)" />
-      </svg>
-      <div class="comet-trail"></div>
-    </div>
-    
-    <!-- Hexagon Comet 4 -->
-    <div class="hex-comet hex-comet-4 absolute text-accent/35" data-hex-4>
-      <svg viewBox="0 0 100 100" class="w-5 h-5 fill-current drop-shadow-lg">
-        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
-      </svg>
-      <div class="comet-trail"></div>
-    </div>
-    
-    <!-- Hexagon Comet 5 -->
-    <div class="hex-comet hex-comet-5 absolute text-accent/15" data-hex-5>
-      <svg viewBox="0 0 100 100" class="w-7 h-7 fill-current drop-shadow-lg">
-        <polygon points="50,2 86,25 86,75 50,98 14,75 14,25" />
-        <polygon points="50,18 72,32 72,68 50,82 28,68 28,32" fill="rgba(139, 197, 63, 0.3)" />
-      </svg>
-      <div class="comet-trail"></div>
-    </div>
+<section id="hero" class="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16">
+  <!-- Background: grid + radial glows + floating hexagons -->
+  <div class="pointer-events-none absolute inset-0 bg-tech-grid" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="absolute -top-40 left-1/2 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]"></div>
+    <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-accent/5 blur-[100px]"></div>
+    <!-- Decorative hexagons -->
+    <svg class="absolute right-[8%] top-[18%] h-16 w-16 animate-float-slow text-accent/20" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
+    </svg>
+    <svg class="absolute left-[6%] bottom-[22%] h-10 w-10 animate-float-slow text-accent/15 [animation-delay:1.5s]" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
+    </svg>
+    <svg class="absolute left-[42%] top-[12%] h-6 w-6 animate-float-slow text-accent/25 [animation-delay:2.6s]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" aria-hidden="true">
+      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
+    </svg>
   </div>
 
-  <!-- Content Layer -->
-  <div class="relative z-30 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-    <!-- Main Title -->
-    <h1
-      class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-      data-hero-title
-    >
-      <span class="block text-white">{t("hero.title")}</span>
-      <span class="block text-accent mt-2">{t("hero.titleAccent")}</span>
-    </h1>
+  <div class="section-shell relative z-10">
+    <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+      <!-- Left: copy -->
+      <div>
+        <p class="reveal inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/5 px-4 py-1.5 font-mono text-xs tracking-wider text-accent">
+          <span class="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-accent"></span>
+          {t('hero.badge')}
+        </p>
 
-    <!-- Subtitle -->
-    <p
-      class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto"
-      data-hero-subtitle
-    >
-      {t("hero.subtitle")}
-    </p>
+        <h1 class="reveal reveal-delay-1 mt-6 font-display text-4xl font-bold leading-[1.08] text-white sm:text-5xl xl:text-6xl">
+          {t('hero.title')}
+          <span class="text-glow-accent block">{t('hero.titleAccent')}</span>
+        </h1>
 
-    <!-- CTA Button -->
-    <div
-      class="flex flex-col justify-center items-center"
-      data-hero-cta
-    >
-      <a
-        href="#contact"
-        class="inline-flex items-center justify-center gap-2
-          px-8 py-4 text-lg font-semibold
-          bg-accent hover:bg-accent/90
-          text-black hover:text-white rounded-full
-          transition-all duration-300 ease-out
-          transform hover:scale-105 hover:-translate-y-1
-          shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/40
-          focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black
-          group"
-        aria-label={`${t("hero.cta")} - Contact us`}
-      >
-        {t("hero.cta")}
-        <svg
-          class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-      </a>
+        <p class="reveal reveal-delay-2 mt-6 max-w-xl text-lg leading-relaxed text-white/65">
+          {t('hero.subtitle')}
+        </p>
 
-      <!-- Scroll Indicator - moved below button -->
-      <div class="flex flex-col items-center text-white/60 mt-12" data-scroll-indicator>
-        <span class="text-sm uppercase tracking-wider mb-2"
-          >{t("hero.scrollText")}</span
-        >
-        <div class="w-0.5 h-8 bg-accent animate-pulse"></div>
+        <div class="reveal reveal-delay-3 mt-9 flex flex-wrap items-center gap-4">
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="btn-primary">
+            {t('hero.cta')}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a href="#portfolio" class="btn-secondary">
+            {t('hero.ctaSecondary')}
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <dl class="reveal reveal-delay-4 mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
+          {stats.map((stat) => (
+            <div>
+              <dd class="font-display text-3xl font-bold text-accent sm:text-4xl">{stat.value}</dd>
+              <dt class="mt-1 text-xs leading-snug text-white/50 sm:text-sm">{stat.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- Right: animated deploy terminal -->
+      <div class="reveal reveal-delay-2 relative hidden lg:block">
+        <div class="absolute -inset-6 rounded-3xl bg-accent/10 blur-3xl" aria-hidden="true"></div>
+        <div class="relative rounded-2xl border border-white/10 bg-[#0A0E0A]/95 shadow-2xl shadow-black/60 backdrop-blur">
+          <!-- Title bar -->
+          <div class="flex items-center gap-2 border-b border-white/[0.07] px-5 py-3.5">
+            <span class="h-3 w-3 rounded-full bg-[#FF5F57]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#FEBC2E]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#28C840]"></span>
+            <span class="ml-3 font-mono text-xs text-white/40">{t('hero.terminal.title')}</span>
+          </div>
+          <!-- Body -->
+          <div id="hero-terminal" class="min-h-[16.5rem] px-6 py-5 font-mono text-sm leading-8">
+            {terminalLines.map((line, i) => (
+              <p class={`terminal-line opacity-0 ${line.cls}`} data-line={i}>{line.text}</p>
+            ))}
+            <p class="terminal-cursor mt-1 text-accent opacity-0">
+              <span class="inline-block h-4 w-2 animate-pulse-dot bg-accent align-middle"></span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Scroll hint -->
+  <a
+    href="#services"
+    class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[11px] uppercase tracking-[0.3em] text-white/35 transition-colors hover:text-accent md:flex"
+    aria-label={t('hero.scrollText')}
+  >
+    {t('hero.scrollText')}
+    <svg class="h-4 w-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </a>
 </section>
 
 <style>
-  /* Optimización de rendimiento para parallax */
-  #hero {
-    transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
+  .terminal-line {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(6px);
   }
 
-  /* Optimización para elementos animados */
-  [data-hero-title],
-  [data-hero-subtitle],
-  [data-hero-cta],
-  [data-scroll-indicator] {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+  .terminal-line.shown {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Hexagon Comets Styling */
-  .hex-comet {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    will-change: transform;
-    opacity: 0;
-  }
-
-  .comet-trail {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(
-      90deg, 
-      rgba(139, 197, 63, 0.8) 0%, 
-      rgba(139, 197, 63, 0.4) 50%, 
-      transparent 100%
-    );
-    margin-left: -8px;
-    border-radius: 1px;
-    filter: blur(1px);
-  }
-
-  .hex-comet-1 { top: 10%; left: -10%; }
-  .hex-comet-2 { top: 25%; right: -10%; }
-  .hex-comet-3 { top: 60%; left: -15%; }
-  .hex-comet-4 { top: 75%; right: -8%; }
-  .hex-comet-5 { top: 40%; left: -12%; }
-
-  /* Floating animation for scroll indicator */
-  [data-scroll-indicator] {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* Enhanced button hover effects */
-  .group:hover .comet-trail {
-    box-shadow: 0 0 15px rgba(139, 197, 63, 0.6);
-  }
-
-  /* Responsive text sizing */
-  @media (max-width: 640px) {
-    [data-hero-title] {
-      font-size: 2.25rem;
-      line-height: 2.5rem;
-    }
-
-    [data-hero-subtitle] {
-      font-size: 1.125rem;
-      line-height: 1.75rem;
-    }
-
-    .hex-comet {
-      transform: scale(0.7);
-    }
-
-    .comet-trail {
-      width: 40px;
-    }
-  }
-
-  /* Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    #hero,
-    [data-hero-title],
-    [data-hero-subtitle],
-    [data-hero-cta],
-    [data-scroll-indicator] {
-      transform: none !important;
-      animation: none !important;
-      transition: none !important;
-      will-change: auto !important;
-    }
-
-    .animate-pulse {
-      animation: none !important;
-    }
-
-    .hex-comet {
-      display: none !important;
-    }
-  }
-
-  /* Focus styles */
-  a:focus-visible {
-    outline: 2px solid #8bc53f;
-    outline-offset: 2px;
-  }
-
-  /* Performance optimizations */
-  .hex-comet svg,
-  .comet-trail {
-    will-change: transform;
-    backface-visibility: hidden;
+  .terminal-cursor.shown {
+    opacity: 1;
   }
 </style>
 
 <script>
-  import { gsapManager, gsap } from '../utils/gsapManager';
+  // Reveal terminal lines one by one once the hero is on screen
+  const terminal = document.getElementById('hero-terminal');
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // Crear contexto para Hero
-    const HERO_CONTEXT = 'hero';
-    gsapManager.createContext(HERO_CONTEXT);
+  if (terminal) {
+    const lines = terminal.querySelectorAll<HTMLElement>('.terminal-line');
+    const cursor = terminal.querySelector<HTMLElement>('.terminal-cursor');
+    let played = false;
 
-    // Verificar reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      console.log('Reduced motion detected - simplified hero animations');
-      return;
-    }
-
-    // Obtener elementos
-    const heroSection = document.getElementById("hero");
-    const heroTitle = document.querySelector("[data-hero-title]") as HTMLElement;
-    const heroSubtitle = document.querySelector("[data-hero-subtitle]") as HTMLElement;
-    const heroCta = document.querySelector("[data-hero-cta]") as HTMLElement;
-
-    if (!heroSection || !heroTitle || !heroSubtitle || !heroCta) {
-      console.warn('Hero elements not found');
-      return;
-    }
-
-    // Animaciones de parallax en scroll
-    gsapManager.createScrollTrigger(HERO_CONTEXT, {
-      trigger: heroSection,
-      start: "top+=80 top",
-      end: "bottom-=100 top",
-      scrub: 0.1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        
-        // Título con movimiento dramático
-        gsap.set(heroTitle, {
-          y: -400 * progress,
-          x: -150 * progress,
-          opacity: Math.max(0.05, 1 - progress * 0.95),
-          scale: Math.max(0.3, 1 - progress * 0.7),
-          rotation: 25 * progress
-        });
-
-        // Subtítulo con movimiento contrario
-        gsap.set(heroSubtitle, {
-          y: -300 * progress,
-          x: 120 * progress,
-          opacity: Math.max(0.08, 1 - progress * 0.92),
-          scale: Math.max(0.4, 1 - progress * 0.6),
-          rotation: -20 * progress
-        });
-
-        // CTA con movimiento moderado
-        gsap.set(heroCta, {
-          y: -250 * progress,
-          x: -80 * progress,
-          opacity: Math.max(0.1, 1 - progress * 0.9),
-          scale: Math.max(0.5, 1 - progress * 0.5),
-          rotation: 15 * progress
-        });
-      }
-    });
-
-    // Animaciones de entrada
-    const entranceTimeline = gsapManager.createTimeline(HERO_CONTEXT, { delay: 0.3 });
-
-    entranceTimeline
-      .fromTo(heroTitle, {
-        y: 200,
-        x: -100,
-        opacity: 0,
-        scale: 0.3,
-        rotation: -45
-      }, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 1.5,
-        ease: "back.out(2)"
-      })
-      .fromTo(heroSubtitle, {
-        y: 150,
-        x: 80,
-        opacity: 0,
-        scale: 0.4,
-        rotation: 30
-      }, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 1.2,
-        ease: "back.out(1.7)"
-      }, "-=1")
-      .fromTo(heroCta, {
-        y: 100,
-        x: -60,
-        opacity: 0,
-        scale: 0.5,
-        rotation: -20
-      }, {
-        y: 0,
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 1,
-        ease: "back.out(1.5)"
-      }, "-=0.8");
-
-    // Animaciones de cometas hexagonales
-    const hexComets = document.querySelectorAll('[data-hex-1], [data-hex-2], [data-hex-3], [data-hex-4], [data-hex-5]');
-    
-    hexComets.forEach((comet, index) => {
-      const isFromLeft = index % 2 === 0;
-      const startX = isFromLeft ? -100 : window.innerWidth + 100;
-      const endX = isFromLeft ? window.innerWidth + 100 : -100;
-      const duration = 4 + Math.random() * 6; // 4-10 seconds
-      const delay = index * 2 + Math.random() * 3; // Staggered start
-
-      // Timeline de animación infinita para cada cometa
-      const cometTimeline = gsapManager.createTimeline(HERO_CONTEXT, {
-        repeat: -1,
-        delay: delay
+    const play = () => {
+      if (played) return;
+      played = true;
+      lines.forEach((line, i) => {
+        setTimeout(() => {
+          line.classList.add('shown');
+          if (i === lines.length - 1) {
+            setTimeout(() => cursor?.classList.add('shown'), 400);
+          }
+        }, 600 + i * 520);
       });
+    };
 
-      cometTimeline
-        .set(comet, {
-          x: startX,
-          y: Math.random() * 100 - 50, // Variación vertical
-          opacity: 0,
-          rotation: Math.random() * 360,
-          scale: 0.8 + Math.random() * 0.4
-        })
-        .to(comet, {
-          opacity: 1,
-          duration: 0.5,
-          ease: "power2.out"
-        })
-        .to(comet, {
-          x: endX,
-          y: "+=50",
-          rotation: "+=180",
-          duration: duration,
-          ease: "none"
-        }, 0.2)
-        .to(comet, {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.in"
-        }, duration - 0.5);
-
-      // Animación de rotación continua para el hexágono
-      const hexagonSvg = comet.querySelector('svg');
-      if (hexagonSvg) {
-        gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 })
-          .to(hexagonSvg, {
-            rotation: 360,
-            duration: 8 + Math.random() * 4,
-            ease: "none"
-          });
-      }
-
-      // Animación del trail (estela)
-      const trail = comet.querySelector('.comet-trail');
-      if (trail) {
-        gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 })
-          .to(trail, {
-            scaleX: 1.5,
-            opacity: 0.8,
-            duration: 1,
-            yoyo: true,
-            ease: "power2.inOut"
-          });
-      }
-    });
-
-    // Animación especial para el scroll indicator
-    const scrollIndicator = document.querySelector('[data-scroll-indicator]');
-    if (scrollIndicator) {
-      const scrollAnimation = gsapManager.createTimeline(HERO_CONTEXT, { repeat: -1 });
-      scrollAnimation
-        .to(scrollIndicator, {
-          y: -10,
-          duration: 1.5,
-          ease: "power2.inOut"
-        })
-        .to(scrollIndicator, {
-          y: 0,
-          duration: 1.5,
-          ease: "power2.inOut"
-        });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      lines.forEach((line) => line.classList.add('shown'));
+      cursor?.classList.add('shown');
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            play();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(terminal);
     }
-
-    // Debug info para desarrollo
-    if (import.meta.env?.DEV) {
-      console.log('Hero GSAP context created:', gsapManager.getDebugInfo());
-    }
-  });
+  }
 </script>
-

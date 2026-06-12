@@ -1,0 +1,48 @@
+---
+// Process.astro - 4-step "how we work" timeline
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const steps = ['step1', 'step2', 'step3', 'step4'];
+---
+
+<section id="process" class="relative py-24 sm:py-32">
+  <!-- Soft divider glow -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px max-w-site bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true"></div>
+
+  <div class="section-shell">
+    <div class="reveal">
+      <span class="section-label">{t('process.label')}</span>
+      <h2 class="section-title">{t('process.title')}</h2>
+      <p class="section-subtitle">{t('process.subtitle')}</p>
+    </div>
+
+    <ol class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {steps.map((step, i) => (
+        <li class={`reveal reveal-delay-${i + 1} group relative`}>
+          <!-- Connector line (desktop) -->
+          {i < steps.length - 1 && (
+            <div class="absolute left-14 top-7 hidden h-px w-[calc(100%-2rem)] bg-gradient-to-r from-accent/40 to-accent/5 lg:block" aria-hidden="true"></div>
+          )}
+
+          <div class="relative inline-flex h-14 w-14 items-center justify-center">
+            <svg class="absolute inset-0 h-full w-full text-accent/25 transition-colors duration-300 group-hover:text-accent/70" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true">
+              <polygon points="50,4 94,27 94,73 50,96 6,73 6,27" />
+            </svg>
+            <span class="font-mono text-sm font-semibold text-accent">{t(`process.${step}.number`)}</span>
+          </div>
+
+          <h3 class="mt-5 font-display text-lg font-semibold text-white">
+            {t(`process.${step}.title`)}
+          </h3>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-white/60">
+            {t(`process.${step}.description`)}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
