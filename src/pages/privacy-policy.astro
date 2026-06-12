@@ -3,7 +3,6 @@
 // Estructura preparada para pegar políticas personalizadas
 
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
 import { getTranslationsForSSR } from "../utils/i18n";
 
 // Get language from URL params or default to Spanish
@@ -45,9 +44,6 @@ const canonicalURL = `${baseURL}/privacy-policy`;
     <meta name="author" content="BEMYTECH" />
     <meta name="language" content={lang} />
   </Fragment>
-
-  <!-- Navigation -->
-  <Nav />
 
   <!-- Main Content -->
   <main class="min-h-screen bg-[#0D0D0D] text-white pt-24 pb-16">

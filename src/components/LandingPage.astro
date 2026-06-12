@@ -1,0 +1,132 @@
+---
+// LandingPage.astro - Shared landing page body for / (es) and /en routes
+import Layout from "../layouts/Layout.astro";
+import Hero from "./Hero.astro";
+import Services from "./Services.astro";
+import Process from "./Process.astro";
+import Portfolio from "./Portfolio.astro";
+import Technologies from "./Technologies.astro";
+import Testimonials from "./Testimonials.astro";
+import Contact from "./Contact.astro";
+import Footer from "./Footer.astro";
+import { getTranslationsForSSR } from "../utils/i18n";
+
+interface Props {
+  lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const { t } = await getTranslationsForSSR(lang);
+
+// SEO configuration
+const seoTitle = `${t("hero.title")} ${t("hero.titleAccent")} | BEMYTECH`;
+const seoDescription = t("hero.subtitle");
+const baseURL = Astro.site || "http://localhost:4321";
+const canonicalURL = new URL(lang === "es" ? "/" : "/en", baseURL);
+---
+
+<Layout title={seoTitle} description={seoDescription} lang={lang}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="es" href={new URL("/", baseURL)} />
+    <link rel="alternate" hreflang="en" href={new URL("/en", baseURL)} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta property="og:image" content={`${baseURL}/og-image.jpg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="twitter:image" content={`${baseURL}/og-image.jpg`} />
+  </Fragment>
+
+  <!-- Skip to Content Link for Accessibility -->
+  <a
+    href="#hero"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-accent text-[#081004] px-4 py-2 rounded-lg z-[10000]"
+  >
+    {t("navigation.skipToContent")}
+  </a>
+
+  <!-- Scroll Progress Indicator -->
+  <div
+    class="fixed top-0 left-0 z-[110] h-0.5 w-full origin-left scale-x-0 bg-gradient-to-r from-accent to-accent-bright"
+    data-scroll-progress
+    aria-hidden="true"
+  >
+  </div>
+
+  <Hero t={t} />
+  <Services t={t} />
+  <Process t={t} />
+  <Portfolio t={t} />
+  <Technologies t={t} />
+  <Testimonials t={t} />
+  <Contact t={t} />
+  <Footer t={t} />
+
+  <!-- Back to Top Button -->
+  <button
+    id="back-to-top"
+    class="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-xl border border-accent/40 bg-bemytech-dark/90 text-accent opacity-0 invisible backdrop-blur transition-all duration-300 hover:bg-accent hover:text-[#081004]"
+    aria-label="Back to top"
+  >
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Scroll-reveal animations
+    const revealEls = document.querySelectorAll(".reveal");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      revealEls.forEach((el) => el.classList.add("is-visible"));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+    }
+
+    // Scroll progress bar
+    const scrollProgress = document.querySelector("[data-scroll-progress]") as HTMLElement | null;
+    if (scrollProgress) {
+      const updateProgress = () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? window.scrollY / docHeight : 0;
+        scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+      };
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress, { passive: true });
+      updateProgress();
+    }
+
+    // Back to top button
+    const backToTopBtn = document.getElementById("back-to-top");
+    if (backToTopBtn) {
+      const toggleBackToTop = () => {
+        const scrolled = window.scrollY > 600;
+        backToTopBtn.classList.toggle("opacity-100", scrolled);
+        backToTopBtn.classList.toggle("visible", scrolled);
+        backToTopBtn.classList.toggle("opacity-0", !scrolled);
+        backToTopBtn.classList.toggle("invisible", !scrolled);
+      };
+      window.addEventListener("scroll", toggleBackToTop, { passive: true });
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  });
+</script>

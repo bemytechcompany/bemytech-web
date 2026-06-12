@@ -13,17 +13,16 @@ interface Props {
   noIndex?: boolean;
 }
 
-// Get current language from URL params or default to Spanish
-const currentLang = Astro.url.searchParams.get('lang') as 'es' | 'en' || 'es';
+// Language comes from the page (static routes: / = es, /en = en)
+const lang = Astro.props.lang || 'es';
 
 // Load translations for SSR
-const { t } = await getTranslationsForSSR(currentLang);
+const { t } = await getTranslationsForSSR(lang);
 
 // Props with defaults
 const {
   title = `${t('hero.title')} ${t('hero.titleAccent')} | BEMYTECH`,
   description = t('hero.subtitle'),
-  lang = currentLang,
   noIndex = false
 } = Astro.props;
 
@@ -105,7 +104,7 @@ const languageClass = getLanguageClass(lang);
   <body class="font-sans text-base leading-relaxed text-white bg-primary overflow-x-hidden antialiased selection:bg-accent/30">
 
     <!-- Navigation -->
-    <Nav />
+    <Nav lang={lang} />
 
     <!-- Main Content Container -->
     <main id="main-content">
