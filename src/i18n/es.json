@@ -168,7 +168,10 @@
       "name": "AWS",
       "description": "Servicios de computación en la nube"
     },
-    "docker": { "name": "Docker", "description": "Plataforma de contenedores" },
+    "docker": {
+      "name": "Docker",
+      "description": "Plataforma de contenedores"
+    },
     "postgresql": {
       "name": "PostgreSQL",
       "description": "Base de datos relacional avanzada"
@@ -283,41 +286,6 @@
       "email": "contacto@bemytech.io",
       "hoursLabel": "Horario",
       "hours": "Lunes - Viernes: 9:00 - 18:00"
-    }
-  },
-  "privacy": {
-    "title": "Política de Privacidad",
-    "subtitle": "Información sobre cómo recopilamos, utilizamos y protegemos tu información personal",
-    "lastUpdated": "Última actualización",
-    "sections": {
-      "intro": {
-        "title": "Introducción",
-        "content": "En BEMYTECH valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta política describe cómo recopilamos, utilizamos y protegemos la información que nos proporcionas."
-      },
-      "dataCollection": {
-        "title": "Recopilación de Información",
-        "content": "Recopilamos información que nos proporcionas directamente, como tu nombre, correo electrónico y mensajes cuando te comunicas con nosotros a través de nuestros formularios de contacto."
-      },
-      "dataUse": {
-        "title": "Uso de la Información",
-        "content": "Utilizamos tu información para responder a tus consultas, proporcionarte nuestros servicios y mejorar nuestros productos y servicios."
-      },
-      "dataSharing": {
-        "title": "Compartir Información",
-        "content": "No vendemos, alquilamos o compartimos tu información personal con terceros sin tu consentimiento explícito, excepto cuando sea requerido por ley."
-      },
-      "dataSecurity": {
-        "title": "Seguridad de los Datos",
-        "content": "Implementamos medidas de seguridad técnicas y organizativas para proteger tu información personal contra acceso no autorizado, alteración, divulgación o destrucción."
-      },
-      "userRights": {
-        "title": "Tus Derechos",
-        "content": "Tienes derecho a acceder, rectificar, actualizar o solicitar la eliminación de tu información personal. Para ejercer estos derechos, contáctanos."
-      },
-      "contact": {
-        "title": "Contacto",
-        "content": "Si tienes preguntas sobre esta política de privacidad, puedes contactarnos a través de nuestros canales de comunicación."
-      }
     }
   },
   "footer": {

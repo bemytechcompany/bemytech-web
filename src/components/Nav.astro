@@ -10,14 +10,18 @@ const lang = Astro.props.lang || 'es';
 const { t } = await getTranslationsForSSR(lang);
 const homeHref = lang === 'es' ? '/' : '/en';
 
+// On the landing page plain anchors keep smooth scrolling; on legal pages go home first
+const onHome = ['/', '/en', '/en/'].includes(Astro.url.pathname);
+const anchor = (id: string) => (onHome ? `#${id}` : `${homeHref}#${id}`);
+
 const WHATSAPP_URL = 'https://wa.me/573114302256?text=Hola%20BEMYTECH%2C%20quiero%20hablar%20sobre%20un%20proyecto';
 
 const links = [
-  { href: '#services', label: t('nav.services') },
-  { href: '#process', label: t('nav.process') },
-  { href: '#portfolio', label: t('nav.portfolio') },
-  { href: '#testimonials', label: t('nav.testimonials') },
-  { href: '#contact', label: t('nav.contact') },
+  { href: anchor('services'), label: t('nav.services') },
+  { href: anchor('process'), label: t('nav.process') },
+  { href: anchor('portfolio'), label: t('nav.portfolio') },
+  { href: anchor('testimonials'), label: t('nav.testimonials') },
+  { href: anchor('contact'), label: t('nav.contact') },
 ];
 ---
 
