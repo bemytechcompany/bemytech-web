@@ -1,57 +1,70 @@
 ---
-// Portfolio.astro - Case-study grid of real shipped products
+// Portfolio.astro - Cinematic horizontal-scroll showcase (pinned on desktop via GSAP,
+// vertical stack on mobile) of real shipped products
 interface Props {
   t: (key: string) => string;
 }
 
 const { t } = Astro.props;
 
-// First two render large (featured), the rest in a 3-up row
+// First card renders wider (featured)
 const projects = [
-  { key: 'project4', accent: 'from-accent/25' },   // Visual Emotion (AI) featured first
-  { key: 'project5', accent: 'from-accent/15' },   // RikDrive
-  { key: 'project2', accent: 'from-accent/10' },   // Castevo
-  { key: 'project3', accent: 'from-accent/10' },   // Viatika
-  { key: 'project1', accent: 'from-accent/10' },   // Raffle
+  { key: 'project4', wide: true },    // Visual Emotion (AI) featured first
+  { key: 'project5', wide: false },   // RikDrive
+  { key: 'project2', wide: false },   // Castevo
+  { key: 'project3', wide: false },   // Viatika
+  { key: 'project1', wide: false },   // Raffle
 ];
 ---
 
-<section id="portfolio" class="relative py-24 sm:py-32">
+<section id="portfolio" class="relative">
   <div class="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px max-w-site bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true"></div>
 
-  <div class="section-shell">
-    <div class="reveal">
-      <span class="section-label">{t('portfolio.label')}</span>
-      <h2 class="section-title">{t('portfolio.title')}</h2>
-      <p class="section-subtitle">{t('portfolio.subtitle')}</p>
+  <div data-pf-pin class="py-24 sm:py-32 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:gap-10 lg:overflow-hidden lg:py-0">
+    <!-- Header -->
+    <div class="section-shell reveal flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <span class="section-label">{t('portfolio.label')}</span>
+        <h2 class="section-title">{t('portfolio.title')}</h2>
+        <p class="section-subtitle">{t('portfolio.subtitle')}</p>
+      </div>
+      <p class="hidden items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-white/35 lg:flex">
+        {t('portfolio.scrollHint')}
+        <svg class="h-4 w-4 animate-pulse-dot" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </p>
     </div>
 
-    <div class="mt-14 grid gap-5 lg:grid-cols-6">
+    <!-- Track: vertical stack on mobile, horizontal scrub on desktop -->
+    <div
+      data-pf-track
+      class="mt-14 flex flex-col gap-6 px-5 sm:px-8 lg:mt-0 lg:w-max lg:flex-row lg:items-stretch lg:gap-8 lg:pl-[max(2rem,calc((100vw-76rem)/2))] lg:pr-[12vw]"
+    >
       {projects.map((project, i) => {
         const techs = t(`portfolio.${project.key}.tech`).split(',').map((s) => s.trim());
-        const featured = i < 2;
         return (
           <article
-            class={`card-surface reveal reveal-delay-${(i % 3) + 1} group flex flex-col p-8 ${featured ? 'lg:col-span-3' : 'lg:col-span-2'}`}
+            class={`card-surface reveal group flex flex-col p-8 lg:shrink-0 ${project.wide ? 'lg:w-[38rem]' : 'lg:w-[30rem]'}`}
           >
             <!-- Corner gradient -->
-            <div class={`pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-bl-[6rem] bg-gradient-to-bl ${project.accent} to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100`} aria-hidden="true"></div>
+            <div class="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-bl-[6rem] bg-gradient-to-bl from-accent/15 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true"></div>
 
             <!-- Index + category -->
             <div class="flex items-center justify-between">
               <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent">
                 {t(`portfolio.${project.key}.category`)}
               </span>
-              <span class="font-mono text-4xl font-bold text-white/[0.06] transition-colors duration-500 group-hover:text-accent/20">
+              <span class="font-mono text-5xl font-bold text-white/[0.06] transition-colors duration-500 group-hover:text-accent/20">
                 {String(i + 1).padStart(2, '0')}
               </span>
             </div>
 
-            <h3 class={`font-display font-bold text-white transition-colors duration-300 group-hover:text-accent ${featured ? 'mt-4 text-3xl' : 'mt-3 text-2xl'}`}>
+            <h3 class={`font-display font-bold text-white transition-colors duration-300 group-hover:text-accent ${project.wide ? 'mt-4 text-4xl' : 'mt-3 text-2xl'}`}>
               {t(`portfolio.${project.key}.title`)}
             </h3>
 
-            <p class="mt-4 flex-1 text-sm leading-relaxed text-white/60">
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-white/60 lg:line-clamp-6">
               {t(`portfolio.${project.key}.description`)}
             </p>
 
@@ -66,10 +79,10 @@ const projects = [
         );
       })}
 
-      <!-- CTA tile completing the grid -->
+      <!-- CTA tile closing the track -->
       <a
         href="#contact"
-        class="card-surface reveal reveal-delay-3 group flex flex-col items-start justify-between p-8 lg:col-span-2 hover:!border-accent/70"
+        class="card-surface reveal group flex flex-col items-start justify-between gap-10 p-8 hover:!border-accent/70 lg:w-[24rem] lg:shrink-0"
       >
         <svg class="h-10 w-10 text-accent transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -84,5 +97,55 @@ const projects = [
         </div>
       </a>
     </div>
+
+    <!-- Scrub progress (desktop) -->
+    <div class="section-shell hidden lg:block">
+      <div class="h-px w-full overflow-hidden rounded bg-white/10">
+        <div data-pf-progress class="h-px origin-left scale-x-0 bg-accent"></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+    const pin = document.querySelector<HTMLElement>('[data-pf-pin]');
+    const track = document.querySelector<HTMLElement>('[data-pf-track]');
+    if (!pin || !track) return;
+
+    const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
+
+    gsap.to(track, {
+      x: () => -dist(),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pin,
+        start: 'top top',
+        end: () => '+=' + dist(),
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    gsap.to('[data-pf-progress]', {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: pin,
+        start: 'top top',
+        end: () => '+=' + dist(),
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+  });
+</script>

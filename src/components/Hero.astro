@@ -1,5 +1,6 @@
 ---
-// Hero.astro - Full-viewport hero: headline + CTAs + stats, animated deploy terminal
+// Hero.astro - Cinematic hero: interactive hex-particle canvas, word-by-word headline
+// reveal (GSAP), live-typing deploy terminal looping through real projects, count-up stats
 interface Props {
   t: (key: string) => string;
 }
@@ -9,58 +10,64 @@ const { t } = Astro.props;
 const WHATSAPP_URL = 'https://wa.me/573114302256?text=Hola%20BEMYTECH%2C%20quiero%20hablar%20sobre%20un%20proyecto';
 
 const terminalLines = [
-  { text: t('hero.terminal.line1'), cls: 'text-white' },
-  { text: t('hero.terminal.line2'), cls: 'text-accent' },
-  { text: t('hero.terminal.line3'), cls: 'text-accent' },
-  { text: t('hero.terminal.line4'), cls: 'text-accent' },
-  { text: t('hero.terminal.line5'), cls: 'text-accent' },
-  { text: t('hero.terminal.line6'), cls: 'text-accent-bright font-semibold' },
+  t('hero.terminal.line1'),
+  t('hero.terminal.line2'),
+  t('hero.terminal.line3'),
+  t('hero.terminal.line4'),
+  t('hero.terminal.line5'),
+  t('hero.terminal.line6'),
 ];
+
+// Real shipped products the terminal "deploys" in a loop
+const terminalProjects = ['raffle', 'castevo', 'rikdrive', 'viatika'];
 
 const stats = [
   { value: t('hero.stats.yearsValue'), label: t('hero.stats.years') },
   { value: t('hero.stats.productsValue'), label: t('hero.stats.products') },
   { value: t('hero.stats.techsValue'), label: t('hero.stats.techs') },
-];
+].map((stat) => {
+  const match = stat.value.match(/^(\d+)(.*)$/);
+  return { ...stat, target: match ? match[1] : stat.value, suffix: match ? match[2] : '' };
+});
+
+const titleWords = t('hero.title').split(' ');
+const accentWords = t('hero.titleAccent').split(' ');
 ---
 
 <section id="hero" class="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16">
-  <!-- Background: grid + radial glows + floating hexagons -->
+  <!-- Background: grid + drifting glows + interactive particle canvas -->
   <div class="pointer-events-none absolute inset-0 bg-tech-grid" aria-hidden="true"></div>
   <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-    <div class="absolute -top-40 left-1/2 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]"></div>
+    <div class="absolute -top-40 left-1/2 h-[34rem] w-[60rem] rounded-full bg-accent/10 blur-[140px] [animation:glow-drift_16s_ease-in-out_infinite]"></div>
     <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-accent/5 blur-[100px]"></div>
-    <!-- Decorative hexagons -->
-    <svg class="absolute right-[8%] top-[18%] h-16 w-16 animate-float-slow text-accent/20" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
-      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
-    </svg>
-    <svg class="absolute left-[6%] bottom-[22%] h-10 w-10 animate-float-slow text-accent/15 [animation-delay:1.5s]" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
-      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
-    </svg>
-    <svg class="absolute left-[42%] top-[12%] h-6 w-6 animate-float-slow text-accent/25 [animation-delay:2.6s]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" aria-hidden="true">
-      <polygon points="50,3 95,27 95,73 50,97 5,73 5,27" />
-    </svg>
   </div>
+  <canvas id="hero-canvas" class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
 
   <div class="section-shell relative z-10">
     <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
       <!-- Left: copy -->
       <div>
-        <p class="reveal inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/5 px-4 py-1.5 font-mono text-xs tracking-wider text-accent">
+        <p data-hero-badge class="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/5 px-4 py-1.5 font-mono text-xs tracking-wider text-accent">
           <span class="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-accent"></span>
           {t('hero.badge')}
         </p>
 
-        <h1 class="reveal reveal-delay-1 mt-6 font-display text-4xl font-bold leading-[1.08] text-white sm:text-5xl xl:text-6xl">
-          {t('hero.title')}
-          <span class="text-glow-accent block">{t('hero.titleAccent')}</span>
+        <h1 class="mt-6 font-display text-4xl font-bold leading-[1.08] text-white sm:text-5xl xl:text-6xl">
+          {titleWords.map((word) => (
+            <span class="hw"><span class="hwi">{word}</span></span>
+          ))}
+          <span class="block">
+            {accentWords.map((word) => (
+              <span class="hw"><span class="hwi text-glow-accent">{word}</span></span>
+            ))}
+          </span>
         </h1>
 
-        <p class="reveal reveal-delay-2 mt-6 max-w-xl text-lg leading-relaxed text-white/65">
+        <p data-hero-sub class="mt-6 max-w-xl text-lg leading-relaxed text-white/65">
           {t('hero.subtitle')}
         </p>
 
-        <div class="reveal reveal-delay-3 mt-9 flex flex-wrap items-center gap-4">
+        <div data-hero-ctas class="mt-9 flex flex-wrap items-center gap-4">
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="btn-primary">
             {t('hero.cta')}
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -72,19 +79,24 @@ const stats = [
           </a>
         </div>
 
-        <!-- Stats -->
-        <dl class="reveal reveal-delay-4 mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
+        <!-- Stats with count-up -->
+        <dl data-hero-stats class="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
           {stats.map((stat) => (
-            <div>
-              <dd class="font-display text-3xl font-bold text-accent sm:text-4xl">{stat.value}</dd>
+            <div data-hero-stat>
+              <dd
+                class="font-display text-3xl font-bold text-accent sm:text-4xl"
+                data-counter
+                data-target={stat.target}
+                data-suffix={stat.suffix}
+              >{stat.value}</dd>
               <dt class="mt-1 text-xs leading-snug text-white/50 sm:text-sm">{stat.label}</dt>
             </div>
           ))}
         </dl>
       </div>
 
-      <!-- Right: animated deploy terminal -->
-      <div class="reveal reveal-delay-2 relative hidden lg:block">
+      <!-- Right: live-typing deploy terminal -->
+      <div data-hero-terminal class="relative hidden lg:block">
         <div class="absolute -inset-6 rounded-3xl bg-accent/10 blur-3xl" aria-hidden="true"></div>
         <div class="relative rounded-2xl border border-white/10 bg-[#0A0E0A]/95 shadow-2xl shadow-black/60 backdrop-blur">
           <!-- Title bar -->
@@ -94,14 +106,19 @@ const stats = [
             <span class="h-3 w-3 rounded-full bg-[#28C840]"></span>
             <span class="ml-3 font-mono text-xs text-white/40">{t('hero.terminal.title')}</span>
           </div>
-          <!-- Body -->
-          <div id="hero-terminal" class="min-h-[16.5rem] px-6 py-5 font-mono text-sm leading-8">
-            {terminalLines.map((line, i) => (
-              <p class={`terminal-line opacity-0 ${line.cls}`} data-line={i}>{line.text}</p>
-            ))}
-            <p class="terminal-cursor mt-1 text-accent opacity-0">
-              <span class="inline-block h-4 w-2 animate-pulse-dot bg-accent align-middle"></span>
-            </p>
+          <!-- Body: static fallback content, replaced by the typing loop when JS runs -->
+          <div
+            id="hero-terminal"
+            class="min-h-[16.5rem] px-6 py-5 font-mono text-sm leading-8"
+            data-lines={JSON.stringify(terminalLines)}
+            data-projects={JSON.stringify(terminalProjects)}
+          >
+            <p class="text-white">{terminalLines[0]}</p>
+            <p class="text-accent">{terminalLines[1]}</p>
+            <p class="text-accent">{terminalLines[2]}</p>
+            <p class="text-accent">{terminalLines[3]}</p>
+            <p class="text-accent">{terminalLines[4]}</p>
+            <p class="font-semibold text-accent-bright">{terminalLines[5]}</p>
           </div>
         </div>
       </div>
@@ -121,58 +138,273 @@ const stats = [
   </a>
 </section>
 
-<style>
-  .terminal-line {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(6px);
-  }
-
-  .terminal-line.shown {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .terminal-cursor.shown {
-    opacity: 1;
-  }
-</style>
-
 <script>
-  // Reveal terminal lines one by one once the hero is on screen
-  const terminal = document.getElementById('hero-terminal');
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-  if (terminal) {
-    const lines = terminal.querySelectorAll<HTMLElement>('.terminal-line');
-    const cursor = terminal.querySelector<HTMLElement>('.terminal-cursor');
-    let played = false;
+  gsap.registerPlugin(ScrollTrigger);
 
-    const play = () => {
-      if (played) return;
-      played = true;
-      lines.forEach((line, i) => {
-        setTimeout(() => {
-          line.classList.add('shown');
-          if (i === lines.length - 1) {
-            setTimeout(() => cursor?.classList.add('shown'), 400);
-          }
-        }, 600 + i * 520);
-      });
+  if (import.meta.env.DEV) {
+    (window as any).gsap = gsap;
+    (window as any).ScrollTrigger = ScrollTrigger;
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ============ 1. Interactive hex-particle constellation ============
+  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+  const hero = document.getElementById('hero');
+
+  if (canvas && hero && !reduceMotion) {
+    const ctx = canvas.getContext('2d')!;
+    const COUNT = window.matchMedia('(min-width: 768px)').matches ? 64 : 30;
+    const LINK_DIST = 120;
+    const MOUSE_DIST = 170;
+
+    let w = 0, h = 0;
+    const mouse = { x: -9999, y: -9999 };
+    let running = false;
+    let rafId = 0;
+
+    type Node = { x: number; y: number; vx: number; vy: number; r: number; hex: boolean; a: number; spin: number };
+    let nodes: Node[] = [];
+
+    const resize = () => {
+      const rect = hero.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = rect.width;
+      h = rect.height;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      lines.forEach((line) => line.classList.add('shown'));
-      cursor?.classList.add('shown');
-    } else {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            play();
-            observer.disconnect();
+    const seed = () => {
+      nodes = Array.from({ length: COUNT }, (_, i) => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: 1.2 + Math.random() * 2,
+        hex: i % 7 === 0,
+        a: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.01,
+      }));
+    };
+
+    const drawHex = (x: number, y: number, r: number, angle: number) => {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const t = angle + (Math.PI / 3) * i;
+        const px = x + r * Math.cos(t);
+        const py = y + r * Math.sin(t);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    };
+
+    const frame = () => {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        n.a += n.spin;
+
+        // gentle repulsion from the cursor
+        const dxm = n.x - mouse.x;
+        const dym = n.y - mouse.y;
+        const dm = Math.hypot(dxm, dym);
+        if (dm < MOUSE_DIST && dm > 0.01) {
+          const f = ((MOUSE_DIST - dm) / MOUSE_DIST) * 0.5;
+          n.x += (dxm / dm) * f;
+          n.y += (dym / dm) * f;
+        }
+
+        if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+        if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+      }
+
+      // links between nearby nodes + to the cursor
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+          if (d < LINK_DIST) {
+            ctx.strokeStyle = `rgba(130, 194, 50, ${(1 - d / LINK_DIST) * 0.22})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
           }
+        }
+        const dMouse = Math.hypot(nodes[i].x - mouse.x, nodes[i].y - mouse.y);
+        if (dMouse < MOUSE_DIST) {
+          ctx.strokeStyle = `rgba(164, 232, 79, ${(1 - dMouse / MOUSE_DIST) * 0.35})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+
+      for (const n of nodes) {
+        if (n.hex) {
+          drawHex(n.x, n.y, n.r + 5, n.a);
+          ctx.strokeStyle = 'rgba(130, 194, 50, 0.45)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        } else {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(130, 194, 50, 0.55)';
+          ctx.fill();
+        }
+      }
+
+      rafId = requestAnimationFrame(frame);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(frame);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(rafId);
+    };
+
+    resize();
+    seed();
+    window.addEventListener('resize', () => { resize(); seed(); }, { passive: true });
+
+    hero.addEventListener('pointermove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    // only animate while the hero is on screen and the tab is visible
+    const visObserver = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => (entry.isIntersecting && !document.hidden ? start() : stop())),
+      { threshold: 0.05 }
+    );
+    visObserver.observe(hero);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  }
+
+  // ============ 2. Hero intro timeline ============
+  if (!reduceMotion) {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl.from('[data-hero-badge]', { y: 18, autoAlpha: 0, duration: 0.6, delay: 0.1 })
+      .from('.hwi', { yPercent: 115, duration: 0.85, ease: 'power4.out', stagger: 0.05 }, '-=0.3')
+      .from('[data-hero-sub]', { y: 24, autoAlpha: 0, duration: 0.7 }, '-=0.45')
+      .from('[data-hero-ctas]', { y: 24, autoAlpha: 0, duration: 0.7 }, '-=0.5')
+      .from('[data-hero-stat]', { y: 24, autoAlpha: 0, duration: 0.6, stagger: 0.12 }, '-=0.45')
+      .from('[data-hero-terminal]', { x: 56, autoAlpha: 0, duration: 1 }, 0.5);
+  }
+
+  // ============ 3. Count-up stats ============
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>('[data-counter]').forEach((el) => {
+      const target = parseInt(el.dataset.target || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      if (!Number.isFinite(target)) return;
+
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 92%',
+        once: true,
+        onEnter: () => {
+          const obj = { v: 0 };
+          gsap.to(obj, {
+            v: target,
+            duration: 1.6,
+            delay: 0.9,
+            ease: 'power2.out',
+            onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; },
+          });
         },
-        { threshold: 0.3 }
-      );
-      observer.observe(terminal);
-    }
+      });
+    });
+  }
+
+  // ============ 4. Live-typing deploy terminal (loops through real projects) ============
+  const terminal = document.getElementById('hero-terminal');
+
+  if (terminal && !reduceMotion) {
+    const lines: string[] = JSON.parse(terminal.dataset.lines || '[]');
+    const projects: string[] = JSON.parse(terminal.dataset.projects || '[]');
+    const lineClass = (i: number) =>
+      i === 0 ? 'text-white' : i === lines.length - 1 ? 'font-semibold text-accent-bright' : 'text-accent';
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    // cycle: original prompt first, then each real project
+    const prompts = [lines[0], ...projects.map((p) => lines[0].replace(/\S+$/, p))];
+    let cycle = 0;
+
+    const typeLoop = async () => {
+      for (;;) {
+        terminal.innerHTML = '';
+        const prompt = prompts[cycle % prompts.length];
+        cycle++;
+
+        // type the command char by char
+        const cmdLine = document.createElement('p');
+        cmdLine.className = lineClass(0);
+        const caret = document.createElement('span');
+        caret.className = 'bt-caret';
+        cmdLine.appendChild(caret);
+        terminal.appendChild(cmdLine);
+        await sleep(500);
+
+        for (const ch of prompt) {
+          caret.before(document.createTextNode(ch));
+          await sleep(26 + Math.random() * 30);
+        }
+        await sleep(420);
+
+        // status lines appear one by one, CI-style
+        for (let i = 1; i < lines.length; i++) {
+          const p = document.createElement('p');
+          p.className = lineClass(i);
+          p.textContent = lines[i];
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(6px)';
+          p.style.transition = 'opacity .3s ease, transform .3s ease';
+          caret.remove();
+          terminal.appendChild(p);
+          requestAnimationFrame(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+          });
+          await sleep(i === lines.length - 1 ? 500 : 330);
+        }
+
+        // blinking caret on its own line, hold, then redeploy the next project
+        const tail = document.createElement('p');
+        tail.appendChild(caret);
+        terminal.appendChild(tail);
+        await sleep(2600);
+      }
+    };
+
+    // start once the terminal is on screen
+    const startObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          startObserver.disconnect();
+          typeLoop();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    startObserver.observe(terminal);
   }
 </script>

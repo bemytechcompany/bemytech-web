@@ -1,0 +1,33 @@
+---
+// CtaMarquee.astro - Giant scrolling "Let's talk" strip linking to WhatsApp
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const WHATSAPP_URL = 'https://wa.me/573114302256?text=Hola%20BEMYTECH%2C%20quiero%20hablar%20sobre%20un%20proyecto';
+
+const repeats = Array.from({ length: 6 });
+---
+
+<a
+  href={WHATSAPP_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={t('nav.letsTalk')}
+  class="group block overflow-hidden border-y border-white/[0.07] bg-bemytech-dark/50 py-8 transition-colors duration-500 hover:bg-accent/[0.06]"
+>
+  <div class="flex w-max animate-marquee gap-12 [animation-duration:26s] group-hover:[animation-play-state:paused]">
+    {[0, 1].map(() =>
+      repeats.map((_, i) => (
+        <span class="flex shrink-0 items-center gap-12 font-display text-5xl font-bold uppercase tracking-tight sm:text-7xl">
+          <span class={i % 2 === 0 ? 'text-accent' : 'text-outline'}>{t('nav.letsTalk')}</span>
+          <svg class="h-10 w-10 text-accent sm:h-14 sm:w-14 transition-transform duration-500 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+        </span>
+      ))
+    )}
+  </div>
+</a>

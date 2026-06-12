@@ -111,6 +111,10 @@ const languageClass = getLanguageClass(lang);
       <slot />
     </main>
 
+    <!-- Custom cursor (activated by JS on fine pointers) -->
+    <div id="bt-cursor-ring" aria-hidden="true"></div>
+    <div id="bt-cursor-dot" aria-hidden="true"></div>
+
     <!-- Language Detection and Setup Script -->
     <script>
       (window as any).currentLanguage = document.documentElement.lang || 'es';
@@ -118,6 +122,115 @@ const languageClass = getLanguageClass(lang);
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem('preferred-language', (window as any).currentLanguage);
       }
+    </script>
+
+    <!-- Global interactive FX: cursor, magnetic buttons, 3D tilt, easter eggs -->
+    <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const isEn = document.documentElement.lang === 'en';
+
+      // --- Custom cursor: dot follows instantly, ring trails with lerp ---
+      if (finePointer && !reduceMotion) {
+        const dot = document.getElementById('bt-cursor-dot');
+        const ring = document.getElementById('bt-cursor-ring');
+
+        if (dot && ring) {
+          document.documentElement.classList.add('bt-cursor-on');
+
+          let mx = -100, my = -100;
+          let rx = -100, ry = -100;
+          let visible = false;
+
+          const place = (el: HTMLElement, x: number, y: number) => {
+            el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+          };
+
+          window.addEventListener('pointermove', (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+            if (!visible) {
+              visible = true;
+              rx = mx; ry = my;
+              dot.style.opacity = '1';
+              ring.style.opacity = '1';
+            }
+          }, { passive: true });
+
+          document.documentElement.addEventListener('mouseleave', () => {
+            visible = false;
+            dot.style.opacity = '0';
+            ring.style.opacity = '0';
+          });
+
+          const loop = () => {
+            rx += (mx - rx) * 0.16;
+            ry += (my - ry) * 0.16;
+            place(dot, mx, my);
+            place(ring, rx, ry);
+            requestAnimationFrame(loop);
+          };
+          requestAnimationFrame(loop);
+
+          // Ring grows over interactive elements
+          document.addEventListener('mouseover', (e) => {
+            const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, textarea, select');
+            ring.classList.toggle('is-active', !!target);
+          });
+        }
+      }
+
+      // --- Magnetic pull on primary/secondary buttons ---
+      if (finePointer && !reduceMotion) {
+        document.querySelectorAll<HTMLElement>('.btn-primary, .btn-secondary').forEach((btn) => {
+          btn.addEventListener('pointermove', (e) => {
+            const r = btn.getBoundingClientRect();
+            const dx = (e.clientX - (r.left + r.width / 2)) * 0.22;
+            const dy = (e.clientY - (r.top + r.height / 2)) * 0.34;
+            btn.style.transform = `translate(${dx}px, ${dy}px)`;
+          });
+          btn.addEventListener('pointerleave', () => {
+            btn.style.transform = '';
+          });
+        });
+      }
+
+      // --- 3D tilt + cursor spotlight on cards ---
+      if (finePointer && !reduceMotion) {
+        document.querySelectorAll<HTMLElement>('.card-surface:not([data-no-tilt])').forEach((card) => {
+          card.addEventListener('pointermove', (e) => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+            card.style.setProperty('--mx', `${px * 100}%`);
+            card.style.setProperty('--my', `${py * 100}%`);
+            const rotX = (py - 0.5) * -5;
+            const rotY = (px - 0.5) * 5;
+            card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+          });
+          card.addEventListener('pointerleave', () => {
+            card.style.transform = '';
+          });
+        });
+      }
+
+      // --- Tab title wink ---
+      const originalTitle = document.title;
+      document.addEventListener('visibilitychange', () => {
+        document.title = document.hidden
+          ? (isEn ? '👀 Your project misses you — BEMYTECH' : '👀 Tu proyecto te extraña — BEMYTECH')
+          : originalTitle;
+      });
+
+      // --- Console easter egg for the devs ---
+      console.log(
+        '%c⬡ BEMYTECH %c\n\n' +
+        (isEn
+          ? 'Inspecting our code? We like you already.\nLet\'s build something → contacto@bemytech.com'
+          : '¿Inspeccionando nuestro código? Ya nos caes bien.\nConstruyamos algo → contacto@bemytech.com'),
+        'font-size: 22px; font-weight: bold; color: #82C232;',
+        'font-size: 13px; color: #A4E84F; font-family: monospace;'
+      );
     </script>
 
     <!-- Smooth Scrolling for anchor links -->
