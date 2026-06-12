@@ -2,11 +2,14 @@
 // Contact.astro - Contact info + form that composes a WhatsApp message (no backend needed)
 interface Props {
   t: (key: string) => string;
+  lang?: 'es' | 'en';
 }
 
-const { t } = Astro.props;
+const { t, lang = 'es' } = Astro.props;
 
 const WHATSAPP_NUMBER = '573114302256';
+const privacyHref = lang === 'es' ? '/privacy-policy' : '/en/privacy-policy';
+const termsHref = lang === 'es' ? '/terms' : '/en/terms';
 
 const infoItems = [
   {
@@ -144,7 +147,25 @@ const infoItems = [
           ></textarea>
         </div>
 
+        <!-- Consent: Ley 1581/2012 requires prior, informed authorization -->
+        <label class="mt-5 flex cursor-pointer items-start gap-3">
+          <input
+            id="cf-consent"
+            name="consent"
+            type="checkbox"
+            required
+            class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-white/20 bg-white/[0.03] accent-[#82C232]"
+          />
+          <span class="text-xs leading-relaxed text-white/50">
+            {t('contact.form.consentStart')}
+            <a href={privacyHref} target="_blank" rel="noopener" class="text-accent underline-offset-2 hover:underline">{t('footer.links.privacy')}</a>
+            {t('contact.form.consentAnd')}
+            <a href={termsHref} target="_blank" rel="noopener" class="text-accent underline-offset-2 hover:underline">{t('footer.links.terms')}</a>.
+          </span>
+        </label>
+
         <p id="cf-error" class="mt-3 hidden text-sm text-red-400">{t('contact.form.required')}</p>
+        <p id="cf-consent-error" class="mt-3 hidden text-sm text-red-400">{t('contact.form.consentRequired')}</p>
 
         <button type="submit" class="btn-primary mt-6 w-full">
           {t('contact.form.send')}
@@ -161,6 +182,7 @@ const infoItems = [
   // Compose the form fields into a prefilled WhatsApp message
   const form = document.getElementById('contact-form');
   const error = document.getElementById('cf-error');
+  const consentError = document.getElementById('cf-consent-error');
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -169,12 +191,19 @@ const infoItems = [
     const company = document.getElementById('cf-company')?.value.trim();
     const email = document.getElementById('cf-email')?.value.trim();
     const message = document.getElementById('cf-message')?.value.trim();
+    const consent = document.getElementById('cf-consent')?.checked;
 
     if (!name || !message) {
       error?.classList.remove('hidden');
       return;
     }
     error?.classList.add('hidden');
+
+    if (!consent) {
+      consentError?.classList.remove('hidden');
+      return;
+    }
+    consentError?.classList.add('hidden');
 
     const lines = [
       `Hola BEMYTECH, soy ${name}.`,

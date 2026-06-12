@@ -270,7 +270,10 @@
       "messagePlaceholder": "Cuéntanos sobre tu proyecto...",
       "send": "Enviar por WhatsApp",
       "sending": "Enviando...",
-      "required": "Este campo es obligatorio"
+      "required": "Este campo es obligatorio",
+      "consentStart": "He leído y acepto la",
+      "consentAnd": "y los",
+      "consentRequired": "Debes aceptar la Política de Privacidad y los Términos para continuar."
     },
     "success": {
       "title": "¡Mensaje enviado!",

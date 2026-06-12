@@ -270,7 +270,10 @@
       "messagePlaceholder": "Tell us about your project...",
       "send": "Send via WhatsApp",
       "sending": "Sending...",
-      "required": "This field is required"
+      "required": "This field is required",
+      "consentStart": "I have read and accept the",
+      "consentAnd": "and the",
+      "consentRequired": "You must accept the Privacy Policy and the Terms to continue."
     },
     "success": {
       "title": "Message sent!",
