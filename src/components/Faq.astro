@@ -1,0 +1,54 @@
+---
+// Faq.astro - SEO-rich FAQ accordion with FAQPage structured data
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const keys = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+const faqs = keys.map((key) => ({
+  question: t(`faq.${key}.q`),
+  answer: t(`faq.${key}.a`),
+}));
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+});
+---
+
+<section id="faq" class="relative py-24 sm:py-32">
+  <div class="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px max-w-site bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true"></div>
+
+  <div class="section-shell">
+    <div class="reveal">
+      <span class="section-label">{t('faq.label')}</span>
+      <h2 class="section-title">{t('faq.title')}</h2>
+      <p class="section-subtitle">{t('faq.subtitle')}</p>
+    </div>
+
+    <div class="mt-12 grid gap-4 lg:grid-cols-2">
+      {faqs.map((faq, i) => (
+        <details class={`faq-item card-surface reveal reveal-delay-${(i % 2) + 1} group !overflow-visible`} data-no-tilt>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-display text-base font-semibold text-white transition-colors duration-300 hover:text-accent [&::-webkit-details-marker]:hidden">
+            {faq.question}
+            <svg class="h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </summary>
+          <p class="px-6 pb-6 text-sm leading-relaxed text-white/60">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={faqSchema} is:inline />

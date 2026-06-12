@@ -179,18 +179,27 @@
   "testimonials": {
     "label": "Testimonials",
     "title": "What our clients say",
-    "subtitle": "Companies that trusted us and now grow with their technology.",
+    "subtitle": "Real reviews from users of products built by BEMYTECH.",
     "testimonial1": {
-      "text": "BEMYTECH completely transformed our digital infrastructure. Their team delivered a robust and scalable solution that exceeded our expectations.",
-      "tag": "Digital transformation"
+      "text": "Castevo transformed Amatista's visibility. With the WhatsApp chatbot, our website and digital portfolio, today we have a solid, professional presence that builds real trust with our clients. I totally recommend it.",
+      "author": "Maryury",
+      "role": "Founder",
+      "company": "Amatista Estética Integral & Academia",
+      "tag": "Digital presence + WhatsApp chatbot"
     },
     "testimonial2": {
-      "text": "The AI consulting we received was exceptional. They implemented algorithms that improved our operational efficiency by 40%.",
-      "tag": "AI consulting"
+      "text": "I tried several platforms and none comes close to Castevo in completeness. It has everything I need in one place and helped me organize and completely improve how I manage my credits. It's the most complete one I've found.",
+      "author": "Jeison",
+      "role": "Owner",
+      "company": "Mónaco",
+      "tag": "Credit management"
     },
     "testimonial3": {
-      "text": "The development of our e-commerce platform was perfect. Intuitive interface, clean code and first-class technical support.",
-      "tag": "E-commerce platform"
+      "text": "Month-end inventories used to be a constant problem. With Castevo the process improved completely and the errors disappeared. Today we close every month with precision and without setbacks.",
+      "author": "Lorenza",
+      "role": "Representative",
+      "company": "Sociedad de Mejoras de Pereira",
+      "tag": "Inventory & operations"
     },
     "cta": "Ready to take your project to the next level?",
     "ctaSubtitle": "Tell us your idea today and get a clear proposal, no strings attached.",
@@ -198,6 +207,39 @@
   },
   "navigation": {
     "skipToContent": "Skip to main content"
+  },
+  "seo": {
+    "title": "Custom Software Development Company in Colombia | BEMYTECH",
+    "description": "Software development company in Pereira, Colombia. We build custom web and mobile applications and implement AI solutions for businesses across LATAM. Free quote via WhatsApp."
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently asked questions",
+    "subtitle": "What companies ask us before starting their project.",
+    "q1": {
+      "q": "What software development services does BEMYTECH offer?",
+      "a": "We build custom software: web applications, cross-platform mobile apps for iOS and Android, SaaS platforms, artificial intelligence integrations, IT consulting and ongoing support. We cover the full cycle: discovery, UX/UI design, development, cloud deployment and maintenance."
+    },
+    "q2": {
+      "q": "How much does it cost to develop a custom web or mobile application?",
+      "a": "It depends on the scope and complexity of the project. After a free discovery call we define requirements and deliver a clear proposal with timelines and costs, no strings attached. Message us on WhatsApp and get your quote the same day."
+    },
+    "q3": {
+      "q": "How long does it take to build a digital product?",
+      "a": "A working MVP usually takes 6 to 12 weeks depending on scope. We work in short sprints with functional deliveries every week, so you see real progress from the start."
+    },
+    "q4": {
+      "q": "Do you work with companies outside Pereira or Colombia?",
+      "a": "Yes. We are based in Pereira, Colombia, and work remotely with companies across Colombia and Latin America. Our products already operate in several countries in the region."
+    },
+    "q5": {
+      "q": "Can you integrate artificial intelligence into my business?",
+      "a": "Yes. We implement applied AI solutions: WhatsApp chatbots, process automation, data analysis and custom models, like our Visual Emotion platform for emotion analysis in interviews."
+    },
+    "q6": {
+      "q": "Do you offer support and maintenance after launch?",
+      "a": "Always. All our projects include post-launch support: monitoring, evolutionary maintenance and continuous improvements under service level agreements (SLA)."
+    }
   },
   "contact": {
     "label": "Contact",
@@ -274,7 +316,7 @@
   },
   "footer": {
     "company": "BEMYTECH",
-    "description": "Innovative technology solutions for your business growth.",
+    "description": "Custom software development company in Pereira, Colombia. Web, mobile and AI solutions for businesses across LATAM.",
     "madeIn": "Made in Pereira, Colombia",
     "rights": "All rights reserved",
     "sections": {

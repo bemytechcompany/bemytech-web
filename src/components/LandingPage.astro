@@ -9,6 +9,7 @@ import Technologies from "./Technologies.astro";
 import Testimonials from "./Testimonials.astro";
 import Contact from "./Contact.astro";
 import CtaMarquee from "./CtaMarquee.astro";
+import Faq from "./Faq.astro";
 import Footer from "./Footer.astro";
 import { getTranslationsForSSR } from "../utils/i18n";
 
@@ -19,9 +20,9 @@ interface Props {
 const { lang } = Astro.props;
 const { t } = await getTranslationsForSSR(lang);
 
-// SEO configuration
-const seoTitle = `${t("hero.title")} ${t("hero.titleAccent")} | BEMYTECH`;
-const seoDescription = t("hero.subtitle");
+// SEO configuration: keyword-optimized title/description per language
+const seoTitle = t("seo.title");
+const seoDescription = t("seo.description");
 const baseURL = Astro.site || "http://localhost:4321";
 const canonicalURL = new URL(lang === "es" ? "/" : "/en", baseURL);
 ---
@@ -63,6 +64,7 @@ const canonicalURL = new URL(lang === "es" ? "/" : "/en", baseURL);
   <Portfolio t={t} />
   <Technologies t={t} />
   <Testimonials t={t} />
+  <Faq t={t} />
   <Contact t={t} />
   <CtaMarquee t={t} />
   <Footer t={t} />

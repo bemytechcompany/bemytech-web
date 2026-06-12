@@ -185,18 +185,27 @@
   "testimonials": {
     "label": "Testimonios",
     "title": "Lo que dicen nuestros clientes",
-    "subtitle": "Empresas que confiaron en nosotros y hoy crecen con su tecnología.",
+    "subtitle": "Opiniones reales de usuarios de productos construidos por BEMYTECH.",
     "testimonial1": {
-      "text": "BEMYTECH transformó completamente nuestra infraestructura digital. Su equipo entregó una solución robusta y escalable que superó nuestras expectativas.",
-      "tag": "Transformación digital"
+      "text": "Castevo transformó la visibilidad de Amatista. Con el chatbot de WhatsApp, nuestro sitio web y portafolio digital, hoy tenemos una presencia sólida y profesional que genera confianza real en nuestros clientes. Lo recomiendo totalmente.",
+      "author": "Maryury",
+      "role": "Fundadora",
+      "company": "Amatista Estética Integral & Academia",
+      "tag": "Presencia digital + Chatbot WhatsApp"
     },
     "testimonial2": {
-      "text": "La consultoría en IA que recibimos fue excepcional. Implementaron algoritmos que mejoraron nuestra eficiencia operativa en un 40%.",
-      "tag": "Consultoría en IA"
+      "text": "Probé varias plataformas y ninguna se acerca a Castevo en completitud. Tiene todo lo que necesito en un solo lugar y me ayudó a ordenar y mejorar completamente la gestión de mis créditos. Es la más completa que he encontrado.",
+      "author": "Jeison",
+      "role": "Propietario",
+      "company": "Mónaco",
+      "tag": "Gestión de créditos"
     },
     "testimonial3": {
-      "text": "El desarrollo de nuestra plataforma e-commerce fue perfecto. Interface intuitiva, código limpio y soporte técnico de primera clase.",
-      "tag": "Plataforma e-commerce"
+      "text": "Antes los inventarios de fin de mes eran un problema constante. Con Castevo el proceso mejoró por completo y los errores desaparecieron. Hoy cerramos cada mes con precisión y sin contratiempos.",
+      "author": "Lorenza",
+      "role": "Representante",
+      "company": "Sociedad de Mejoras de Pereira",
+      "tag": "Inventarios y operación"
     },
     "cta": "¿Listo para llevar tu proyecto al siguiente nivel?",
     "ctaSubtitle": "Cuéntanos tu idea hoy y recibe una propuesta clara, sin compromiso.",
@@ -204,6 +213,39 @@
   },
   "navigation": {
     "skipToContent": "Saltar al contenido principal"
+  },
+  "seo": {
+    "title": "Desarrollo de Software a la Medida en Colombia | BEMYTECH",
+    "description": "Empresa de desarrollo de software en Pereira, Colombia. Creamos aplicaciones web y móviles a la medida e implementamos inteligencia artificial para empresas de LATAM. Cotización gratis por WhatsApp."
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Preguntas frecuentes",
+    "subtitle": "Lo que las empresas nos preguntan antes de comenzar su proyecto.",
+    "q1": {
+      "q": "¿Qué servicios de desarrollo de software ofrece BEMYTECH?",
+      "a": "Desarrollamos software a la medida: aplicaciones web, apps móviles multiplataforma para iOS y Android, plataformas SaaS, integraciones con inteligencia artificial, consultoría IT y soporte continuo. Cubrimos todo el ciclo: descubrimiento, diseño UX/UI, desarrollo, despliegue en la nube y mantenimiento."
+    },
+    "q2": {
+      "q": "¿Cuánto cuesta desarrollar una aplicación web o móvil a la medida?",
+      "a": "Depende del alcance y la complejidad del proyecto. Tras una llamada de descubrimiento gratuita definimos los requerimientos y te entregamos una propuesta clara con tiempos y costos, sin compromiso. Escríbenos por WhatsApp y recibe tu cotización el mismo día."
+    },
+    "q3": {
+      "q": "¿Cuánto tiempo toma construir un producto digital?",
+      "a": "Un MVP funcional suele tomar entre 6 y 12 semanas según el alcance. Trabajamos en sprints cortos con entregas funcionales cada semana, así ves avances reales desde el inicio del desarrollo."
+    },
+    "q4": {
+      "q": "¿Trabajan con empresas fuera de Pereira o de Colombia?",
+      "a": "Sí. Estamos en Pereira, Colombia, y trabajamos de forma remota con empresas de toda Colombia y Latinoamérica. Nuestros productos ya operan en varios países de la región."
+    },
+    "q5": {
+      "q": "¿Pueden integrar inteligencia artificial en mi negocio?",
+      "a": "Sí. Implementamos soluciones de IA aplicada: chatbots para WhatsApp, automatización de procesos, análisis de datos y modelos a la medida, como nuestra plataforma Visual Emotion de análisis de emociones en entrevistas."
+    },
+    "q6": {
+      "q": "¿Ofrecen soporte y mantenimiento después del lanzamiento?",
+      "a": "Siempre. Todos nuestros proyectos incluyen acompañamiento post-lanzamiento: monitoreo, mantenimiento evolutivo y mejoras continuas con acuerdos de soporte (SLA)."
+    }
   },
   "contact": {
     "label": "Contacto",
@@ -280,7 +322,7 @@
   },
   "footer": {
     "company": "BEMYTECH",
-    "description": "Soluciones tecnológicas innovadoras para el crecimiento de tu negocio.",
+    "description": "Empresa de desarrollo de software a la medida en Pereira, Colombia. Aplicaciones web, móviles e inteligencia artificial para empresas de LATAM.",
     "madeIn": "Hecho en Pereira, Colombia",
     "rights": "Todos los derechos reservados",
     "sections": {

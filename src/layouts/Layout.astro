@@ -73,26 +73,51 @@ const languageClass = getLanguageClass(lang);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-    <!-- Structured Data -->
+    <!-- Structured Data: local business + services -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "ProfessionalService",
+      "@id": "https://bemytech.io/#organization",
       "name": "BEMYTECH",
-      "description": "Soluciones tecnológicas innovadoras para el crecimiento de tu negocio",
+      "description": "Empresa de desarrollo de software a la medida en Pereira, Colombia. Aplicaciones web, móviles e inteligencia artificial.",
       "url": "https://bemytech.io",
       "logo": "https://bemytech.io/favicon.svg",
+      "image": "https://bemytech.io/og-image.jpg",
+      "telephone": "+57-311-430-2256",
+      "email": "contacto@bemytech.com",
+      "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Pereira",
+        "addressRegion": "Risaralda",
         "addressCountry": "CO"
       },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer service",
-        "telephone": "+57-311-430-2256",
-        "email": "contacto@bemytech.io",
-        "availableLanguage": ["Spanish", "English"]
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 4.8133,
+        "longitude": -75.6961
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "areaServed": ["Colombia", "Latinoamérica"],
+      "knowsLanguage": ["es", "en"],
+      "sameAs": [],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de desarrollo de software",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo web a la medida" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo de aplicaciones móviles" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Inteligencia artificial aplicada" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cloud y DevOps" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consultoría IT" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soporte técnico" } }
+        ]
       }
     }
     </script>
@@ -226,8 +251,8 @@ const languageClass = getLanguageClass(lang);
       console.log(
         '%c⬡ BEMYTECH %c\n\n' +
         (isEn
-          ? 'Inspecting our code? We like you already.\nLet\'s build something → contacto@bemytech.io'
-          : '¿Inspeccionando nuestro código? Ya nos caes bien.\nConstruyamos algo → contacto@bemytech.io'),
+          ? 'Inspecting our code? We like you already.\nLet\'s build something → contacto@bemytech.com'
+          : '¿Inspeccionando nuestro código? Ya nos caes bien.\nConstruyamos algo → contacto@bemytech.com'),
         'font-size: 22px; font-weight: bold; color: #82C232;',
         'font-size: 13px; color: #A4E84F; font-family: monospace;'
       );
