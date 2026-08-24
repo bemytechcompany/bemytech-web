@@ -1,0 +1,28 @@
+---
+// Términos y condiciones por app. Contenido: content/apps/<slug>/terminos.md
+// URL contractual para Google Play / App Store: /<slug>/terminos
+
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp } from '../../utils/apps';
+
+const docs = import.meta.glob<any>('/content/apps/*/terminos.md', { eager: true });
+
+export function getStaticPaths() {
+  const paths = import.meta.glob('/content/apps/*/terminos.md');
+  return Object.keys(paths)
+    .map((path) => path.split('/')[3])
+    .filter((slug) => getApp(slug))
+    .map((slug) => ({ params: { app: slug } }));
+}
+
+const { app } = Astro.params;
+const { slug, meta } = getApp(app!)!;
+const doc = docs[`/content/apps/${slug}/terminos.md`];
+const { Content } = doc;
+const docTitle = doc.getHeadings().find((h: any) => h.depth === 1)?.text
+  ?? `Términos y Condiciones — ${meta.nombre}`;
+---
+
+<LegalLayout slug={slug} meta={meta} docTitle={docTitle} current="terminos">
+  <Content />
+</LegalLayout>

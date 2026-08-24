@@ -1,0 +1,66 @@
+---
+// Apps.astro - Lista de apps de la casa en el home, generada automáticamente
+// desde el registro content/apps/<slug>/. Cada tarjeta enlaza a la landing
+// de la app y a sus páginas legales.
+
+import { getApps } from '../utils/apps';
+
+const apps = getApps();
+---
+
+{apps.length > 0 && (
+  <section id="apps" class="relative py-24 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-5xl">
+      <header class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Nuestras <span class="text-accent">Apps</span>
+        </h2>
+        <p class="text-white/70 max-w-2xl mx-auto">
+          Productos propios de BeMyTech, disponibles en las tiendas de aplicaciones.
+        </p>
+      </header>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {apps.map(({ slug, meta }) => (
+          <article class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 transition-all duration-300 hover:border-accent/40 hover:bg-white/10">
+            <h3 class="text-2xl font-extrabold mb-1">
+              <a
+                href={`/${slug}`}
+                class="app-wordmark"
+                style={`background-image: linear-gradient(135deg, ${meta.gradiente[0]}, ${meta.gradiente[1]});`}
+              >
+                {meta.nombre}
+              </a>
+            </h3>
+            <p class="text-white/80 text-sm mb-4">{meta.tagline}</p>
+            <ul class="text-sm space-y-1">
+              <li>
+                <a href={`/${slug}/privacidad`} class="text-white/60 hover:text-accent transition-colors">
+                  Política de privacidad
+                </a>
+              </li>
+              <li>
+                <a href={`/${slug}/terminos`} class="text-white/60 hover:text-accent transition-colors">
+                  Términos y condiciones
+                </a>
+              </li>
+              <li>
+                <a href={`/${slug}/eliminar-cuenta`} class="text-white/60 hover:text-accent transition-colors">
+                  Eliminar tu cuenta
+                </a>
+              </li>
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .app-wordmark {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

@@ -9,6 +9,7 @@ import Services from "../components/Services.astro";
 import Portfolio from "../components/Portfolio.astro";
 import Technologies from "../components/Technologies.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Apps from "../components/Apps.astro";
 import Contact from "../components/Contact.astro";
 import HexagonTransition from "../components/HexagonTransition.astro";
 import { getTranslationsForSSR } from "../utils/i18n";
@@ -210,6 +211,9 @@ const canonicalURL = new URL(Astro.url.pathname, baseURL);
 
     <!-- Testimonials Section -->
     <Testimonials t={t} />
+
+    <!-- Apps Section (generada desde content/apps/) -->
+    <Apps />
 
     <!-- Contact Section -->
     <Contact t={t} />

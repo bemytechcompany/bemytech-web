@@ -1,0 +1,220 @@
+---
+// LegalLayout.astro - Layout sobrio y autónomo para las páginas legales por app.
+// NO usa el Layout global (sin GSAP, sin Nav, sin fuentes externas): estas URLs
+// van en las fichas de Google Play / App Store y deben ser HTML completo,
+// legible sin JavaScript y rápido. Una vez publicadas, las rutas nunca cambian.
+
+import type { AppMeta } from '../utils/apps';
+import { formatFecha } from '../utils/apps';
+
+interface Props {
+  slug: string;
+  meta: AppMeta;
+  /** Título del documento (H1). El <title> es "{docTitle} - {app}". */
+  docTitle: string;
+  /** Página legal actual, para omitirla de los enlaces del footer. */
+  current?: 'privacidad' | 'terminos' | 'eliminar-cuenta';
+  description?: string;
+}
+
+const { slug, meta, docTitle, current, description = meta.descripcion } = Astro.props;
+
+// "{título del doc} - {app}", sin duplicar cuando el H1 ya incluye el nombre
+const pageTitle = docTitle.includes(meta.nombre)
+  ? docTitle
+  : `${docTitle} - ${meta.nombre}`;
+const gradient = `linear-gradient(135deg, ${meta.gradiente[0]}, ${meta.gradiente[1]})`;
+
+const legalPages = [
+  { key: 'privacidad', label: 'Política de privacidad', href: `/${slug}/privacidad` },
+  { key: 'terminos', label: 'Términos y condiciones', href: `/${slug}/terminos` },
+  { key: 'eliminar-cuenta', label: 'Eliminar tu cuenta', href: `/${slug}/eliminar-cuenta` },
+] as const;
+
+const footerLinks = legalPages.filter((page) => page.key !== current);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="BeMyTech" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href={`/${slug}`}>{meta.nombre}</a>
+      <span class="company">por BeMyTech</span>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-meta">
+        <strong>{meta.nombre}</strong> es una app de <strong>BeMyTech</strong>.
+        Última actualización: {formatFecha(meta.updatedAt)}.
+      </p>
+      <nav class="footer-links" aria-label="Páginas legales">
+        {footerLinks.map((page) => <a href={page.href}>{page.label}</a>)}
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+      </nav>
+    </footer>
+  </body>
+</html>
+
+<style
+  is:global
+  define:vars={{
+    'grad-from': meta.gradiente[0],
+    'grad-to': meta.gradiente[1],
+    'color-link': meta.colorLink,
+    'color-link-dark': meta.gradiente[1],
+  }}
+>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --fg-muted: #555555;
+    --border: #e3e3e3;
+    --link: var(--color-link);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212;
+      --fg: #eaeaea;
+      --fg-muted: #a0a0a0;
+      --border: #2c2c2c;
+      --link: var(--color-link-dark);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.75rem 0 1.25rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .wordmark {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--grad-from), var(--grad-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .company {
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+
+  main h1 {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  main h2 {
+    font-size: 1.2rem;
+    margin: 2rem 0 0.75rem;
+  }
+
+  main h3 {
+    font-size: 1.05rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  main p {
+    margin-bottom: 1rem;
+  }
+
+  main ul,
+  main ol {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+  }
+
+  main li {
+    margin-bottom: 0.4rem;
+  }
+
+  main a {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  main strong {
+    font-weight: 650;
+  }
+
+  main hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  main blockquote {
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    color: var(--fg-muted);
+    margin-bottom: 1rem;
+  }
+
+  .site-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--fg-muted);
+  }
+
+  .footer-meta {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+
+  .footer-links a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+</style>
