@@ -1,0 +1,29 @@
+---
+// Cómo eliminar la cuenta (requisito de Google Play).
+// Contenido: content/apps/<slug>/eliminar-cuenta.md
+// URL contractual: /<slug>/eliminar-cuenta
+
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp } from '../../utils/apps';
+
+const docs = import.meta.glob<any>('/content/apps/*/eliminar-cuenta.md', { eager: true });
+
+export function getStaticPaths() {
+  const paths = import.meta.glob('/content/apps/*/eliminar-cuenta.md');
+  return Object.keys(paths)
+    .map((path) => path.split('/')[3])
+    .filter((slug) => getApp(slug))
+    .map((slug) => ({ params: { app: slug } }));
+}
+
+const { app } = Astro.params;
+const { slug, meta } = getApp(app!)!;
+const doc = docs[`/content/apps/${slug}/eliminar-cuenta.md`];
+const { Content } = doc;
+const docTitle = doc.getHeadings().find((h: any) => h.depth === 1)?.text
+  ?? `Eliminar tu cuenta de ${meta.nombre}`;
+---
+
+<LegalLayout slug={slug} meta={meta} docTitle={docTitle} current="eliminar-cuenta">
+  <Content />
+</LegalLayout>

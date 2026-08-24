@@ -50,3 +50,30 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## 📱 Páginas legales por app
+
+Cada app de la casa se registra como contenido en `content/apps/<slug>/` y el
+sitio genera sus páginas automáticamente (SSG, sin JavaScript). Estas URLs van
+en las fichas de Google Play y App Store: **una vez publicadas, nunca cambian**.
+
+| Ruta | Contenido |
+| :-- | :-- |
+| `/<slug>` | Landing mínima de la app |
+| `/<slug>/privacidad` | Política de privacidad |
+| `/<slug>/terminos` | Términos y condiciones |
+| `/<slug>/eliminar-cuenta` | Cómo eliminar la cuenta (requisito de Google Play) |
+
+Los slugs no registrados devuelven 404 real. Las páginas se listan también en
+la sección "Nuestras Apps" del home y entran al sitemap.
+
+### Agregar una app nueva (cero código)
+
+1. Crear `content/apps/<nueva>/` con 4 archivos:
+   `meta.json`, `privacidad.md`, `terminos.md`, `eliminar-cuenta.md`
+   (copiar `content/apps/chispa/` como plantilla).
+2. Hacer deploy.
+
+`meta.json` define nombre, tagline, descripción, email de soporte, colores
+(`gradiente`, `colorLink`) y `updatedAt`. El H1 de cada `.md` es el título de
+la página.

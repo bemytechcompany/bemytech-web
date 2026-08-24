@@ -1,0 +1,89 @@
+---
+// Apps.astro - Lista de apps de la casa, generada automáticamente desde el
+// registro content/apps/<slug>/. Cada tarjeta enlaza a la landing de la app
+// y a sus páginas legales (URLs contractuales de Google Play / App Store).
+
+import { getApps } from '../utils/apps';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+const apps = getApps();
+
+const labels = {
+  es: {
+    label: 'Apps',
+    title: 'Nuestras Apps',
+    subtitle: 'Productos propios de BeMyTech, disponibles en las tiendas de aplicaciones.',
+    privacidad: 'Política de privacidad',
+    terminos: 'Términos y condiciones',
+    eliminar: 'Eliminar tu cuenta',
+  },
+  en: {
+    label: 'Apps',
+    title: 'Our Apps',
+    subtitle: 'BeMyTech products, available on the app stores.',
+    privacidad: 'Privacy policy',
+    terminos: 'Terms and conditions',
+    eliminar: 'Delete your account',
+  },
+}[lang];
+---
+
+{apps.length > 0 && (
+  <section id="apps" class="relative py-24 sm:py-32">
+    <div class="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px max-w-site bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true"></div>
+
+    <div class="section-shell">
+      <div class="reveal">
+        <span class="section-label">{labels.label}</span>
+        <h2 class="section-title">{labels.title}</h2>
+        <p class="section-subtitle">{labels.subtitle}</p>
+      </div>
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {apps.map(({ slug, meta }, i) => (
+          <article class={`card-surface reveal reveal-delay-${(i % 3) + 1} flex flex-col p-8`}>
+            <h3 class="font-display text-2xl font-bold">
+              <a
+                href={`/${slug}`}
+                class="app-wordmark"
+                style={`background-image: linear-gradient(135deg, ${meta.gradiente[0]}, ${meta.gradiente[1]});`}
+              >
+                {meta.nombre}
+              </a>
+            </h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-white/70">{meta.tagline}</p>
+            <ul class="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm">
+              <li>
+                <a href={`/${slug}/privacidad`} class="text-white/50 transition-colors hover:text-accent">
+                  {labels.privacidad}
+                </a>
+              </li>
+              <li>
+                <a href={`/${slug}/terminos`} class="text-white/50 transition-colors hover:text-accent">
+                  {labels.terminos}
+                </a>
+              </li>
+              <li>
+                <a href={`/${slug}/eliminar-cuenta`} class="text-white/50 transition-colors hover:text-accent">
+                  {labels.eliminar}
+                </a>
+              </li>
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .app-wordmark {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

@@ -8,6 +8,7 @@ import Portfolio from "./Portfolio.astro";
 import Technologies from "./Technologies.astro";
 import Testimonials from "./Testimonials.astro";
 import Contact from "./Contact.astro";
+import Apps from "./Apps.astro";
 import CtaMarquee from "./CtaMarquee.astro";
 import Faq from "./Faq.astro";
 import Footer from "./Footer.astro";
@@ -64,6 +65,7 @@ const canonicalURL = new URL(lang === "es" ? "/" : "/en", baseURL);
   <Portfolio t={t} />
   <Technologies t={t} />
   <Testimonials t={t} />
+  <Apps lang={lang} />
   <Faq t={t} />
   <Contact t={t} lang={lang} />
   <CtaMarquee t={t} />

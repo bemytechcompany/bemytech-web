@@ -1,0 +1,50 @@
+---
+// Landing mínima de cada app registrada en content/apps/<slug>/.
+// Solo se generan páginas para slugs del registro (SSG): cualquier otro slug
+// es un 404 real del servidor estático.
+
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApps, getApp } from '../../utils/apps';
+
+export function getStaticPaths() {
+  return getApps().map(({ slug }) => ({ params: { app: slug } }));
+}
+
+const { app } = Astro.params;
+const entry = getApp(app!)!;
+const { slug, meta } = entry;
+---
+
+<LegalLayout slug={slug} meta={meta} docTitle={meta.tagline}>
+  <h1 class="app-name">{meta.nombre}</h1>
+  <p class="tagline">{meta.tagline}</p>
+  <p>{meta.descripcion}</p>
+
+  <h2>Enlaces</h2>
+  <ul>
+    <li><a href={`/${slug}/privacidad`}>Política de privacidad</a></li>
+    <li><a href={`/${slug}/terminos`}>Términos y condiciones</a></li>
+    <li><a href={`/${slug}/eliminar-cuenta`}>Eliminar tu cuenta</a></li>
+  </ul>
+
+  <h2>Soporte</h2>
+  <p>
+    ¿Necesitas ayuda? Escríbenos a
+    <a href={`mailto:${meta.email}`}>{meta.email}</a>.
+  </p>
+</LegalLayout>
+
+<style define:vars={{ 'grad-from': meta.gradiente[0], 'grad-to': meta.gradiente[1] }}>
+  .app-name {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--grad-from), var(--grad-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+</style>
