@@ -63,6 +63,7 @@ en las fichas de Google Play y App Store: **una vez publicadas, nunca cambian**.
 | `/<slug>/privacidad` | Política de privacidad |
 | `/<slug>/terminos` | Términos y condiciones |
 | `/<slug>/eliminar-cuenta` | Cómo eliminar la cuenta (requisito de Google Play) |
+| `/<slug>/seguridad-infantil` | Estándares de seguridad infantil CSAE (opcional: solo apps Social/Citas) |
 
 Los slugs no registrados devuelven 404 real. Las páginas se listan también en
 la sección "Nuestras Apps" del home y entran al sitemap.
@@ -72,6 +73,9 @@ la sección "Nuestras Apps" del home y entran al sitemap.
 1. Crear `content/apps/<nueva>/` con 4 archivos:
    `meta.json`, `privacidad.md`, `terminos.md`, `eliminar-cuenta.md`
    (copiar `content/apps/chispa/` como plantilla).
+   Opcional: `seguridad-infantil.md` (estándares CSAE, requerido por Google
+   Play solo para apps de categoría Social/Citas); si no existe, la ruta
+   responde 404 y no se enlaza.
 2. Hacer deploy.
 
 `meta.json` define nombre, tagline, descripción, email de soporte, colores

@@ -36,6 +36,14 @@ export function getApp(slug: string): AppEntry | undefined {
   return getApps().find((app) => app.slug === slug);
 }
 
+// seguridad-infantil.md es opcional (solo apps de categoría Social/Citas);
+// las apps sin el archivo no generan la ruta y sus páginas no la enlazan.
+const seguridadInfantilDocs = import.meta.glob('/content/apps/*/seguridad-infantil.md');
+
+export function hasSeguridadInfantil(slug: string): boolean {
+  return `/content/apps/${slug}/seguridad-infantil.md` in seguridadInfantilDocs;
+}
+
 // Formatea '2026-08-23' como '23 de agosto de 2026' sin depender de zona horaria
 export function formatFecha(isoDate: string): string {
   const meses = [

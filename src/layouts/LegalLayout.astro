@@ -5,7 +5,7 @@
 // legible sin JavaScript y rápido. Una vez publicadas, las rutas nunca cambian.
 
 import type { AppMeta } from '../utils/apps';
-import { formatFecha } from '../utils/apps';
+import { formatFecha, hasSeguridadInfantil } from '../utils/apps';
 
 interface Props {
   slug: string;
@@ -13,7 +13,7 @@ interface Props {
   /** Título del documento (H1). El <title> es "{docTitle} - {app}". */
   docTitle: string;
   /** Página legal actual, para omitirla de los enlaces del footer. */
-  current?: 'privacidad' | 'terminos' | 'eliminar-cuenta';
+  current?: 'privacidad' | 'terminos' | 'eliminar-cuenta' | 'seguridad-infantil';
   description?: string;
 }
 
@@ -29,6 +29,9 @@ const legalPages = [
   { key: 'privacidad', label: 'Política de privacidad', href: `/${slug}/privacidad` },
   { key: 'terminos', label: 'Términos y condiciones', href: `/${slug}/terminos` },
   { key: 'eliminar-cuenta', label: 'Eliminar tu cuenta', href: `/${slug}/eliminar-cuenta` },
+  ...(hasSeguridadInfantil(slug)
+    ? [{ key: 'seguridad-infantil', label: 'Seguridad infantil', href: `/${slug}/seguridad-infantil` }]
+    : []),
 ] as const;
 
 const footerLinks = legalPages.filter((page) => page.key !== current);

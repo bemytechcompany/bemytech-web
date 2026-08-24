@@ -1,0 +1,30 @@
+---
+// Estándares de seguridad infantil CSAE (requisito de Google Play para apps
+// de categoría Social/Citas). Contenido: content/apps/<slug>/seguridad-infantil.md
+// El archivo es OPCIONAL: las apps que no lo tienen no generan esta ruta (404).
+// URL contractual: /<slug>/seguridad-infantil
+
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { getApp } from '../../utils/apps';
+
+const docs = import.meta.glob<any>('/content/apps/*/seguridad-infantil.md', { eager: true });
+
+export function getStaticPaths() {
+  const paths = import.meta.glob('/content/apps/*/seguridad-infantil.md');
+  return Object.keys(paths)
+    .map((path) => path.split('/')[3])
+    .filter((slug) => getApp(slug))
+    .map((slug) => ({ params: { app: slug } }));
+}
+
+const { app } = Astro.params;
+const { slug, meta } = getApp(app!)!;
+const doc = docs[`/content/apps/${slug}/seguridad-infantil.md`];
+const { Content } = doc;
+const docTitle = doc.getHeadings().find((h: any) => h.depth === 1)?.text
+  ?? `Estándares de seguridad infantil - ${meta.nombre}`;
+---
+
+<LegalLayout slug={slug} meta={meta} docTitle={docTitle} current="seguridad-infantil">
+  <Content />
+</LegalLayout>
