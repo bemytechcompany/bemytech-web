@@ -2,88 +2,106 @@
 
 **Última actualización: 21 de septiembre de 2026**
 
-**Responsable del tratamiento**: BeMyTech, NIT en trámite, Colombia,
-correo de contacto: soporte@bemytech.io. Cumplimos la Ley 1581 de 2012 de Protección
-de Datos Personales de Colombia (Habeas Data) y sus decretos
-reglamentarios.
+**Desarrollador**: SOLUCIONES TECNOLÓGICAS BEMYTECH S.A.S. («BEMYTECH»),
+Pereira, Risaralda, Colombia. Contacto: soporte@bemytech.io.
 
-Raffle es una app móvil para crear y gestionar rifas digitales: organizar
-sorteos, vender boletos en línea y mostrar los premios. Esta política
-explica qué datos recogemos, para qué los usamos y cómo puedes ejercer tus
-derechos.
+Raffle es una herramienta local para organizar rifas y sorteos, disponible
+para iOS y Android. Esta política explica cómo funciona la app respecto a tu
+información. La versión corta: **Raffle no recopila, transmite ni almacena
+información personal en ningún servidor, y BEMYTECH no tiene acceso a los
+datos que registras en la app.**
 
-## 1. Qué datos recogemos
+## 1. Sin cuentas ni servidores
 
-- **Cuenta**: correo electrónico (o cuenta de Google/Apple) y nombre,
-  usados para autenticarte y asociar tus rifas a tu cuenta.
-- **Rifas que creas**: nombre y descripción de la rifa, premios y sus
-  fotos, precio y cantidad de boletos, fecha y método del sorteo, y el
-  estado de cada boleto (disponible, reservado, pagado).
-- **Datos de participantes**: nombre, teléfono y/o correo electrónico y
-  el número de boleto de las personas que compran o reservan boletos.
-  Estos datos los registra el organizador de la rifa o los proporciona el
-  propio participante al adquirir un boleto.
-- **Pagos**: estado de los cobros y compras realizados a través de las
-  tiendas (Google Play / App Store) o de la pasarela de pagos vinculada.
-  Nunca vemos ni almacenamos los datos de tu tarjeta.
-- **Uso**: interacciones dentro de la app, eventos analíticos anónimos y
-  datos de fallos, para mantener la app estable.
-- **Datos en tu dispositivo**: parte de la información de tus rifas se
-  guarda localmente en tu teléfono para que puedas trabajar sin conexión
-  y se sincroniza con nuestros servidores cuando inicias sesión.
+- Raffle **no tiene cuentas de usuario**: no hay registro, inicio de sesión
+  ni perfil.
+- La app **no se conecta a ningún servidor** de BEMYTECH ni de terceros. No
+  existe base de datos remota, copia de seguridad en la nube ni
+  sincronización entre dispositivos.
+- La app **nunca transmite información fuera de tu dispositivo**.
 
-## 2. Para qué los usamos
+## 2. Sin SDK de terceros
 
-- Operar el servicio: crear y administrar tus rifas, registrar boletos y
-  participantes, realizar el sorteo y notificar a los ganadores.
-- Procesar cobros y compras, y emitir comprobantes.
-- Seguridad: prevención de fraude, cuentas falsas y uso indebido de la
-  plataforma.
-- Enviarte notificaciones relacionadas con tus rifas (boletos vendidos,
-  recordatorios de sorteo, resultados).
-- Mejorar el producto con métricas agregadas.
+Raffle no incluye herramientas de analítica, reporte de fallos,
+notificaciones push ni publicidad. No hay ningún componente de terceros que
+observe tu uso de la app.
 
-## 3. Datos de los participantes y rol del organizador
+## 3. Datos que registras en la app
 
-Cuando un organizador registra datos de participantes en Raffle, el
-organizador actúa como **responsable** de esos datos y BeMyTech como
-**encargado** del tratamiento: los procesamos únicamente para operar la
-rifa según las instrucciones del organizador. El organizador se compromete
-a contar con la autorización de los participantes y a usar sus datos solo
-para gestionar la rifa (contacto, entrega de boletos y de premios).
+Todo lo que creas en Raffle (rifas, boletas y su estado, nombres y
+contactos de compradores, sorteos y participantes, imágenes de portada y
+tickets generados) se guarda **únicamente en el almacenamiento local de tu
+dispositivo**. Solo tú tienes acceso a esa información. BEMYTECH no la
+recibe, no la ve y no puede recuperarla. Si desinstalas la app, esa
+información se elimina de forma permanente.
 
-## 4. Con quién los compartimos
+## 4. Datos de compradores y responsabilidad del organizador
 
-Proveedores que procesan datos por nosotros: infraestructura de base de
-datos y almacenamiento en la nube, servicios de notificaciones push y
-analítica, monitoreo de errores, y las tiendas o pasarelas de pago que
-procesan los cobros. Con cada participante compartimos solo lo necesario
-para confirmar su boleto (por ejemplo, el nombre de la rifa y su número).
-Los resultados de un sorteo pueden mostrarse públicamente en la app con el
-nombre del ganador tal como lo registró el organizador. **No vendemos tus
-datos.**
+Cuando registras en Raffle los nombres o contactos de las personas que
+compran o reservan boletas, **tú eres el único responsable** del tratamiento
+de esos datos. Como organizador debes cumplir la Ley 1581 de 2012 de
+Protección de Datos Personales de Colombia (o la normativa de tu
+jurisdicción): contar con la autorización de cada comprador, usar sus datos
+solo para gestionar la rifa y atender sus solicitudes de consulta,
+corrección o eliminación. BEMYTECH no interviene en esa relación ni tiene
+acceso a esos datos.
 
-## 5. Tus derechos (Ley 1581/2012)
+## 5. Pagos
 
-Puedes conocer, actualizar, rectificar y suprimir tus datos, y revocar tu
-autorización. Desde la app: **Perfil → Eliminar mi cuenta** borra de forma
-permanente tu cuenta y tus rifas. Si eres participante de una rifa y
-quieres corregir o eliminar tus datos, contacta primero al organizador; si
-no obtienes respuesta, escríbenos a soporte@bemytech.io y te ayudaremos.
+Raffle **no procesa pagos** ni vende boletas en línea. El cobro de las
+boletas ocurre fuera de la app, directamente entre el organizador y el
+comprador. La app solo registra el estado de cada boleta (disponible,
+reservada o vendida) tal como lo marca el organizador.
 
-## 6. Retención y seguridad
+## 6. Permisos del dispositivo
 
-Conservamos tus datos mientras tu cuenta esté activa. Los datos de una rifa
-finalizada se conservan mientras el organizador mantenga su cuenta, para
-que pueda consultar su historial y atender reclamos de participantes.
-Aplicamos cifrado en tránsito, control de acceso por usuario en la base de
-datos y acceso restringido del equipo.
+Raffle puede solicitar permisos opcionales, únicamente cuando usas la
+función correspondiente:
 
-## 7. Edad mínima
+- **Fotos y cámara**: para elegir la imagen de portada de una rifa y para
+  guardar en tu galería los tickets generados. Las imágenes se procesan y
+  almacenan localmente; nunca se envían a ningún servidor.
 
-Raffle es exclusivamente para mayores de 18 años. Eliminamos las cuentas
-que incumplan esta regla.
+Puedes negar o revocar estos permisos desde los ajustes de tu dispositivo;
+la app seguirá funcionando sin ellos.
 
-## 8. Cambios
+## 7. Compartir contenido
 
-Notificaremos cambios materiales de esta política dentro de la app.
+Al compartir una rifa o un ticket, Raffle usa la hoja de compartir del
+sistema operativo para enviarlo por la app que elijas (WhatsApp u otras).
+A partir de ese momento el contenido queda sujeto a la política de
+privacidad de la app de destino. BEMYTECH no participa en ese envío ni
+recibe copia del contenido compartido.
+
+## 8. Seguridad
+
+La información de Raffle vive en tu dispositivo y está protegida por las
+medidas de seguridad de tu teléfono (bloqueo de pantalla, cifrado del
+sistema). Te recomendamos mantener tu dispositivo protegido y hacer copias
+de seguridad si tu sistema operativo lo permite, ya que BEMYTECH no puede
+restaurar datos perdidos.
+
+## 9. Menores de edad
+
+Raffle está dirigida a mayores de 18 años. No recopilamos datos de nadie, y
+por lo tanto tampoco de menores.
+
+## 10. Derechos del titular
+
+Dado que BEMYTECH no recopila ni almacena datos personales tuyos, no hay
+información en nuestro poder que podamos consultar, corregir o eliminar.
+Tú controlas directamente todos tus datos desde la app: puedes editarlos o
+borrarlos en cualquier momento, y desinstalar la app los elimina por
+completo. Si tienes dudas sobre esta política o quieres ejercer tus
+derechos bajo la Ley 1581 de 2012, escríbenos a soporte@bemytech.io.
+
+## 11. Cambios a esta política
+
+Si alguna versión futura de Raffle cambia la forma en que se maneja la
+información, actualizaremos esta política en esta misma página antes de
+publicar esa versión, con su nueva fecha de actualización.
+
+## 12. Contacto
+
+SOLUCIONES TECNOLÓGICAS BEMYTECH S.A.S. · Pereira, Risaralda, Colombia ·
+[soporte@bemytech.io](mailto:soporte@bemytech.io)

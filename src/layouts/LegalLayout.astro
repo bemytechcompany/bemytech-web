@@ -5,7 +5,7 @@
 // legible sin JavaScript y rápido. Una vez publicadas, las rutas nunca cambian.
 
 import type { AppMeta } from '../utils/apps';
-import { formatFecha, hasSeguridadInfantil } from '../utils/apps';
+import { formatFecha, hasSeguridadInfantil, eliminarLabel } from '../utils/apps';
 
 interface Props {
   slug: string;
@@ -28,7 +28,7 @@ const gradient = `linear-gradient(135deg, ${meta.gradiente[0]}, ${meta.gradiente
 const legalPages = [
   { key: 'privacidad', label: 'Política de privacidad', href: `/${slug}/privacidad` },
   { key: 'terminos', label: 'Términos y condiciones', href: `/${slug}/terminos` },
-  { key: 'eliminar-cuenta', label: 'Eliminar tu cuenta', href: `/${slug}/eliminar-cuenta` },
+  { key: 'eliminar-cuenta', label: eliminarLabel(meta), href: `/${slug}/eliminar-cuenta` },
   ...(hasSeguridadInfantil(slug)
     ? [{ key: 'seguridad-infantil', label: 'Seguridad infantil', href: `/${slug}/seguridad-infantil` }]
     : []),

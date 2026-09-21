@@ -1,9 +1,10 @@
 {
   "nombre": "Raffle",
-  "tagline": "Crea, gestiona y sortea rifas digitales.",
-  "descripcion": "App móvil para crear y gestionar rifas digitales: organiza sorteos, vende boletos en línea y muestra los premios de forma clara y atractiva. Ideal para emprendimientos, causas sociales o lanzamientos de productos. Solo para mayores de 18 años.",
+  "tagline": "Organiza tus rifas y sorteos desde tu celular.",
+  "descripcion": "App para organizar rifas y sorteos de forma local: crea la rifa, lleva el control de cada boleta (disponible, reservada, vendida), registra a tus compradores, genera los tickets y realiza el sorteo. Funciona sin cuenta, sin internet y sin enviar datos a ningún servidor. Solo para mayores de 18 años.",
   "email": "soporte@bemytech.io",
   "gradiente": ["#F59E0B", "#F43F5E"],
   "colorLink": "#C2410C",
-  "updatedAt": "2026-09-21"
+  "updatedAt": "2026-09-21",
+  "eliminarLabel": "Eliminar tus datos"
 }

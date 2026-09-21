@@ -1,56 +1,40 @@
-# Eliminar tu cuenta de Raffle
+# Eliminar tus datos de Raffle
 
 **Última actualización: 21 de septiembre de 2026**
 
-Raffle es una app para crear y gestionar rifas digitales, operada por
-BeMyTech. Aquí te explicamos cómo eliminar tu cuenta y qué pasa con tus
-datos.
+Raffle es una app para organizar rifas y sorteos, desarrollada por
+SOLUCIONES TECNOLÓGICAS BEMYTECH S.A.S. Aquí te explicamos cómo borrar tu
+información.
 
-## Antes de eliminar
+## Raffle no tiene cuentas
 
-Si tienes rifas **en curso** con boletos vendidos, te recomendamos
-finalizarlas o cancelarlas primero y avisar a los participantes: al
-eliminar tu cuenta dejarás de tener acceso a sus datos y al historial de
-la rifa.
+Raffle funciona **sin registro ni inicio de sesión**, así que no existe
+ninguna cuenta que eliminar ni datos tuyos en servidores de BEMYTECH. Toda
+la información que registras (rifas, boletas, compradores, sorteos e
+imágenes) vive únicamente en tu dispositivo, y solo tú puedes borrarla.
 
-## Desde la app (inmediato)
+## Borrar una rifa concreta
 
-- Abre Raffle e inicia sesión.
-- Ve a **Perfil → Eliminar mi cuenta**.
-- Confirma la eliminación.
+- Abre Raffle.
+- Entra a la rifa que quieres eliminar.
+- Usa la opción **Eliminar rifa** y confirma.
 
-La eliminación es **permanente e irreversible**.
+Se borran esa rifa, sus boletas, los compradores registrados en ella, su
+sorteo y sus tickets. La eliminación es inmediata y no se puede deshacer.
 
-## Sin acceso a la app
+## Borrar todo
 
-Escríbenos a soporte@bemytech.io desde cualquier correo, indicando el correo
-electrónico (o cuenta de Google/Apple) con el que te registraste. Procesamos
-la solicitud en un máximo de 15 días hábiles y te confirmamos por la misma vía.
+Desinstala Raffle desde tu dispositivo. Al desinstalar la app se elimina
+**toda** su información de forma **permanente e irreversible**. BEMYTECH no
+conserva copias ni puede recuperarla.
 
-## Qué se elimina
+## Contenido que hayas compartido
 
-- Tu cuenta: nombre, correo y datos de acceso.
-- Tus rifas: premios, fotos, boletos y los datos de los participantes que
-  registraste.
-- Tus preferencias y tokens de notificaciones.
-- Los datos guardados localmente en tu dispositivo se borran al desinstalar
-  la app.
+Las rifas o tickets que enviaste por WhatsApp u otras apps mediante la
+hoja de compartir del sistema quedan en esas apps y en los dispositivos de
+quienes los recibieron. Para eliminarlos, hazlo desde la app de destino.
 
-## Qué se conserva y por cuánto
+## Contacto
 
-- Registros de compras hechas a través de la tienda (Google Play / App
-  Store): los conserva la tienda según sus propias políticas; nosotros no
-  guardamos datos de pago.
-- Registros de transacciones y comprobantes que la ley contable o
-  tributaria nos obligue a conservar: hasta el plazo legal, sin tu perfil
-  asociado.
-- Reportes de fraude o abuso donde tu cuenta fue reportada por otra
-  persona: hasta 90 días, solo para prevención de abuso.
-- Registros técnicos anónimos (fallos, métricas agregadas) que no te
-  identifican.
-
-## Si participaste en una rifa de otra persona
-
-Tus datos (nombre, contacto y número de boleto) los administra el
-organizador de esa rifa. Pídele a él la corrección o eliminación; si no
-obtienes respuesta, escríbenos a soporte@bemytech.io y te ayudaremos.
+Si tienes dudas, escríbenos a
+[soporte@bemytech.io](mailto:soporte@bemytech.io).

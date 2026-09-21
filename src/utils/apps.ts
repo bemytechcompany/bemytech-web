@@ -10,6 +10,15 @@ export interface AppMeta {
   gradiente: [string, string];
   colorLink: string;
   updatedAt: string;
+  /** Etiqueta del enlace /<slug>/eliminar-cuenta (por defecto "Eliminar tu cuenta");
+   *  apps sin cuentas pueden poner p. ej. "Eliminar tus datos". La URL no cambia. */
+  eliminarLabel?: string;
+}
+
+export const ELIMINAR_LABEL_DEFAULT = 'Eliminar tu cuenta';
+
+export function eliminarLabel(meta: AppMeta): string {
+  return meta.eliminarLabel || ELIMINAR_LABEL_DEFAULT;
 }
 
 export interface AppEntry {

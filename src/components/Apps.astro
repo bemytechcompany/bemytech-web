@@ -71,7 +71,7 @@ const labels = {
               </li>
               <li>
                 <a href={`/${slug}/eliminar-cuenta`} class="text-white/50 transition-colors hover:text-accent">
-                  {labels.eliminar}
+                  {meta.eliminarLabel ?? labels.eliminar}
                 </a>
               </li>
               {hasSeguridadInfantil(slug) && (
