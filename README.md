@@ -64,6 +64,7 @@ en las fichas de Google Play y App Store: **una vez publicadas, nunca cambian**.
 | `/<slug>/terminos` | Términos y condiciones |
 | `/<slug>/eliminar-cuenta` | Cómo eliminar la cuenta (requisito de Google Play) |
 | `/<slug>/seguridad-infantil` | Estándares de seguridad infantil CSAE (opcional: solo apps Social/Citas) |
+| `/<slug>/soporte` | Soporte y preguntas frecuentes (opcional: "Support URL" de App Store Connect) |
 
 Los slugs no registrados devuelven 404 real. Las páginas se listan también en
 la sección "Nuestras Apps" del home y entran al sitemap.
@@ -76,6 +77,8 @@ la sección "Nuestras Apps" del home y entran al sitemap.
    Opcional: `seguridad-infantil.md` (estándares CSAE, requerido por Google
    Play solo para apps de categoría Social/Citas); si no existe, la ruta
    responde 404 y no se enlaza.
+   Opcional: `soporte.md` (correo, WhatsApp, horario y FAQ; es la "Support URL"
+   que pide Apple); misma regla: sin archivo no hay ruta ni enlace.
 2. Hacer deploy.
 
 `meta.json` define nombre, tagline, descripción, email de soporte, colores

@@ -4,7 +4,7 @@
 // es un 404 real del servidor estático.
 
 import LegalLayout from '../../layouts/LegalLayout.astro';
-import { getApps, getApp, hasSeguridadInfantil, eliminarLabel } from '../../utils/apps';
+import { getApps, getApp, hasSeguridadInfantil, hasSoporte, eliminarLabel } from '../../utils/apps';
 
 export function getStaticPaths() {
   return getApps().map(({ slug }) => ({ params: { app: slug } }));
@@ -27,6 +27,9 @@ const { slug, meta } = entry;
     <li><a href={`/${slug}/eliminar-cuenta`}>{eliminarLabel(meta)}</a></li>
     {hasSeguridadInfantil(slug) && (
       <li><a href={`/${slug}/seguridad-infantil`}>Estándares de seguridad infantil</a></li>
+    )}
+    {hasSoporte(slug) && (
+      <li><a href={`/${slug}/soporte`}>Soporte y preguntas frecuentes</a></li>
     )}
   </ul>
 

@@ -3,7 +3,7 @@
 // registro content/apps/<slug>/. Cada tarjeta enlaza a la landing de la app
 // y a sus páginas legales (URLs contractuales de Google Play / App Store).
 
-import { getApps, hasSeguridadInfantil } from '../utils/apps';
+import { getApps, hasSeguridadInfantil, hasSoporte } from '../utils/apps';
 
 interface Props {
   lang?: 'es' | 'en';
@@ -21,6 +21,7 @@ const labels = {
     terminos: 'Términos y condiciones',
     eliminar: 'Eliminar tu cuenta',
     seguridad: 'Seguridad infantil',
+    soporte: 'Soporte',
   },
   en: {
     label: 'Apps',
@@ -30,6 +31,7 @@ const labels = {
     terminos: 'Terms and conditions',
     eliminar: 'Delete your account',
     seguridad: 'Child safety',
+    soporte: 'Support',
   },
 }[lang];
 ---
@@ -78,6 +80,13 @@ const labels = {
                 <li>
                   <a href={`/${slug}/seguridad-infantil`} class="text-white/50 transition-colors hover:text-accent">
                     {labels.seguridad}
+                  </a>
+                </li>
+              )}
+              {hasSoporte(slug) && (
+                <li>
+                  <a href={`/${slug}/soporte`} class="text-white/50 transition-colors hover:text-accent">
+                    {labels.soporte}
                   </a>
                 </li>
               )}

@@ -53,6 +53,14 @@ export function hasSeguridadInfantil(slug: string): boolean {
   return `/content/apps/${slug}/seguridad-infantil.md` in seguridadInfantilDocs;
 }
 
+// soporte.md es opcional: página de soporte que Apple pide como "Support URL".
+// Las apps sin el archivo no generan la ruta y sus páginas no la enlazan.
+const soporteDocs = import.meta.glob('/content/apps/*/soporte.md');
+
+export function hasSoporte(slug: string): boolean {
+  return `/content/apps/${slug}/soporte.md` in soporteDocs;
+}
+
 // Formatea '2026-08-23' como '23 de agosto de 2026' sin depender de zona horaria
 export function formatFecha(isoDate: string): string {
   const meses = [
