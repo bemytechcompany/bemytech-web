@@ -1,6 +1,6 @@
-# Política de Privacidad — Chispa
+# Política de Privacidad — Bopzi
 
-**Última actualización: 23 de agosto de 2026**
+**Última actualización: 25 de septiembre de 2026**
 
 **Responsable del tratamiento**: BeMyTech, NIT en trámite, Colombia,
 correo de contacto: soporte@bemytech.io. Cumplimos la Ley 1581 de 2012 de Protección
@@ -57,7 +57,7 @@ de fotos con enlaces temporales, y acceso restringido del equipo.
 
 ## 6. Edad mínima
 
-Chispa es exclusivamente para mayores de 18 años. Eliminamos las cuentas
+Bopzi es exclusivamente para mayores de 18 años. Eliminamos las cuentas
 que incumplan esta regla.
 
 ## 7. Cambios

@@ -1,13 +1,13 @@
-# Eliminar tu cuenta de Chispa
+# Eliminar tu cuenta de Bopzi
 
-**Última actualización: 23 de agosto de 2026**
+**Última actualización: 25 de septiembre de 2026**
 
-Chispa es una app de citas y chat operada por BeMyTech. Aquí te explicamos
+Bopzi es una app de citas y chat operada por BeMyTech. Aquí te explicamos
 cómo eliminar tu cuenta y qué pasa con tus datos.
 
 ## Desde la app (inmediato)
 
-- Abre Chispa e inicia sesión.
+- Abre Bopzi e inicia sesión.
 - Ve a **Perfil → Eliminar mi cuenta**.
 - Confirma la eliminación.
 

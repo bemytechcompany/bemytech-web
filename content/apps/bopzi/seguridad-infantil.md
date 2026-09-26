@@ -1,8 +1,8 @@
-# Estándares de seguridad infantil - Chispa
+# Estándares de seguridad infantil - Bopzi
 
-**Última actualización: 23 de agosto de 2026**
+**Última actualización: 25 de septiembre de 2026**
 
-Chispa es una app de citas y chat operada por BeMyTech, exclusiva para
+Bopzi es una app de citas y chat operada por BeMyTech, exclusiva para
 **mayores de 18 años**. Tenemos **tolerancia cero**
 con la explotación y el abuso sexual infantil (EASI/CSAE) y con cualquier
 material de abuso sexual infantil (MASI/CSAM), dentro y fuera de la

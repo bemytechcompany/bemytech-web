@@ -9,6 +9,15 @@ export default defineConfig({
   base: '/', // Base path for the site
   trailingSlash: 'ignore', // Handle trailing slashes automatically
   output: 'static', // Ensure static output for production
+  // Chispa pasó a llamarse Bopzi (2026-09-25). Las URLs viejas siguen
+  // publicadas en Google Play / App Store, así que redirigen a las nuevas.
+  redirects: {
+    '/chispa': '/bopzi',
+    '/chispa/privacidad': '/bopzi/privacidad',
+    '/chispa/terminos': '/bopzi/terminos',
+    '/chispa/eliminar-cuenta': '/bopzi/eliminar-cuenta',
+    '/chispa/seguridad-infantil': '/bopzi/seguridad-infantil',
+  },
   integrations: [
     tailwind(),
     sitemap() // Generate sitemap automatically for all pages

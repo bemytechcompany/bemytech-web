@@ -1,10 +1,10 @@
-# Términos y Condiciones — Chispa
+# Términos y Condiciones — Bopzi
 
-**Última actualización: 23 de agosto de 2026**
+**Última actualización: 25 de septiembre de 2026**
 
 ## 1. Aceptación
 
-Al crear una cuenta en Chispa aceptas estos términos y la Política de
+Al crear una cuenta en Bopzi aceptas estos términos y la Política de
 Privacidad. El servicio es operado por BeMyTech.
 
 ## 2. Elegibilidad
@@ -35,14 +35,14 @@ estas normas. Las fotos pasan por moderación automática y humana.
 
 ## 5. Suscripciones
 
-Chispa Premium se cobra a través de Google Play / App Store con
+Bopzi Premium se cobra a través de Google Play / App Store con
 renovación automática. Puedes cancelar en cualquier momento desde la
 tienda; el acceso continúa hasta el fin del período pagado. Los reembolsos
 se rigen por las políticas de cada tienda.
 
 ## 6. Seguridad
 
-Chispa ofrece herramientas (verificación de perfil, reportes, bloqueos,
+Bopzi ofrece herramientas (verificación de perfil, reportes, bloqueos,
 modo cita segura), pero **no realiza verificación de antecedentes** de los
 usuarios. Eres responsable de tus interacciones; sigue los consejos de
 seguridad de la app al conocer personas.
